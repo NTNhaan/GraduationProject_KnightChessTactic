@@ -37,16 +37,20 @@ public class ItemShop : MonoBehaviour
         Debug.Log("OnBuyClick");
         if (DBController.Instance.COIN < price)
         {
-            PopupController.Instance.SetTextNotify("You don't have enough coins to buy this item");
-            PopupController.Instance.ShowNotifyPopUp();
+            PopupController.Instance.ChangeTextNotify("You don't have enough coins to buy this item");
+            PopupController.Instance.ClickShowNotifyPopUp();
             return;
         }
 
-        PopupController.Instance.ShowConfirmPopUp(
-            onYes: () => shopController.TryBuyTheme(themeId, price)
+        PopupController.Instance.ClickShowConfirmPopUp(
+            onYes: BuyItem
         );
     }
-
+    public void BuyItem()
+    {
+        Debug.Log($"[ItemShop] Confirmed BuyItem: {themeId}");
+        shopController.TryBuyTheme(themeId, price);
+    }
     public void OnSelectClick()
     {
         shopController.SelectTheme(themeId);

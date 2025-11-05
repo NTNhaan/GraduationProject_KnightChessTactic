@@ -47,8 +47,8 @@ public class BoosterController : Singleton<BoosterController>
         {
             if (DBController.Instance.COIN < GameConfig.COIN_BOOSTER)
             {
-                PopupController.Instance.SetTextNotify("You don't have enough coins to use booster");
-                PopupController.Instance.ShowNotifyPopUp();
+                PopupController.Instance.ChangeTextNotify("You don't have enough coins to use booster");
+                PopupController.Instance.ClickShowNotifyPopUp();
             }
             else
             {
@@ -67,20 +67,9 @@ public class BoosterController : Singleton<BoosterController>
         boosterCTS = new CancellationTokenSource();
 
         InGameData.GAME_STATE = GameState.UseBooster;
-        // ClockController.Instance.PauseRotate();
         AudioController.Instance.PlayEffect(Sound.Name.Sound_Clock_Stuck);
 
         Debug.Log($"[Booster] Time Stop activated! Duration = {duration:F2}s");
-
-        // try
-        // {
-        //     await ClockController.Instance.ShakeDuringFreeze(remainingTime);
-        // }
-        // catch (OperationCanceledException)
-        // {
-        //     Debug.Log("[Booster] Booster paused or cancelled.");
-        //     return;
-        // }
 
         FinishBooster();
     }
@@ -95,7 +84,6 @@ public class BoosterController : Singleton<BoosterController>
         Debug.Log($"[Booster] Paused — Remaining time: {remainingTime:F2}s");
 
         boosterCTS?.Cancel();
-        // ClockController.Instance.PauseRotate();
         AudioController.Instance.StopEffect(Sound.Name.Sound_Clock_Stuck);
     }
 
@@ -130,7 +118,6 @@ public class BoosterController : Singleton<BoosterController>
         boosterBtn.sprite = boosterDefault;
         InGameData.GAME_STATE = GameState.PlayingGame;
 
-        // ClockController.Instance.ResumeRotate();
         AudioController.Instance.StopEffect(Sound.Name.Sound_Clock_Stuck);
     }
 }

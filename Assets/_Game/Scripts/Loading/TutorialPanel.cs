@@ -57,7 +57,6 @@ public class TutorialPanel : Singleton<TutorialPanel>
                         if (currentTutorial == TutorialType.AvoidObstacle)
                         {
                             imageCover.sortingOrder = 1;
-                            // ClockController.Instance.StartMinuteRotate();
                         }
                     });
                 }

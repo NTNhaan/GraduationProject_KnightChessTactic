@@ -13,8 +13,8 @@ public class ScreenBase : MonoBehaviour
     [SerializeField] protected Animator[] anims;
     [SerializeField] protected GameObject[] gobjPanels;
     [SerializeField] protected ScreenGame screen;
-    
-    [SerializeField] protected Text txtCoin;
+    [SerializeField] private Transform coinBanner;
+    [SerializeField] private Text numberCoin;
     [SerializeField] protected Animator animTransition;
     [SerializeField] private CanvasGroup canvasGroup;
     public GameObject[] GobjPanels { get => gobjPanels; }
@@ -53,6 +53,8 @@ public class ScreenBase : MonoBehaviour
         }
         DOVirtual.DelayedCall(0.6f, () =>
         {
+            LoadCoinUI();
+            coinBanner.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
             onComplete?.Invoke();
         });
 
@@ -60,6 +62,7 @@ public class ScreenBase : MonoBehaviour
     public virtual void HideScreen(UnityAction onComplete = null)
     {
         AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupClose);
+        coinBanner.DOScale(0f, 0.3f).SetEase(Ease.InBack);
         if (anims != null)
         {
             foreach (var animator in anims)
@@ -103,10 +106,10 @@ public class ScreenBase : MonoBehaviour
         }
     }
    
-    public virtual void LoadUI()
+    public virtual void LoadCoinUI()
     {
-        txtCoin.text = DBController.Instance.COIN.ToString("n0");
-        //Debug.Log("============== Load UI");
+        numberCoin.text = DBController.Instance.COIN.ToString("n0");
+        Debug.Log("============== Load UI");
     }
 }
 public enum ScreenGame

@@ -64,12 +64,10 @@ public class GamePlayUI : MonoBehaviour
     
     private void UpdateBackground(string themeId)
     {
-        Debug.Log("ThemeChanged 1");
         var model = DataSOController.Instance.GetModelByID(themeId);
-        Debug.Log("ThemeChanged 2");
         if (model != null && model.backgroundImage != null)
         {
-            Debug.Log("ThemeChanged 3");
+            if(imgBG ==null) return;
             imgBG.sprite = model.backgroundImage;
             Debug.Log($"[GamePlayUI] Background changed to {themeId}");
         }
@@ -77,7 +75,6 @@ public class GamePlayUI : MonoBehaviour
         {
             Debug.LogWarning($"[GamePlayUI] Không tìm thấy model hoặc sprite cho themeId = {themeId}");
         }
-        Debug.Log("ThemeChanged 4");
     }
     private void Update()
     {

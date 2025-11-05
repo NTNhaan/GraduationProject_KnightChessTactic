@@ -1,3 +1,4 @@
+using Data;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -6,8 +7,11 @@ namespace Popup
 {
     public class PopUpBase : MonoBehaviour
     {
+        [Header("=====Variables Override PopUp Base=====")]
         [SerializeField] protected Transform tfmPopup;
         [SerializeField] protected Image imgCover;
+        [SerializeField] private Transform coinBanner;
+        [SerializeField] private Text numberCoin;
         
         public Transform TfmPopup { get => tfmPopup; }
 
@@ -16,11 +20,14 @@ namespace Popup
             TfmPopup.gameObject.SetActive(true);
             TfmPopup.DOLocalMoveY(posY, duration).SetEase(Ease.OutBack).OnComplete(() =>
             {
+                LoadCoinUI();
+                coinBanner.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
                 onComplete?.Invoke();
             });
         }
         public virtual void HidePopUp(float posY, float duration, UnityAction onComplete = null)
         {
+            coinBanner.DOScale(0f, 0.3f).SetEase(Ease.InBack);
             TfmPopup.DOLocalMoveY(posY, duration)
                 .SetEase(Ease.InBack)
                 .OnComplete(() =>
@@ -45,6 +52,11 @@ namespace Popup
                 imgCover.gameObject.SetActive(false);
                 onComplete?.Invoke();
             });
+        }
+        public virtual void LoadCoinUI()
+        {
+            numberCoin.text = DBController.Instance.COIN.ToString("n0");
+            Debug.Log("============== Load UI");
         }
     }
 }

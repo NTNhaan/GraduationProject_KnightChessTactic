@@ -25,9 +25,9 @@ public class GamePlayScreen : ScreenBase
         base.HideScreen(onComplete);
     }
 
-    public override void LoadUI()
+    public override void LoadCoinUI()
     {
-        base.LoadUI();
+        base.LoadCoinUI();
     }
 
     // public void UpdateCoinUI()

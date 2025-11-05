@@ -31,12 +31,13 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private Image handBooster;
     [SerializeField] private Sprite boosterActive;
 
-
+    [Header("CheatGamePlay")]
+    [SerializeField] private GameObject cheatGamePlay;
     private bool hasReversed = false;
     private int patternIndex = 0;
     public static GameState State { get; private set; }
     private bool checkLineState;
-
+    private bool isActiveCheat = false;
     public bool CheckLineState
     {
         get { return checkLineState; }
@@ -57,42 +58,6 @@ public class GamePlayController : Singleton<GamePlayController>
         EventDispatcher.RemoveCallback(EventId.OnGameStateChanged, OnGameStateChanged);
     }
 
-    private void OnHideLineGuide(object data = null)
-    {
-        Debug.Log("CheckEventHidePopup");
-        TutorialPanel.Instance.HideTutorial();
-        checkLineState = false;
-        TimeManager.Instance.StartTimer();
-        AudioController.Instance.FadeBackgroundForAlert(0.3f);
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Clock);
-        // ClockController.Instance.StartRotate();
-        InitData(true);
-
-        if (DBController.Instance.GUIDE_BOOSTER == 0)
-            BoosterGuide();
-    }
-
-    private async UniTask BoosterGuide()
-    {
-        await UniTask.Delay(1000);
-
-        InGameData.GAME_STATE = GameState.PauseGame;
-        TutorialPanel.Instance.ShowTutorial(() =>
-        {
-            boosterFake.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).OnComplete(() =>
-            {
-                handBooster.DOFade(1f, 0.3f);
-                boosterGamePlay.transform.DOScale(0f, 0.3f);
-            });
-        });
-
-        await UniTask.WaitUntil(() => DBController.Instance.GUIDE_BOOSTER == 1);
-        boosterFake.transform.DOScale(0f, 0.3f);
-        boosterGamePlay.transform.DOScale(1f, 0.3f);
-        boosterFake.sprite = boosterActive;
-        boosterGamePlay.sprite = boosterActive;
-        TutorialPanel.Instance.HideTutorial();
-    }
     async UniTask Start()
     {
         checkLineState = true;
@@ -111,21 +76,41 @@ public class GamePlayController : Singleton<GamePlayController>
             lineCtrl.StartFillLoop();
         }
     }
-
     void Update()
     {
-        Debug.Log($"CheckStateGame: {InGameData.PRE_STATE} - {InGameData.GAME_STATE}");
+        // Debug.Log($"CheckStateGame: {InGameData.PRE_STATE} - {InGameData.GAME_STATE}");
         if (!TimeManager.Instance
             || InGameData.GAME_STATE == GameState.PauseGame)
             return;
 
         float elapsed = TimeManager.Instance.ElapsedTime;
         if (elapsed <= 0f) return;
+        // Debug.Log($"ElapsedTime: {elapsed} {GameConfig.REVERSE_TIME}");
         int currentStep = Mathf.FloorToInt(elapsed / GameConfig.REVERSE_TIME);
+        // Debug.Log($"CurrentPattern: {currentStep} {patternIndex}");
         if (currentStep != patternIndex)
         {
             patternIndex = currentStep;
-            // ApplyClockPattern((ClockPattern)(patternIndex % 4));
+            ApplyClockPattern((ClockPattern)(patternIndex % 4));
+        }
+    }
+    private void InitData(bool state)
+    {
+        if (state)
+        {
+            bannerCoin.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            setting.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            btnHowToPlay.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            btnBooster.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            timeManager.DOFade(1f, 0.5f);
+        }
+        else
+        {
+            bannerCoin.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+            setting.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+            btnHowToPlay.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+            btnBooster.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+            timeManager.DOFade(0f, 0.5f);
         }
     }
     public void ChangeState(GameState newState)
@@ -141,27 +126,24 @@ public class GamePlayController : Singleton<GamePlayController>
                 break;
             case GameState.PlayingGame:
                 InGameData.GAME_STATE = GameState.PlayingGame;
-                // patternIndex = 0;
-                // ApplyClockPattern((ClockPattern)(patternIndex % 4));
                 break;
             case GameState.GameOver:
-                // ClockController.Instance.StopRotate();
-                // TutorialPanel.Instance.HideTutorial();
-                // if (DBController.Instance.TUTORIAL_COMPLETED)
-                // {
-                //     if (InGameData.GIVE_UP_COUNT != 0)
-                //     {
-                //         PopupController.Instance.ShowGameOverPopUp();
-                //     }
-                //     else
-                //     {
-                //         PopupController.Instance.ShowGiveUpPopUp();
-                //     }   
-                // }
-                // else
-                // {
-                //     PopupController.Instance.ShowGameOverPopUp();
-                // }
+                TutorialPanel.Instance.HideTutorial();
+                if (DBController.Instance.TUTORIAL_COMPLETED)
+                {
+                    if (InGameData.GIVE_UP_COUNT != 0)
+                    {
+                        PopupController.Instance.ClickShowLosePopUp();
+                    }
+                    else
+                    {
+                        PopupController.Instance.ClickShowGiveUpPopUp();
+                    }
+                }
+                else
+                {
+                    PopupController.Instance.ClickShowLosePopUp();
+                }
                 break;
         }
     }
@@ -214,46 +196,91 @@ public class GamePlayController : Singleton<GamePlayController>
             ChangeState(GameState.GameOver);
         }
     }
-    public void ShowPausePopup()
+    public void OnClickShowPausePopup()
     {
-        PopupController.Instance.ShowPausePopUp();
+        PopupController.Instance.ClickShowPausePopUp();
     }
-    public void ShowHowToPlayPopup()
+    public void OnClickShowHowToPlayPopup()
     {
-        PopupController.Instance.ShowHowToPlayPopUp();
+        PopupController.Instance.ClickShowHowToPlayPopUp();
     }
-    // private void ApplyClockPattern(ClockPattern pattern)
-    // {
-    //     var clock = ClockController.Instance;
-    //     if (clock == null) return;
-    //     EventDispatcher.Push(EventId.OnClockPatternChanged, pattern);
-    //     switch (pattern)
-    //     {
-    //         case ClockPattern.ReverseBoth:
-    //             clock.ToggleDirection();
-    //             Debug.Log($"[Pattern 1] Reverse both hands (elapsed: {TimeManager.Instance.ElapsedTime:F1}s)");
-    //             break;
+    private void ApplyClockPattern(ClockPattern pattern)
+    {
+        // var clock = ClockController.Instance;
+        // if (clock == null) return;
+        // EventDispatcher.Push(EventId.OnClockPatternChanged, pattern);
+        // switch (pattern)
+        // {
+        //     case ClockPattern.ReverseBoth:
+        //         clock.ToggleDirection();
+        //         Debug.Log($"[Pattern 1] Reverse both hands (elapsed: {TimeManager.Instance.ElapsedTime:F1}s)");
+        //         break;
 
-    //         case ClockPattern.HourClockwise_MinuteCCW:
-    //             clock.HourHand.SetDirection(clockwise: true);
-    //             clock.MinuteHand.SetDirection(clockwise: false);
-    //             Debug.Log($"[Pattern 2] Hour clockwise, Minute counter-clockwise");
-    //             break;
+        //     case ClockPattern.HourClockwise_MinuteCCW:
+        //         clock.HourHand.SetDirection(clockwise: true);
+        //         clock.MinuteHand.SetDirection(clockwise: false);
+        //         Debug.Log($"[Pattern 2] Hour clockwise, Minute counter-clockwise");
+        //         break;
 
-    //         case ClockPattern.HourCCW_MinuteClockwise:
-    //             clock.HourHand.SetDirection(clockwise: false);
-    //             clock.MinuteHand.SetDirection(clockwise: true);
-    //             Debug.Log($"[Pattern 3] Hour counter-clockwise, Minute clockwise");
-    //             break;
+        //     case ClockPattern.HourCCW_MinuteClockwise:
+        //         clock.HourHand.SetDirection(clockwise: false);
+        //         clock.MinuteHand.SetDirection(clockwise: true);
+        //         Debug.Log($"[Pattern 3] Hour counter-clockwise, Minute clockwise");
+        //         break;
 
-    //         case ClockPattern.NormalDirection:
-    //             clock.HourHand.SetDirection(clockwise: true);
-    //             clock.MinuteHand.SetDirection(clockwise: true);
-    //             Debug.Log($"[Pattern 4] Both back to normal");
-    //             break;
-    //     }
-    // }
+        //     case ClockPattern.NormalDirection:
+        //         clock.HourHand.SetDirection(clockwise: true);
+        //         clock.MinuteHand.SetDirection(clockwise: true);
+        //         Debug.Log($"[Pattern 4] Both back to normal");
+        //         break;
+        // }
+    }
 
+    #region LineTutorial
+    private void OnHideLineGuide(object data = null)
+    {
+        Debug.Log("CheckEventHidePopup");
+        TutorialPanel.Instance.HideTutorial();
+        checkLineState = false;
+        TimeManager.Instance.StartTimer();
+        AudioController.Instance.FadeBackgroundForAlert(0.3f);
+        AudioController.Instance.PlayEffect(Sound.Name.Sound_Clock);
+        InitData(true);
+
+        if (DBController.Instance.GUIDE_BOOSTER == 0)
+            BoosterGuide();
+    }
+
+    private async UniTask BoosterGuide()
+    {
+        await UniTask.Delay(1000);
+
+        InGameData.GAME_STATE = GameState.PauseGame;
+        TutorialPanel.Instance.ShowTutorial(() =>
+        {
+            boosterFake.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                handBooster.DOFade(1f, 0.3f);
+                boosterGamePlay.transform.DOScale(0f, 0.3f);
+            });
+        });
+
+        await UniTask.WaitUntil(() => DBController.Instance.GUIDE_BOOSTER == 1);
+        boosterFake.transform.DOScale(0f, 0.3f);
+        boosterGamePlay.transform.DOScale(1f, 0.3f);
+        boosterFake.sprite = boosterActive;
+        boosterGamePlay.sprite = boosterActive;
+        TutorialPanel.Instance.HideTutorial();
+    }
+    #endregion
+
+    #region CheatGamePlay
+
+    public void OnClickShowCheatPanel()
+    {
+        isActiveCheat = !isActiveCheat;
+        cheatGamePlay.SetActive(isActiveCheat);
+    }
     public void OnClickCheatNextTutorial()
     {
         TutorialPanel.Instance.HideTutorial();
@@ -267,23 +294,5 @@ public class GamePlayController : Singleton<GamePlayController>
         EventDispatcher.Push(EventId.OnCoinChanged, DBController.Instance.COIN);
         Debug.Log($"[CHEAT] Added {amount} coins. Current coin: {DBController.Instance.COIN}");
     }
-    private void InitData(bool state)
-    {
-        if (state)
-        {
-            bannerCoin.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            setting.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            btnHowToPlay.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            btnBooster.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            timeManager.DOFade(1f, 0.5f);
-        }
-        else
-        {
-            bannerCoin.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            setting.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            btnHowToPlay.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            btnBooster.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            timeManager.DOFade(0f, 0.5f);
-        }
-    }
+    #endregion
 }

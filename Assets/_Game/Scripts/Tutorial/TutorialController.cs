@@ -103,7 +103,7 @@ public class TutorialController : Singleton<TutorialController>
     }
     private void Update()
     {
-        Debug.Log($"CurrentStep: {currentTutorial}");
+        // Debug.Log($"CurrentStep: {currentTutorial}");
         if (currentTutorial == TutorialType.ShowLine && InGameData.GAME_STATE == GameState.Tutorial)
         {
             lineCtrl.StartFillLoop();
@@ -138,7 +138,7 @@ public class TutorialController : Singleton<TutorialController>
         switch (currentState)
         {
             case TutorialType.ShowLine:
-                animHandTouch.transform?.DOScale(0f, .2f).SetEase(Ease.InBack).OnComplete(() =>
+                animHandTouch.transform.DOScale(0f, .2f).SetEase(Ease.InBack).OnComplete(() =>
                 {
                     animHandTouch.gameObject.SetActive(false);
                     lineCtrl.StopFillLoop();
@@ -193,7 +193,6 @@ public class TutorialController : Singleton<TutorialController>
                 imageCover.gameObject.SetActive(false);
                 imageCover.sortingOrder = 7;
                 TutorialPanel.Instance.SetTextTutorial(currentTutorial);
-                // ClockController.Instance.StopRotate();
                 break;
 
             case TutorialType.BreakTime:
@@ -347,7 +346,6 @@ public class TutorialController : Singleton<TutorialController>
         {
             lineCtrl.TurnOffLine();
             ChangeClockSkin(false);
-            // ClockController.Instance.StartRotate();
 
             CurrentTutorial = TutorialType.BreakTime;
             TutorialPanel.Instance.SetTextTutorial(currentTutorial);

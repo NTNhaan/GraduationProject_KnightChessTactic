@@ -1,14 +1,18 @@
+using Audio;
 using Data;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Cysharp.Threading.Tasks;
 namespace Popup
 {
     public class LeaderBoardPopup : PopUpBase
     {
+        [Header("LeaderBoard Popup")]
+        [SerializeField] private Button btnClose;
+        
         #region Overrides Func
         public override void ShowPopUp(float posY, float duration, UnityAction onComplete = null)
         {
@@ -41,13 +45,40 @@ namespace Popup
         
         #endregion
         
-        public void OnClickShowLeaderBoard()
+        #region LeaderBoardPopup
+        [ContextMenu("Show LeaderBoard Popup")]
+        public async UniTask ShowLeaderBoardPopUp()
         {
-            PopupController.Instance?.ShowLeaderBoardPopUp();
+            AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
+            InGameData.GAME_STATE = GameState.PauseGame;
+            EventDispatcher.Push(EventId.OnGameStateChanged);
+            EventManager.PasueGame();
+            ShowPopUp(0f, 0.3f, async () =>
+            {
+                btnClose.interactable = true;
+                await btnClose.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).ToUniTask();
+                AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
+            
+                await UniTask.Delay(400);
+                await LeaderBoardController.Instance.ScrollToUser();
+                await UniTask.Delay(600);
+                await LeaderBoardController.Instance.TryAnimateUserClimb();
+            });
         }
-        public void OnClickHideLeaderBoard()
+        [ContextMenu("Hide LeaderBoard Popup")]
+        public async UniTask HideLeaderBoardPopUp()
         {
-            PopupController.Instance?.HideLeaderBoardPopUp();
+            AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupClose);
+            btnClose.interactable = false;
+            await btnClose.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
+        
+            HidePopUp(-1800f, 0.3f, ()=>
+            {
+                InGameData.GAME_STATE = GameState.PlayingGame;
+                EventDispatcher.Push(EventId.OnGameStateChanged);
+                EventManager.ResumeGame();  
+            });
         }
+        #endregion
     }
 }

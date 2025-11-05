@@ -83,4 +83,5 @@ public enum EventId
     
     OnGameStateChanged = 17,
     OnCheatChangeSpeed = 18,
+    OnHidePopupReward = 19,
 }
