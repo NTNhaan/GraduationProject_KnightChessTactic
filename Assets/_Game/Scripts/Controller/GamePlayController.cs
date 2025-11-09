@@ -285,7 +285,7 @@ public class GamePlayController : Singleton<GamePlayController>
     {
         TutorialPanel.Instance.HideTutorial();
         DBController.Instance.TUTORIAL_COMPLETED = true;
-        SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
+        // SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
     }
 
     public void CheatAddCoin(int amount)

@@ -7,7 +7,6 @@ using Cysharp.Threading.Tasks;
 using Data;
 using DefaultNamespace;
 using DG.Tweening;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TutorialController : Singleton<TutorialController>
@@ -236,7 +235,7 @@ public class TutorialController : Singleton<TutorialController>
                 InGameData.IS_TUTORIAL_DONE = true;
                 DBController.Instance.TUTORIAL_COMPLETED = true;
                 await UniTask.Delay(1000);
-                SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
+                // SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
                 break;
         }
     }

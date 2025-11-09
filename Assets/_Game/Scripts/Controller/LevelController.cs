@@ -29,23 +29,23 @@ public class LevelController : Singleton<LevelController>
     }
     [Header("Exp Bar")]
     [SerializeField] private Image progressBar;
-    
+
     [SerializeField] private List<Image> stars;
     [SerializeField] private List<Image> starsActice;
-    [Range(0f, 1f)] [SerializeField] private List<float> starThresholds;
-    
+    [Range(0f, 1f)][SerializeField] private List<float> starThresholds;
+
     [SerializeField] private float offset;
     [SerializeField] private Text levelText;
     private int minExp, maxExp;
     private RectTransform progressRect;
-    
+
     [Header("Congratulation Popup")]
     [SerializeField] private GameObject congratulationPopup;
     [SerializeField] private Image coverCongratulationPopup;
     [SerializeField] private Image effectShine;
     [SerializeField] private Image effectGilter;
     [SerializeField] private Animator starAnim;
-    
+
     [Header("Level Up Popup")]
     [SerializeField] private GameObject levelUpPopup;
     [SerializeField] private Image coverLevelUpPopup;
@@ -54,11 +54,11 @@ public class LevelController : Singleton<LevelController>
     [SerializeField] private GameObject effectFirework;
     [SerializeField] private Transform shopBtn;
     [SerializeField] private Image btnNext;
-    
+
     [SerializeField] private Image coinField;
     [SerializeField] private Text coinShow;
     [SerializeField] private Text coinPlus;
-    
+
     [Header("Coin Field GamePlay")]
     [SerializeField] private Text coinShopGamePlay;
     [SerializeField] private Transform parentTransform;
@@ -107,22 +107,22 @@ public class LevelController : Singleton<LevelController>
             float ratio = Mathf.Clamp01(starThresholds[i]);
             float width = progressRect.rect.width;
 
-            
+
             Vector2 pos = stars[i].rectTransform.anchoredPosition;
-            pos.x = width * ratio; 
+            pos.x = width * ratio;
             stars[i].rectTransform.anchoredPosition = pos;
         }
     }
     void SetupExpStage()
     {
         Debug.Log($"[SetupExpStage] Start - Current level: {level}");
-        
+
         if (levelData == null)
         {
             Debug.LogError("[SetupExpStage] levelData is null!");
             return;
         }
-        
+
         if (levelData.levels == null || levelData.levels.Count == 0)
         {
             Debug.LogError("[SetupExpStage] levelData.levels is null or empty!");
@@ -131,12 +131,12 @@ public class LevelController : Singleton<LevelController>
 
         Debug.Log($"[SetupExpStage] Searching in {levelData.levels.Count} levels");
         bool found = false;
-        
+
         for (int i = 0; i < levelData.levels.Count; i++)
         {
             var levelInfo = levelData.levels[i];
             Debug.Log($"[SetupExpStage] Checking level {levelInfo.level} - min_exp: {levelInfo.min_exp}, max_exp: {levelInfo.max_exp}");
-            
+
             if (level == levelInfo.level)
             {
                 Debug.Log($"[SetupExpStage] Found matching level! min_exp: {levelInfo.min_exp}, max_exp: {levelInfo.max_exp}");
@@ -201,7 +201,7 @@ public class LevelController : Singleton<LevelController>
             SaveNewLevel(_exp);
             SetupExpStage();
             RealLevel();
-            
+
             userCoin = DBController.Instance.COIN;
             // Debug.Log($"CheckCoinPlus: {userCoin} {currentCoinPlus}");
             DBController.Instance.COIN_PER_LEVEL += currentCoinPlus;
@@ -255,7 +255,7 @@ public class LevelController : Singleton<LevelController>
         lvl++;
         DBController.Instance.LEVEL = lvl;
         Debug.Log($"CheckCoinPlus LevelUp: {userCoinLevel} {currentCoinPlus}");
-        if(currentCoinPlus >= userCoinLevel)
+        if (currentCoinPlus >= userCoinLevel)
             DBController.Instance.COIN_PER_LEVEL = currentCoinPlus;
     }
 
@@ -274,7 +274,7 @@ public class LevelController : Singleton<LevelController>
     {
         TutorialPanel.Instance.HideTutorial();
         var level = DBController.Instance.LEVEL + 1;
-        if(level >= levelData.levels.Count)
+        if (level >= levelData.levels.Count)
             return;
         DBController.Instance.LEVEL = level;
         DBController.Instance.EXP = levelData.levels[level].min_exp;
@@ -283,32 +283,32 @@ public class LevelController : Singleton<LevelController>
         CalculateExp();
         LevelText(levelText);
         InGameData.UseBooster = true;
-        
+
         InGameData.GAME_STATE = GameState.Loading;
         InGameData.NEXT_STATE = GameState.SelectSkin;
-        InGameData.GAME_SCENE = SceneType.GamePlayScene;
-        SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
+        // InGameData.GAME_SCENE = SceneType.GamePlayScene;
+        // SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
     }
 
     public void DecreaseLevel()
     {
         TutorialPanel.Instance.HideTutorial();
         var level = DBController.Instance.LEVEL - 1;
-        if(level < 0)
+        if (level < 0)
             return;
         DBController.Instance.LEVEL = level;
         DBController.Instance.EXP = levelData.levels[level].min_exp;
         Debug.Log($"[CheatingLevel] Decrease Lvl {level}");
-        
+
         SetupExpStage();
         CalculateExp();
         LevelText(levelText);
         InGameData.UseBooster = true;
-        
+
         InGameData.GAME_STATE = GameState.Loading;
         InGameData.NEXT_STATE = GameState.SelectSkin;
-        InGameData.GAME_SCENE = SceneType.GamePlayScene;
-        SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
+        // InGameData.GAME_SCENE = SceneType.GamePlayScene;
+        // SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
     }
     public void ShowCongratulationPopup()
     {
@@ -322,7 +322,7 @@ public class LevelController : Singleton<LevelController>
                 effectShine.DOFade(.5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
                 effectGilter.DOFade(.5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
                 starAnim.SetBool("isFill", true);
-            
+
                 DOVirtual.DelayedCall(2f, () =>
                 {
                     effectShine.DOFade(0f, 0.5f);
@@ -338,13 +338,13 @@ public class LevelController : Singleton<LevelController>
                         });
                     });
                 });
-            }); 
+            });
         });
     }
     public void ShowLevelPopup()
     {
         var coinUser = DBController.Instance.COIN;
-        
+
         coverLevelUpPopup.gameObject.SetActive(true);
         levelUpPopup.SetActive(true);
         coverLevelUpPopup.DOFade(1f, .5f).OnComplete(() =>
@@ -359,7 +359,7 @@ public class LevelController : Singleton<LevelController>
                 effectShineBlue.DOFade(1f, 0.5f);
                 effectGilterBlue.DOFade(1f, 0.5f);
                 effectFirework.SetActive(true);
-                coinField.DOFade(1f,1f).OnComplete(() =>
+                coinField.DOFade(1f, 1f).OnComplete(() =>
                 {
                     DOTween.To(() => cointmp, x => cointmp = x, GameConfig.COIN_PLUS, 1)
                         .OnUpdate(() => { coinPlus.text = "+" + cointmp.ToString("N0"); })
@@ -368,7 +368,7 @@ public class LevelController : Singleton<LevelController>
                             btnNext.DOFade(1f, 1f).SetEase(Ease.Linear);
                         });
                 });
-            }); 
+            });
         });
     }
 
@@ -383,21 +383,21 @@ public class LevelController : Singleton<LevelController>
         effectFirework.SetActive(false);
         btnNext.DOFade(0f, 0.5f).SetEase(Ease.Linear);
         await Task.Delay(500);
-        levelUpPopup.transform.DOScale(0f, .5f).OnComplete(() =>
-        {
-            coverLevelUpPopup.DOFade(0f, .5f).OnComplete(() =>
-            {
-                AnimatorHelper.Instance.ObjectFly(Vector3.zero, 10, shopBtn, parentTransform);
-                UpdateCoinText(GameConfig.COIN_PLUS); 
-                levelUpPopup.SetActive(false);
-                coverLevelUpPopup.gameObject.SetActive(false);
-                SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
-                // if (level <= 5)
-                // {
-                //     SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
-                // }
-            });
-        });
+        // levelUpPopup.transform.DOScale(0f, .5f).OnComplete(() =>
+        // {
+        //     coverLevelUpPopup.DOFade(0f, .5f).OnComplete(() =>
+        //     {
+        //         AnimatorHelper.Instance.ObjectFly(Vector3.zero, 10, shopBtn, parentTransform);
+        //         UpdateCoinText(GameConfig.COIN_PLUS);
+        //         levelUpPopup.SetActive(false);
+        //         coverLevelUpPopup.gameObject.SetActive(false);
+        //         SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
+        //         // if (level <= 5)
+        //         // {
+        //         //     SceneController.Instance.ChangeScene(SceneType.GamePlayScene);
+        //         // }
+        //     });
+        // });
     }
     public void UpdateCoinText(int coin)
     {

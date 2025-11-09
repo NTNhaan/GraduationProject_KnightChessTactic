@@ -18,14 +18,14 @@ public class PausePopup : PopUpBase
     [SerializeField] private Image imgMusic;
     [SerializeField] private Image imgVibration;
     [SerializeField] private Button btnRestart;
-    [SerializeField] private Button btnLoadHome; 
+    [SerializeField] private Button btnLoadHome;
     [SerializeField] private Button btnQuit;
     [SerializeField] private ButtonType[] sprtSound;
     [SerializeField] private ButtonType[] sprtMusic;
     [SerializeField] private ButtonType[] sprtVibration;
     private bool isPause = false;
-    
-    
+
+
     #region Overrides Func
     public override void ShowPopUp(float posY, float duration, UnityAction onComplete = null)
     {
@@ -56,7 +56,7 @@ public class PausePopup : PopUpBase
         base.HideCover(onComplete);
     }
     #endregion
-    
+
     public void OnClickContinueGame()
     {
         HidePopUp(-1800f, 1f, () =>
@@ -67,30 +67,30 @@ public class PausePopup : PopUpBase
     public void OnClickLoadMainMenu()
     {
         EventDispatcher.Push(EventId.OnSoundClick);
-        DoHidePausePopUp( () =>
-        {
-            InGameData.GAME_STATE = GameState.Loading;
-            InGameData.NEXT_STATE = GameState.SelectSkin;
-            InGameData.GAME_SCENE = SceneType.MainScene;
-            InGameData.RestartGame = false;
-            InGameData.NextLevel = false;
-            SceneController.Instance?.ChangeScene(SceneType.MainScene);
-        });
+        // DoHidePausePopUp(() =>
+        // {
+        //     InGameData.GAME_STATE = GameState.Loading;
+        //     InGameData.NEXT_STATE = GameState.SelectSkin;
+        //     InGameData.GAME_SCENE = SceneType.MainScene;
+        //     InGameData.RestartGame = false;
+        //     InGameData.NextLevel = false;
+        //     SceneController.Instance?.ChangeScene(SceneType.MainScene);
+        // });
     }
     public void OnClickRestartGame()
     {
         EventDispatcher.Push(EventId.OnSoundClick);
-        DoHidePausePopUp( () =>
-        {
-            InGameData.GAME_STATE = GameState.Loading;
-            InGameData.NEXT_STATE = GameState.SelectSkin;
-            InGameData.GAME_SCENE = SceneType.GamePlayScene;
-            InGameData.RestartGame = true;
-            InGameData.NextLevel = false;
-            SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
-        });
+        // DoHidePausePopUp( () =>
+        // {
+        //     InGameData.GAME_STATE = GameState.Loading;
+        //     InGameData.NEXT_STATE = GameState.SelectSkin;
+        //     InGameData.GAME_SCENE = SceneType.GamePlayScene;
+        //     InGameData.RestartGame = true;
+        //     InGameData.NextLevel = false;
+        //     SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
+        // });
     }
-    
+
     #region PausePopup
     public void ShowPausePopUp()
     {
@@ -117,7 +117,7 @@ public class PausePopup : PopUpBase
         var task2 = btnLoadHome.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).ToUniTask();
         AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
         await UniTask.WhenAll(task1, task2);
-        
+
         imgSound.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
         imgMusic.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
         imgVibration.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
@@ -138,18 +138,18 @@ public class PausePopup : PopUpBase
         var t5 = imgMusic.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
         var t6 = imgVibration.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
         await UniTask.WhenAll(t4, t5, t6);
-        
-        HidePopUp(-1800f, 0.5f, ()=>
+
+        HidePopUp(-1800f, 0.5f, () =>
         {
             InGameData.GAME_STATE = GameState.PlayingGame;
             EventDispatcher.Push(EventId.OnGameStateChanged);
-            EventManager.ResumeGame();  
-            
+            EventManager.ResumeGame();
+
             onCompleted?.Invoke();
         });
     }
     #endregion
-    
+
     #region Setting Buttons
     public void OnClickSoundBtn()
     {

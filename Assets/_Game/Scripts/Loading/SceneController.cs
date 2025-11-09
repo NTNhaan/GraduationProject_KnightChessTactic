@@ -17,10 +17,10 @@ public class SceneController : Singleton<SceneController>, ISceneController
     public UnityAction callBackLoadScreen;
     [SerializeField] private SceneType previousScene;
     [SerializeField] private SceneType currentScene;
-    
+
     public SceneType PreviousScene => previousScene;
     public SceneType CurrentScene => currentScene;
-    
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -32,15 +32,20 @@ public class SceneController : Singleton<SceneController>, ISceneController
     private void Start()
     {
         Application.targetFrameRate = 60;
+        DOTween.Init();
         currentScene = previousScene = SceneType.MainScene;
 
         Debug.Log($"CheckLoading");
         imgFadeUI.gameObject.SetActive(true);
+        Debug.Log($"CheckLoad 1");
         imgFadeUI.DOFade(1, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
         {
+            Debug.Log($"CheckLoad 2");
             imgFadeUI.DOFade(0, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
             {
+                Debug.Log($"CheckLoad 3");
                 imgFadeUI.gameObject.SetActive(false);
+                Debug.Log($"CheckLoad 4");
             });
         });
     }
@@ -55,16 +60,16 @@ public class SceneController : Singleton<SceneController>, ISceneController
     {
         previousScene = currentScene;
         currentScene = _sceneType;
-/*        imgFadeUI.gameObject.SetActive(true);
-        imgFadeUI.DOFade(0, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            onCompleteFade?.Invoke();
-            DOVirtual.DelayedCall(0.2f, () =>
-            {
-                SceneManager.LoadScene($"{currentScene}");
-            });
-        });
-*/
+        /*        imgFadeUI.gameObject.SetActive(true);
+                imgFadeUI.DOFade(0, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
+                {
+                    onCompleteFade?.Invoke();
+                    DOVirtual.DelayedCall(0.2f, () =>
+                    {
+                        SceneManager.LoadScene($"{currentScene}");
+                    });
+                });
+        */
         await LoadingFade.Instance.ShowLoadingFade(midSpriteIndex);
         await Task.Delay(1000);
         SceneManager.LoadScene($"{currentScene}");
@@ -76,13 +81,15 @@ public class SceneController : Singleton<SceneController>, ISceneController
     {
         imgFadeUI.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() => { imgFadeUI.gameObject.SetActive(false); });
     }
-    
+
 
 }
 public enum SceneType
-{ 
-    LoadingScene = 0, 
+{
+    LoadingScene = 0,
     MainScene = 1,
-    GamePlayScene = 3,
-    ShopIAPScene = 4,
+    Menu = 2,
+    GameScene = 3,
+    LevelScene = 4,
+    Loading = 5,
 }

@@ -37,7 +37,7 @@ namespace Popup
             base.HideCover(onComplete);
         }
         #endregion
-        
+
         public void OnClickContinueGamePlay()
         {
             HidePopUp(-1800f, 0.5f, () =>
@@ -45,7 +45,7 @@ namespace Popup
                 // GamePlayController.isTutorial = false;
                 // GamePlayController.isCounting = false;
                 DBController.Instance.TUTORIAL_COMPLETED = true;
-                InGameData.GAME_SCENE = SceneType.GamePlayScene;
+                // InGameData.GAME_SCENE = SceneType.GamePlayScene;
                 SceneManager.LoadScene("GamePlayScene");
             });
         }

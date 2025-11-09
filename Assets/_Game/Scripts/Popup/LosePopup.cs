@@ -16,7 +16,7 @@ public class LosePopup : PopUpBase
     [SerializeField] private Image shine;
     [SerializeField] private Button btnRetry;
     [SerializeField] private Button btnHome;
-    
+
     [SerializeField] private Text highScorePanel;
     [SerializeField] private Text timePanel;
 
@@ -33,7 +33,7 @@ public class LosePopup : PopUpBase
         EventDispatcher.RemoveCallback(EventId.OnSaveTime, OnTimeChange);
         EventDispatcher.RemoveCallback(EventId.OnHidePopupReward, OnHidePopupReward);
     }
-    
+
     #region Overrides Func
     public override void ShowPopUp(float posY, float duration, UnityAction onComplete = null)
     {
@@ -73,31 +73,31 @@ public class LosePopup : PopUpBase
     {
         InGameData.GIVE_UP_COUNT = 0;
         EventDispatcher.Push(EventId.OnSoundClick);
-        HideGameOverPopUp( () =>
-        {
-            InGameData.RestartGame = true; // nen luu bien dem trong database
-            InGameData.NextLevel = false;
-            ScoreController.Instance.Score = 0;
-            InGameData.GAME_STATE = GameState.Loading;
-            InGameData.GAME_SCENE = SceneType.GamePlayScene;
-            SceneController.Instance?.ChangeScene(InGameData.GAME_SCENE);
-        });
+        // HideGameOverPopUp(() =>
+        // {
+        //     InGameData.RestartGame = true; // nen luu bien dem trong database
+        //     InGameData.NextLevel = false;
+        //     ScoreController.Instance.Score = 0;
+        //     InGameData.GAME_STATE = GameState.Loading;
+        //     InGameData.GAME_SCENE = SceneType.GamePlayScene;
+        //     SceneController.Instance?.ChangeScene(InGameData.GAME_SCENE);
+        // });
     }
 
     public void OnClickLoadMainMenu()
     {
         InGameData.GIVE_UP_COUNT = 0;
         EventDispatcher.Push(EventId.OnSoundClick);
-        HideGameOverPopUp( () =>
-        {
-            InGameData.RestartGame = false;
-            InGameData.NextLevel = false;
+        // HideGameOverPopUp(() =>
+        // {
+        //     InGameData.RestartGame = false;
+        //     InGameData.NextLevel = false;
 
-            InGameData.GAME_STATE = GameState.Loading;
-            InGameData.NEXT_STATE = GameState.SelectSkin;
-            InGameData.GAME_SCENE = SceneType.MainScene;
-            SceneController.Instance?.ChangeScene(SceneType.MainScene);
-        });
+        //     InGameData.GAME_STATE = GameState.Loading;
+        //     InGameData.NEXT_STATE = GameState.SelectSkin;
+        //     InGameData.GAME_SCENE = SceneType.MainScene;
+        //     SceneController.Instance?.ChangeScene(SceneType.MainScene);
+        // });
     }
 
     #region Event Handlers
@@ -111,15 +111,15 @@ public class LosePopup : PopUpBase
     {
         TimeSpan time = TimeSpan.FromSeconds(DBController.Instance.LAST_PLAY_TIME);
         timePanel.text = $"{time.Minutes:D2}:{time.Seconds:D2}";
-    }    
+    }
     public void OnHidePopupReward(object data = null)
     {
         btnRetry.transform.DOScale(1f, .3f).SetEase(Ease.OutBack);
         btnHome.transform.DOScale(1f, .3f).SetEase(Ease.OutBack);
     }
     #endregion
-    
-    
+
+
     #region LosePopup
     [ContextMenu("Show GameOver Popup")]
     public void ShowGameOverPopUp()
@@ -145,7 +145,7 @@ public class LosePopup : PopUpBase
         // coinBanner.DOScale(0f, 0.3f).SetEase(Ease.OutBack);
         character.DOAnchorPosY(0f, 0.5f).SetEase(Ease.InBack).OnComplete(() =>
         {
-            HidePopUp(-2000f, 0.5f); 
+            HidePopUp(-2000f, 0.5f);
             onComplete?.Invoke();
         });
     }
@@ -157,7 +157,7 @@ public class LosePopup : PopUpBase
         {
             AudioController.Instance.PlayEffect(Sound.Name.Sound_Reward);
             shine.DOFade(0.3f, .5f);
-            
+
             var time = TimeManager.Instance.ElapsedTime;
             if (DBController.Instance.TUTORIAL_COMPLETED && time >= 30f)
             {
