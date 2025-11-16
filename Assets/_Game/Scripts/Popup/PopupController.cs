@@ -54,10 +54,6 @@ public class PopupController : Singleton<PopupController>
     {
         EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
     }
-    private void Start()
-    {
-        DOTween.Init();
-    }
 
     private void UpdateCoinUI(object data = null)
     {

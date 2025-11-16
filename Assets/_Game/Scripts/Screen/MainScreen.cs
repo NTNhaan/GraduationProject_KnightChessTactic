@@ -8,25 +8,39 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Data;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class MainScreen : ScreenBase
 {
+    [FormerlySerializedAs("dailyReward")]
     [Header("Main Screen")]
-    [SerializeField] private Button dailyReward;
-    [SerializeField] private Button spinReward;
-    [SerializeField] private Button levelModeBtn;
-    [SerializeField] private Button classicModeBtn;
-    [SerializeField] private Button PveModeBtn;
-    [SerializeField] private RectTransform topBanner;
-    [SerializeField] private RectTransform logoInGame;
+    [SerializeField] private Button btnDailyReward;
+    [SerializeField] private Button btnSpinReward;
+    [SerializeField] private Button btnLevelMode;
+    [SerializeField] private Button btnClassicMode;
+    [SerializeField] private Button btnPveMode;
+    [SerializeField] private RectTransform rectTopBanner;
 
-
+    [Header("Effect Logo")]
+    [SerializeField] private RectTransform rectShield;
+    [SerializeField] private Transform trfBannerLogo;
+    [SerializeField] private Transform trfKTxt;
+    [SerializeField] private Transform trfNTxt;
+    [SerializeField] private Transform trfITxt;
+    [SerializeField] private Transform trfGTxt;
+    [SerializeField] private Transform trfHTxt;
+    [SerializeField] private Transform trfTTxt;
+    [SerializeField] private Transform trfChessTacticTxt;
+    [SerializeField] private Transform trfRibbon;
+    [SerializeField] private RectTransform rectSwordLeft;
+    [SerializeField] private RectTransform rectSwordRight;
+    
     [Header("=====HightScore MainScene=====")]
     [SerializeField] private Text hightScoreText;
-    [SerializeField] private Text CoinText;
+    [SerializeField] private Text coinText;
     [SerializeField] private Text textLevel;
-    [SerializeField] private Animator topAnim;
-    [SerializeField] private Animator bottomAnim;
+    // [SerializeField] private Animator topAnim;
+    // [SerializeField] private Animator bottomAnim;
 
     public void OnEnable()
     {
@@ -38,12 +52,12 @@ public class MainScreen : ScreenBase
     }
     async UniTask Start()
     {
-        InitGame();
+        // InitGame();
 
         await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
-        topAnim.SetBool("isShow", true);
-        bottomAnim.SetBool("isShow", true);
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
+        // topAnim.SetBool("isShow", true);
+        // bottomAnim.SetBool("isShow", true);
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
 
     }
     #region Override Methods
@@ -65,7 +79,7 @@ public class MainScreen : ScreenBase
 
     public void UpdateCoinUI(object data = null)
     {
-        CoinText.text = DBController.Instance.COIN.ToString("n0");
+        coinText.text = DBController.Instance.COIN.ToString("n0");
     }
     #endregion
 
@@ -91,22 +105,41 @@ public class MainScreen : ScreenBase
     }
 
     #region Show/Hide Main Screen
-    public async UniTask DoShowMainScreen()
+    public async UniTask DoShowMainScreen() // knight
     {
-        InitStateButton(true);
-        await topBanner.DOAnchorPosY(0, 5f).SetEase(Ease.OutBack).ToUniTask();
+        await rectShield.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfBannerLogo.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfKTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfNTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfITxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfGTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfHTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await trfTTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        
+        trfChessTacticTxt.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+        await trfRibbon.DOScaleX(1f, 0.5f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
 
-        var t1 = spinReward.transform.DOScale(1f, .3f).SetEase(Ease.OutBack).ToUniTask();
-        var t2 = dailyReward.transform.DOScale(1f, .3f).SetEase(Ease.OutBack).ToUniTask();
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
-        await UniTask.WhenAll(t1, t2);
-
-        var t4 = PveModeBtn.transform.DOScale(1f, .3f).SetEase(Ease.OutBack).ToUniTask();
-        var t5 = levelModeBtn.transform.DOScale(1f, .3f).SetEase(Ease.OutBack).ToUniTask();
-        var t6 = classicModeBtn.transform.DOScale(1f, .3f).SetEase(Ease.OutBack).ToUniTask();
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
+        Vector2 swordRightPos = rectShield.anchoredPosition + new Vector2(217, 5);
+        rectSwordRight.anchoredPosition = new Vector2(1000, swordRightPos.y + 800);
+        await rectSwordRight.DOAnchorPos(swordRightPos, 0.4f)
+            .SetEase(Ease.OutBack)  
+            .AsyncWaitForCompletion();
+        
+        Vector2 swordLeftPos = rectShield.anchoredPosition + new Vector2(-217, 5);
+        rectSwordLeft.anchoredPosition = new Vector2(-1000, swordLeftPos.y + 800);
+        await rectSwordLeft.DOAnchorPos(swordLeftPos, 0.4f)
+            .SetEase(Ease.OutBack)  
+            .AsyncWaitForCompletion();
+        
+        await rectTopBanner.DOAnchorPosY(0, 0.5f).AsyncWaitForCompletion();
+        var t1 = btnSpinReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        var t2 = btnDailyReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        var t3 = btnPveMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        var t4 = btnLevelMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        var t5 = btnClassicMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
         EventDispatcher.Push(EventId.OnMainScreen);
-        await UniTask.WhenAll(t4, t5, t6);
+        await UniTask.WhenAll(t1, t2, t3, t4, t5);
     }
 
     public async UniTask DoHideMainScreen(UnityAction onComplete = null)
@@ -146,12 +179,6 @@ public class MainScreen : ScreenBase
     {
         EventDispatcher.Push(EventId.OnSoundClick);
         SettingCtrl.Instance.SetMusic();
-    }
-    public void InitStateButton(bool state)
-    {
-        // playBtn.interactable = state;
-        // leaderBoard.interactable = state;
-        // shopIAP.interactable = state;
     }
     #endregion
 }

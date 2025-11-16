@@ -20,24 +20,26 @@ public class LoadingScreen : ScreenBase
     {
         // EventManager.OnInitData -= OnInitData;
     }
-    private void Start()
+    private async UniTask Start()
     {
-        Debug.Log($"CheckloadScreen 1");
+        
+        Debug.Log($"CheckLoadingScreen");
         LoadingSceneAsync(NEXT_SCENE_NAME);
         // OnInitData();
     }
     private async UniTask LoadingSceneAsync(string sceneName)
     {
-        Debug.Log($"CheckloadScreen 2");
-        await progressBar.DOFillAmount(1, 2f).SetEase(Ease.Linear).From(0);
-        Debug.Log($"CheckloadScreen 3");
-        await DOVirtual.Int(0, 100, 2f, (X) =>
-        {
-            Debug.Log($"CheckloadScreen 4");
-            textPercent.text = X.ToString() + $"%";
-        }).ToUniTask();
-        Debug.Log($"CheckloadScreen 5");
-        await SceneController.Instance.ChangeScene(SceneType.MainScene);
+        progressBar.DOFillAmount(1, 2f).SetEase(Ease.Linear).From(0);
+        // await DOVirtual.Int(0, 100, 2f, (x) =>
+        // {
+        //     if (textPercent != null)
+        //         textPercent.text = x + "%";
+        // });
+        await DOVirtual.Int(0, 100, 2f, x => {
+            textPercent.text = x + "%";
+        }).AsyncWaitForCompletion();
+        await UniTask.Yield();
+        SceneController.Instance?.ChangeScene(SceneType.MainScene);
     }
     void OnInitData()
     {

@@ -23,13 +23,13 @@ public class ScreenBase : MonoBehaviour
 
     private void Start()
     {
-        canvasGroup.blocksRaycasts = false;
+        // canvasGroup.blocksRaycasts = false;
         _db = DBController.Instance;
     }
 
     public virtual void ShowScreen(UnityAction onComplete = null)
     {
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
         if (gobjPanels != null)
         {
             foreach (var panel in gobjPanels)
@@ -61,7 +61,7 @@ public class ScreenBase : MonoBehaviour
     }
     public virtual void HideScreen(UnityAction onComplete = null)
     {
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupClose);
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupClose);
         coinBanner.DOScale(0f, 0.3f).SetEase(Ease.InBack);
         if (anims != null)
         {
@@ -101,14 +101,14 @@ public class ScreenBase : MonoBehaviour
         {
             canvasGroup.blocksRaycasts = true;
             animTransition.SetBool("isStransition", true);
-            AnimatorHelper.Instance.WaitForStateComplete(animTransition, "Show");
+            AnimatorHelper.Instance?.WaitForStateComplete(animTransition, "Show");
             animTransition.gameObject.SetActive(false);
         }
     }
    
     public virtual void LoadCoinUI()
     {
-        numberCoin.text = DBController.Instance.COIN.ToString("n0");
+        // numberCoin.text = DBController.Instance.COIN.ToString("n0");
         Debug.Log("============== Load UI");
     }
 }

@@ -27,14 +27,18 @@ public class ScreenController : Singleton<ScreenController>
     public MainScreen MainScreen { get => mainScreen; }
     public ScreenGame PreScreen { get => _preScreen; set => _preScreen = value; }
 
-    private async UniTask Start()
+    private void Start()
+    {
+        StartAsync().Forget();
+    }
+
+    private async UniTask StartAsync()
     {
         await UniTask.WaitUntil(()=> InGameData.GAME_STATE == GameState.LoadingDone);
         CurScreen = ScreenGame.MainScreen;
         InGameData.GAME_STATE = GameState.MainMenu;
         ShowScreen(CurScreen);
     }
-
     void Update()
     {
         // Debug.Log($"CurrentState: {CurScreen}");

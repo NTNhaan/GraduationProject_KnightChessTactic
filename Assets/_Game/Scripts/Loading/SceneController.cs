@@ -31,21 +31,16 @@ public class SceneController : Singleton<SceneController>, ISceneController
     }
     private void Start()
     {
+        Debug.Log($"CheckInitStart");
         Application.targetFrameRate = 60;
-        DOTween.Init();
         currentScene = previousScene = SceneType.MainScene;
 
-        Debug.Log($"CheckLoading");
         imgFadeUI.gameObject.SetActive(true);
-        Debug.Log($"CheckLoad 1");
         imgFadeUI.DOFade(1, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            Debug.Log($"CheckLoad 2");
             imgFadeUI.DOFade(0, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                Debug.Log($"CheckLoad 3");
                 imgFadeUI.gameObject.SetActive(false);
-                Debug.Log($"CheckLoad 4");
             });
         });
     }

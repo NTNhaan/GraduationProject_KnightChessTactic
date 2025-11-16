@@ -10,21 +10,20 @@ namespace Data
         {
             get => instance;
         }
-
         void Awake()
         {
             //DontDestroyOnLoad (gameObject);
             if (instance == null)
             {
                 instance = this as T;
-
+        
                 if (dontDestroyOnLoad)
                 {
                     DontDestroyOnLoad(gameObject);
                 }
                 
                 CustomAwake();
-
+        
             }
             else
             {

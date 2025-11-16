@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -5,6 +6,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Data;
+using UnityEngine.Serialization;
 
 public class LoadingFade : Singleton<LoadingFade>
 {
@@ -12,20 +14,21 @@ public class LoadingFade : Singleton<LoadingFade>
     [SerializeField] private float timeOpen = 0.5f;
     [SerializeField] private Ease easeOpen = Ease.OutQuad;
     [SerializeField] private Ease easeClose = Ease.OutQuad;
-    [SerializeField] private Image imgBackground;
 
-    [SerializeField] private Image topBanner;
-    [SerializeField] private Image midBanner;
-    [SerializeField] private Text bottomBanner;
+    [SerializeField] private RectTransform imgLeftBanner;
+    [SerializeField] private RectTransform imgRightBanner;
+    [SerializeField] private Text txtBottomBanner;
 
     // [SerializeField] private List<Sprite> midSprites;
+    
+    private float bounceDistance  = 40f; 
+    
     public async UniTask ShowLoadingFade(int midSpriteIndex = -1)
     {
         InGameData.GAME_STATE = GameState.Loading;
-        imgBackground.gameObject.SetActive(true);
-        topBanner.gameObject.SetActive(true);
-        midBanner.gameObject.SetActive(true);
-        bottomBanner.gameObject.SetActive(true);
+        imgLeftBanner.gameObject.SetActive(true);
+        imgRightBanner.gameObject.SetActive(true);
+        txtBottomBanner.gameObject.SetActive(true);
 
         // if (midSpriteIndex >= 0 && midSpriteIndex < midSprites.Count)
         // {
@@ -37,28 +40,48 @@ public class LoadingFade : Singleton<LoadingFade>
         //     midBanner.sprite = midSprites[rand];
         // }
 
-        imgBackground.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
-        topBanner.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
-        midBanner.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
-        bottomBanner.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
+        // var tLeftIn = imgLeftBanner.DOAnchorPosX(0f, 0.45f)
+        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        // var tRightIn = imgRightBanner.DOAnchorPosX(0f, 0.45f)
+        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        // await UniTask.WhenAll(tLeftIn, tRightIn);
+        //
+        //
+        // var tLeftBounce = imgLeftBanner.DOAnchorPosX(0f - bounceDistance, 0.12f)
+        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        // var tRightBounce = imgRightBanner.DOAnchorPosX(0f + bounceDistance, 0.12f)
+        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        // await UniTask.WhenAll(tLeftBounce, tRightBounce);
+        //
+        // var tLeftSnap = imgLeftBanner.DOAnchorPosX(0f, 0.12f)
+        //     .SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        // var tRightSnap = imgRightBanner.DOAnchorPosX(0f, 0.12f)
+        //     .SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        // await UniTask.WhenAll(tLeftSnap, tRightSnap);
+        
+        await BannerAnimationHelper.PlayDoubleImpact(
+            imgLeftBanner,
+            imgRightBanner,
+            hitPos: 0f
+        );
+        txtBottomBanner.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
         await Task.Delay(500);
     }
     public async UniTask HideLoadingFade()
     {
-        var t1 = topBanner.DOFade(0, 0.5f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        var t2 = midBanner.DOFade(0, 0.5f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        var t3 = bottomBanner.DOFade(0, 0.5f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        var tLeft = imgLeftBanner.DOAnchorPosX(-1000, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        var tRight = imgRightBanner.DOAnchorPosX(1000, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        var t3 = txtBottomBanner.DOFade(0, 0.5f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
 
-        await UniTask.WhenAll(t1, t2, t3);
+        await UniTask.WhenAll(tLeft, tRight, t3);
 
-        await imgBackground.DOFade(0, 1f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
+        // await imgBackground.DOFade(0, 1f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
 
         InGameData.GAME_STATE = GameState.LoadingDone;
 
-        imgBackground.gameObject.SetActive(false);
-        topBanner.gameObject.SetActive(false);
-        midBanner.gameObject.SetActive(false);
-        bottomBanner.gameObject.SetActive(false);
+        imgLeftBanner.gameObject.SetActive(false);
+        imgRightBanner.gameObject.SetActive(false);
+        txtBottomBanner.gameObject.SetActive(false);
     }
 
 }

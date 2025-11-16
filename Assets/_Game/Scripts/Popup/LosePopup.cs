@@ -66,7 +66,7 @@ public class LosePopup : PopUpBase
 
     private void Start()
     {
-        highScorePanel.text = DBController.Instance.BEST_SCORE.ToString();
+        // highScorePanel.text = DBController.Instance.BEST_SCORE.ToString();
     }
 
     public void OnClickRestartGame()
