@@ -552,7 +552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &585081257
 Transform:
   m_ObjectHideFlags: 0
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   timeClose: 0.8
-  timeOpen: 0.5
+  timeOpen: 0.8
   easeOpen: 6
   easeClose: 6
   imgLeftBanner: {fileID: 1496237245}
@@ -1856,7 +1856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2087592264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,18 +1872,18 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   arrBackgroundMusic:
   - name: 0
-    clip: {fileID: 8300000, guid: 59511a5f13d2c8d4d8ff40a9d5aa5cd5, type: 3}
+    clip: {fileID: 8300000, guid: 2f41ca0fc3c47714bb3632993bb3f13f, type: 3}
     volume: 1
     source: {fileID: 0}
     loop: 1
   - name: 1
-    clip: {fileID: 8300000, guid: cf4ba19b728aee0488dd19af34ac98db, type: 3}
+    clip: {fileID: 8300000, guid: e54d712bb6aa2e9449edd668a64a64c7, type: 3}
     volume: 1
     source: {fileID: 0}
     loop: 1
   arrSoundEffect:
   - name: 2
-    clip: {fileID: 8300000, guid: 1d26728349540f94faddcc03586ae500, type: 3}
+    clip: {fileID: 8300000, guid: 1e1128c8f86edf6408b00799a6239a6b, type: 3}
     volume: 1
     source: {fileID: 0}
     loop: 0
@@ -1908,7 +1908,7 @@ MonoBehaviour:
     source: {fileID: 0}
     loop: 0
   - name: 3
-    clip: {fileID: 8300000, guid: 8b678e08636fcb54cb76e50877d954fc, type: 3}
+    clip: {fileID: 8300000, guid: 58ce75d3edb74d042b618648985275ca, type: 3}
     volume: 1
     source: {fileID: 0}
     loop: 0

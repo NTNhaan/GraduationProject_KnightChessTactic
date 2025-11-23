@@ -1,0 +1,5135 @@
+fileFormatVersion: 2
+guid: 2e8f45cf9e95c9148b72477179748958
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7122693835187345562
+    second: popup_daily_0
+  - first:
+      213: -4656229373095130590
+    second: popup_daily_1
+  - first:
+      213: 53375892243016707
+    second: popup_daily_2
+  - first:
+      213: 4151534657464139793
+    second: popup_daily_3
+  - first:
+      213: 8281650806720249696
+    second: popup_daily_4
+  - first:
+      213: 6962674221898591309
+    second: popup_daily_5
+  - first:
+      213: -1140191716826583077
+    second: popup_daily_6
+  - first:
+      213: 7994603542716884098
+    second: popup_daily_7
+  - first:
+      213: 6424768040636586957
+    second: popup_daily_8
+  - first:
+      213: 6767044054062757696
+    second: popup_daily_9
+  - first:
+      213: 2361272547132297016
+    second: popup_daily_10
+  - first:
+      213: 1197012676254990175
+    second: popup_daily_11
+  - first:
+      213: 374612834294220888
+    second: popup_daily_12
+  - first:
+      213: 2292845660286218006
+    second: popup_daily_13
+  - first:
+      213: -8576623971989270928
+    second: popup_daily_14
+  - first:
+      213: -4394815137797756115
+    second: popup_daily_15
+  - first:
+      213: -1290947000210998955
+    second: popup_daily_16
+  - first:
+      213: -2078501186114882729
+    second: popup_daily_17
+  - first:
+      213: 1921013758342491689
+    second: popup_daily_18
+  - first:
+      213: 7828538329694552462
+    second: popup_daily_19
+  - first:
+      213: 3137523242934037566
+    second: popup_daily_20
+  - first:
+      213: -6598640450917975067
+    second: popup_daily_21
+  - first:
+      213: 6554095535345343558
+    second: popup_daily_22
+  - first:
+      213: -267948441446449284
+    second: popup_daily_23
+  - first:
+      213: -1081353008297348998
+    second: popup_daily_24
+  - first:
+      213: -4225149181581071726
+    second: popup_daily_25
+  - first:
+      213: -7109045710521808698
+    second: popup_daily_26
+  - first:
+      213: -7329834186493974450
+    second: popup_daily_27
+  - first:
+      213: -4844041733819945772
+    second: popup_daily_28
+  - first:
+      213: -7316197541223522063
+    second: popup_daily_29
+  - first:
+      213: -5822560803809578761
+    second: popup_daily_30
+  - first:
+      213: -5139907975727800286
+    second: popup_daily_31
+  - first:
+      213: 3499568247431050845
+    second: popup_daily_32
+  - first:
+      213: -6174865672339430691
+    second: popup_daily_33
+  - first:
+      213: 9111210443696948213
+    second: popup_daily_34
+  - first:
+      213: -9204476323206143001
+    second: popup_daily_35
+  - first:
+      213: 4846173139528613803
+    second: popup_daily_36
+  - first:
+      213: -916158897467833760
+    second: popup_daily_37
+  - first:
+      213: 3559703245382561356
+    second: popup_daily_38
+  - first:
+      213: 9001158305866408326
+    second: popup_daily_39
+  - first:
+      213: 2276176093503159700
+    second: popup_daily_40
+  - first:
+      213: 8741994191194320652
+    second: popup_daily_41
+  - first:
+      213: -5243497049631702560
+    second: popup_daily_42
+  - first:
+      213: 4350693682811335386
+    second: popup_daily_43
+  - first:
+      213: -7808252666952646390
+    second: popup_daily_44
+  - first:
+      213: 7425826828436350685
+    second: popup_daily_45
+  - first:
+      213: 2330880937342628748
+    second: popup_daily_46
+  - first:
+      213: -7359117572474301440
+    second: popup_daily_47
+  - first:
+      213: -4004922765636911119
+    second: popup_daily_48
+  - first:
+      213: 299276679319384862
+    second: popup_daily_49
+  - first:
+      213: 1280420548819706614
+    second: popup_daily_50
+  - first:
+      213: 2433614277349557187
+    second: popup_daily_51
+  - first:
+      213: -7746757582438766308
+    second: popup_daily_52
+  - first:
+      213: -400044412188094075
+    second: popup_daily_53
+  - first:
+      213: -8911166779441121415
+    second: popup_daily_54
+  - first:
+      213: -109715923993633976
+    second: popup_daily_55
+  - first:
+      213: 9150051911936904728
+    second: popup_daily_56
+  - first:
+      213: 8903369842427869208
+    second: popup_daily_57
+  - first:
+      213: 1242452036097488661
+    second: popup_daily_58
+  - first:
+      213: 8723357157254218934
+    second: popup_daily_59
+  - first:
+      213: -4317480412695123062
+    second: popup_daily_60
+  - first:
+      213: 4654598565546427199
+    second: popup_daily_61
+  - first:
+      213: -9135462301011112524
+    second: popup_daily_62
+  - first:
+      213: 6022600877296077648
+    second: popup_daily_63
+  - first:
+      213: -7256753526807770977
+    second: popup_daily_64
+  - first:
+      213: 3517245512740706131
+    second: popup_daily_65
+  - first:
+      213: 6201793451839601081
+    second: popup_daily_66
+  - first:
+      213: -7311480390056664609
+    second: popup_daily_67
+  - first:
+      213: 4444614348191052617
+    second: popup_daily_68
+  - first:
+      213: 3456157302317956563
+    second: popup_daily_69
+  - first:
+      213: 6140104652412265512
+    second: popup_daily_70
+  - first:
+      213: -481491615141289037
+    second: popup_daily_71
+  - first:
+      213: -2256006584805359764
+    second: popup_daily_72
+  - first:
+      213: -7604683550399955998
+    second: popup_daily_73
+  - first:
+      213: -5170915965740430546
+    second: popup_daily_74
+  - first:
+      213: -7033976943893707208
+    second: popup_daily_75
+  - first:
+      213: -5695366953787272961
+    second: popup_daily_76
+  - first:
+      213: -3214639958597494958
+    second: popup_daily_77
+  - first:
+      213: 4965478839658120439
+    second: popup_daily_78
+  - first:
+      213: 7633106444684330642
+    second: popup_daily_79
+  - first:
+      213: -1255283604063699940
+    second: popup_daily_80
+  - first:
+      213: -6764622072672537191
+    second: popup_daily_81
+  - first:
+      213: -2297598648138097863
+    second: popup_daily_82
+  - first:
+      213: 1230810995100711057
+    second: popup_daily_83
+  - first:
+      213: -8655336931352209735
+    second: popup_daily_84
+  - first:
+      213: 4253161919599034570
+    second: popup_daily_85
+  - first:
+      213: 375365892758193002
+    second: popup_daily_86
+  - first:
+      213: 6195682728661874066
+    second: popup_daily_87
+  - first:
+      213: 6015547353286768686
+    second: popup_daily_88
+  - first:
+      213: 2874837652090316866
+    second: popup_daily_89
+  - first:
+      213: -749177649556536219
+    second: popup_daily_90
+  - first:
+      213: 255254181888974122
+    second: popup_daily_91
+  - first:
+      213: -2373877102988524408
+    second: popup_daily_92
+  - first:
+      213: -5190879955163228610
+    second: popup_daily_93
+  - first:
+      213: -6143762066765275745
+    second: popup_daily_94
+  - first:
+      213: 2540293616073901293
+    second: popup_daily_95
+  - first:
+      213: 724654198132324220
+    second: popup_daily_96
+  - first:
+      213: 5211830960996051943
+    second: popup_daily_97
+  - first:
+      213: 3827341116753427745
+    second: popup_daily_98
+  - first:
+      213: -6886682424133750194
+    second: popup_daily_99
+  - first:
+      213: 4567512410924385675
+    second: popup_daily_100
+  - first:
+      213: 4934002345335389661
+    second: popup_daily_101
+  - first:
+      213: 6812667461768618584
+    second: popup_daily_102
+  - first:
+      213: 5588925344167435146
+    second: popup_daily_103
+  - first:
+      213: 60904453772633806
+    second: popup_daily_104
+  - first:
+      213: 3505004116916802279
+    second: popup_daily_105
+  - first:
+      213: -2391595274483845291
+    second: popup_daily_106
+  - first:
+      213: -1206441055383189139
+    second: popup_daily_107
+  - first:
+      213: -5196334087484008074
+    second: popup_daily_108
+  - first:
+      213: 9139476000898233999
+    second: popup_daily_109
+  - first:
+      213: 2676126794298467722
+    second: popup_daily_110
+  - first:
+      213: -8308744528343136132
+    second: popup_daily_111
+  - first:
+      213: -386946828610969908
+    second: popup_daily_112
+  - first:
+      213: 8101730101671911290
+    second: popup_daily_113
+  - first:
+      213: 1245939065613907957
+    second: popup_daily_114
+  - first:
+      213: -4360301477679778540
+    second: popup_daily_115
+  - first:
+      213: 3040189093807771063
+    second: popup_daily_116
+  - first:
+      213: -236016086966563408
+    second: popup_daily_117
+  - first:
+      213: 2272418042560917190
+    second: popup_daily_118
+  - first:
+      213: 5922712447173448895
+    second: popup_daily_119
+  - first:
+      213: 152554805860345089
+    second: popup_daily_120
+  - first:
+      213: 1504005382644981006
+    second: popup_daily_121
+  - first:
+      213: -4537650051969193541
+    second: popup_daily_122
+  - first:
+      213: 1347924278124417315
+    second: popup_daily_123
+  - first:
+      213: -190361200080280492
+    second: popup_daily_124
+  - first:
+      213: -3976355256278054009
+    second: popup_daily_125
+  - first:
+      213: 4783642988674917745
+    second: popup_daily_126
+  - first:
+      213: 6375007643198907558
+    second: popup_daily_127
+  - first:
+      213: -6677128242046377705
+    second: popup_daily_128
+  - first:
+      213: -7042958597002932790
+    second: popup_daily_129
+  - first:
+      213: -7163815375435700016
+    second: popup_daily_130
+  - first:
+      213: 3160321568559765819
+    second: popup_daily_131
+  - first:
+      213: 7182527107117059244
+    second: popup_daily_132
+  - first:
+      213: 9071341304151945978
+    second: popup_daily_133
+  - first:
+      213: -6508711341410820064
+    second: popup_daily_134
+  - first:
+      213: 1153377707468824509
+    second: popup_daily_135
+  - first:
+      213: -7028776604348328517
+    second: popup_daily_136
+  - first:
+      213: 8948534835887804873
+    second: popup_daily_137
+  - first:
+      213: -726346160991263819
+    second: popup_daily_138
+  - first:
+      213: -5517139728571922349
+    second: popup_daily_139
+  - first:
+      213: -7283431694884285339
+    second: popup_daily_140
+  - first:
+      213: -4477032752567673592
+    second: popup_daily_141
+  - first:
+      213: -8548654856043444117
+    second: popup_daily_142
+  - first:
+      213: 1359616593526754688
+    second: popup_daily_143
+  - first:
+      213: 8927638109876307828
+    second: popup_daily_144
+  - first:
+      213: 4334240197246755990
+    second: popup_daily_145
+  - first:
+      213: 5520028833942661353
+    second: popup_daily_146
+  - first:
+      213: -3579691383317229273
+    second: popup_daily_147
+  - first:
+      213: -7391371151097230097
+    second: popup_daily_148
+  - first:
+      213: -7992515458112312417
+    second: popup_daily_149
+  - first:
+      213: -6815619508895421898
+    second: popup_daily_150
+  - first:
+      213: -423063954176828947
+    second: popup_daily_151
+  - first:
+      213: -7264543853905635456
+    second: popup_daily_152
+  - first:
+      213: 3627343245542789603
+    second: popup_daily_153
+  - first:
+      213: -4065486971615324089
+    second: popup_daily_154
+  - first:
+      213: -8997851234402270156
+    second: popup_daily_155
+  - first:
+      213: -1972493182534418988
+    second: popup_daily_156
+  - first:
+      213: 4318279704072900424
+    second: popup_daily_157
+  - first:
+      213: 3774603664394490409
+    second: popup_daily_158
+  - first:
+      213: -2792753566996735847
+    second: popup_daily_159
+  - first:
+      213: -1038650353896152427
+    second: popup_daily_160
+  - first:
+      213: -8676201246968124239
+    second: popup_daily_161
+  - first:
+      213: 4230144710125950804
+    second: popup_daily_162
+  - first:
+      213: 8686479339365219003
+    second: popup_daily_163
+  - first:
+      213: 7339432498464019801
+    second: popup_daily_164
+  - first:
+      213: -7222591059159794231
+    second: popup_daily_165
+  - first:
+      213: 1303238483353784000
+    second: popup_daily_166
+  - first:
+      213: -8908822743763169222
+    second: popup_daily_167
+  - first:
+      213: 222750847848563878
+    second: popup_daily_168
+  - first:
+      213: 5308938099845773662
+    second: popup_daily_169
+  - first:
+      213: 2692796388290259505
+    second: popup_daily_170
+  - first:
+      213: -4398159743119946268
+    second: popup_daily_171
+  - first:
+      213: 2517081238809742292
+    second: popup_daily_172
+  - first:
+      213: 5699356363620371690
+    second: popup_daily_173
+  - first:
+      213: -9071894907971552301
+    second: popup_daily_174
+  - first:
+      213: 1843884341418565543
+    second: popup_daily_175
+  - first:
+      213: -7684900896313683056
+    second: popup_daily_176
+  - first:
+      213: -2946326597196836246
+    second: popup_daily_177
+  - first:
+      213: 2672861664366160413
+    second: popup_daily_178
+  - first:
+      213: 4682698220118773656
+    second: popup_daily_179
+  - first:
+      213: 6642949896835144807
+    second: popup_daily_180
+  - first:
+      213: 7069285356553883104
+    second: popup_daily_181
+  - first:
+      213: -6360152464237334087
+    second: popup_daily_182
+  - first:
+      213: 2584449433759664322
+    second: popup_daily_183
+  - first:
+      213: 3228447686731707988
+    second: popup_daily_184
+  - first:
+      213: 4474120009813633758
+    second: popup_daily_185
+  - first:
+      213: 3247290745160512842
+    second: popup_daily_186
+  - first:
+      213: 3152576415018341004
+    second: popup_daily_187
+  - first:
+      213: 854604241753084068
+    second: popup_daily_188
+  - first:
+      213: -4946797148268439832
+    second: popup_daily_189
+  - first:
+      213: -4310918928750846524
+    second: popup_daily_190
+  - first:
+      213: -676969912456429645
+    second: popup_daily_191
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: 48
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: popup_daily_0
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 1609
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a98d4323e44e8d260800000000000000
+      internalID: 7122693835187345562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1610
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22accef0e00c16fb0800000000000000
+      internalID: -4656229373095130590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_2
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1610
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30ce6b85711adb000800000000000000
+      internalID: 53375892243016707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_3
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 1607
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1108fd276c63d9930800000000000000
+      internalID: 4151534657464139793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_4
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1606
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06f3368d7855ee270800000000000000
+      internalID: 8281650806720249696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_5
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 1606
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4ce803a05360a060800000000000000
+      internalID: 6962674221898591309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_6
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1612
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdf65beaca93d20f0800000000000000
+      internalID: -1140191716826583077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_7
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 1612
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28428bb909982fe60800000000000000
+      internalID: 7994603542716884098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_8
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 1610
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcb1d6a3e7c592950800000000000000
+      internalID: 6424768040636586957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_9
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 1610
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04774ddb6be59ed50800000000000000
+      internalID: 6767044054062757696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_10
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 1610
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83fc3bdfedce4c020800000000000000
+      internalID: 2361272547132297016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_11
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1611
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5f71dfdfa4ac9010800000000000000
+      internalID: 1197012676254990175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_12
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 1608
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 858c8645364e23500800000000000000
+      internalID: 374612834294220888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_13
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1609
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61fe722eaf2d1df10800000000000000
+      internalID: 2292845660286218006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_14
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 1600
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07eca7930f5b9f880800000000000000
+      internalID: -8576623971989270928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_15
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 1612
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b2e0abaea7203c0800000000000000
+      internalID: -4394815137797756115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_16
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 1605
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55931940b82a51ee0800000000000000
+      internalID: -1290947000210998955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_17
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 1614
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 753f4600f2ea723e0800000000000000
+      internalID: -2078501186114882729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_18
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 1605
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92e64a2d5dfc8aa10800000000000000
+      internalID: 1921013758342491689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_19
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 1607
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8149fb222e84ac60800000000000000
+      internalID: 7828538329694552462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_20
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1615
+        width: 19
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3c6d9124c8ba8b20800000000000000
+      internalID: 3137523242934037566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_21
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 1607
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ebb282987bec64a0800000000000000
+      internalID: -6598640450917975067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_22
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 1616
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64c9b301a23d4fa50800000000000000
+      internalID: 6554095535345343558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_23
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 1606
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7ff679ef4e084cf0800000000000000
+      internalID: -267948441446449284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_24
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 1607
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a70f2af0b234ef0f0800000000000000
+      internalID: -1081353008297348998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_25
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 1603
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29ae3d484314d55c0800000000000000
+      internalID: -4225149181581071726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_26
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 1596
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c845547798975d90800000000000000
+      internalID: -7109045710521808698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_27
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 1602
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e48238b74a2374a90800000000000000
+      internalID: -7329834186493974450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_28
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 1603
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dcae7a35b186ccb0800000000000000
+      internalID: -4844041733819945772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_29
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 1610
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f029c06915a77a90800000000000000
+      internalID: -7316197541223522063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_30
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 1600
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f031d55ccb123fa0800000000000000
+      internalID: -5822560803809578761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_31
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 1616
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2202c80bde06ba8b0800000000000000
+      internalID: -5139907975727800286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_32
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1591
+        width: 44
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d563d5f87c6f09030800000000000000
+      internalID: 3499568247431050845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_33
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 1596
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2647803687e4aa0800000000000000
+      internalID: -6174865672339430691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_34
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 1597
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f3c26210a5817e70800000000000000
+      internalID: 9111210443696948213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_35
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 1594
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e3edcb2d81234080800000000000000
+      internalID: -9204476323206143001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_36
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 1601
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baf74a55bc0114340800000000000000
+      internalID: 4846173139528613803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_37
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 1586
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 062cd9636562943f0800000000000000
+      internalID: -916158897467833760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_38
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 1600
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4e25d6dd3b966130800000000000000
+      internalID: 3559703245382561356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_39
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1593
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681693cf9c98aec70800000000000000
+      internalID: 9001158305866408326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_40
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 1592
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49dfd7be81a969f10800000000000000
+      internalID: 2276176093503159700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_41
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 1586
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0f6aaa566dc15970800000000000000
+      internalID: 8741994191194320652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_42
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 1602
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1c4efe63b5b37b0800000000000000
+      internalID: -5243497049631702560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_43
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1582
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad271828ad4c06c30800000000000000
+      internalID: 4350693682811335386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_44
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 1590
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a018acdb19383a390800000000000000
+      internalID: -7808252666952646390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_45
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 1600
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd6a3802826dd0760800000000000000
+      internalID: 7425826828436350685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_46
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 1588
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c83790cecd3f85020800000000000000
+      internalID: 2330880937342628748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_47
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 1590
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0049550ee892fd990800000000000000
+      internalID: -7359117572474301440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_48
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 1597
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ff3651b6f7ab68c0800000000000000
+      internalID: -4004922765636911119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_49
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 1572
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e13f360ed8e372400800000000000000
+      internalID: 299276679319384862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_50
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 1596
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f2628784b7f4c110800000000000000
+      internalID: 1280420548819706614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_51
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1603
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c34db99a4fe5c120800000000000000
+      internalID: 2433614277349557187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_52
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1598
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c196ca9d50dfd7490800000000000000
+      internalID: -7746757582438766308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_53
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 1584
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58116250ab1c27af0800000000000000
+      internalID: -400044412188094075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_54
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1606
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9777629070d255480800000000000000
+      internalID: -8911166779441121415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_55
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 1600
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84bd72cc2f53a7ef0800000000000000
+      internalID: -109715923993633976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_56
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 1581
+        width: 28
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81e026f1cb38bfe70800000000000000
+      internalID: 9150051911936904728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_57
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 1599
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 818b6d913bf1f8b70800000000000000
+      internalID: 8903369842427869208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_58
+      rect:
+        serializedVersion: 2
+        x: 499
+        y: 1591
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5173d064b831e3110800000000000000
+      internalID: 1242452036097488661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_59
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 1596
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b4cffebd179f0970800000000000000
+      internalID: 8723357157254218934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_60
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1600
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8ba99c807a3514c0800000000000000
+      internalID: -4317480412695123062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_61
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 1600
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f330077fbb4789040800000000000000
+      internalID: 4654598565546427199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_62
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 1585
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bd82416071583180800000000000000
+      internalID: -9135462301011112524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_63
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 1598
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05b403bb693949350800000000000000
+      internalID: 6022600877296077648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_64
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 1595
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f984f048d15da4b90800000000000000
+      internalID: -7256753526807770977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_65
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 1585
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3571fbe9824cfc030800000000000000
+      internalID: 3517245512740706131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_66
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 1593
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b93e333942311650800000000000000
+      internalID: 6201793451839601081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_67
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 1582
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd12078b257688a90800000000000000
+      internalID: -7311480390056664609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_68
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 1594
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 943388b73317ead30800000000000000
+      internalID: 4444614348191052617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_69
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 1588
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ddb88441ccb6ff20800000000000000
+      internalID: 3456157302317956563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_70
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 1578
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 824a1c256a8063550800000000000000
+      internalID: 6140104652412265512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_71
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 1573
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b3ac255de56159f0800000000000000
+      internalID: -481491615141289037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_72
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 1587
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6ffbb5c6fd01b0e0800000000000000
+      internalID: -2256006584805359764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_73
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 1585
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eb772d2a9cb67690800000000000000
+      internalID: -7604683550399955998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_74
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 1578
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2b45aa63573d38b0800000000000000
+      internalID: -5170915965740430546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_75
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 1586
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8368de4bc3b426e90800000000000000
+      internalID: -7033976943893707208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_76
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 1588
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff0d20e4eedf5f0b0800000000000000
+      internalID: -5695366953787272961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_77
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 1585
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25715035dfd4363d0800000000000000
+      internalID: -3214639958597494958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_78
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 1578
+        width: 29
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f48a8942bce8e440800000000000000
+      internalID: 4965478839658120439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_79
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1584
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29687289edd3ee960800000000000000
+      internalID: 7633106444684330642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_80
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 1587
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c396f7636549ee0800000000000000
+      internalID: -1255283604063699940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_81
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1584
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 995369eb01c3f12a0800000000000000
+      internalID: -6764622072672537191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_82
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1587
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b9f45e33a4d10e0800000000000000
+      internalID: -2297598648138097863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_83
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 1588
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1987f943418b41110800000000000000
+      internalID: 1230810995100711057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_84
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 1579
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b69e6b3be012e780800000000000000
+      internalID: -8655336931352209735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_85
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 1581
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac04bed4b34460b30800000000000000
+      internalID: 4253161919599034570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_86
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 1578
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6346aa6a41953500800000000000000
+      internalID: 375365892758193002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_87
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 1585
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 295f9e69d9c7bf550800000000000000
+      internalID: 6195682728661874066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_88
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 1586
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e28f23232748b7350800000000000000
+      internalID: 6015547353286768686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_89
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 1582
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 248e2cfec9975e720800000000000000
+      internalID: 2874837652090316866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_90
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 1581
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5644584a5e26a95f0800000000000000
+      internalID: -749177649556536219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_91
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 1584
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2ddce67358da8300800000000000000
+      internalID: 255254181888974122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_92
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 1568
+        width: 37
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8848fe72a5b4e0fd0800000000000000
+      internalID: -2373877102988524408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_93
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 1592
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e36dcc8ee2a46f7b0800000000000000
+      internalID: -5190879955163228610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_94
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 1581
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9d9fe983f8fcbaa0800000000000000
+      internalID: -6143762066765275745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_95
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1585
+        width: 18
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de40743b59fe04320800000000000000
+      internalID: 2540293616073901293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_96
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 1578
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c773ca0672d7e0a00800000000000000
+      internalID: 724654198132324220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_97
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 1573
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eb6d8345a4245840800000000000000
+      internalID: 5211830960996051943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_98
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1577
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12db552b7727d1530800000000000000
+      internalID: 3827341116753427745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_99
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1580
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e42f49c82d69d60a0800000000000000
+      internalID: -6886682424133750194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_100
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 1572
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8506588650136f30800000000000000
+      internalID: 4567512410924385675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_101
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 1573
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dddf8aaddf8197440800000000000000
+      internalID: 4934002345335389661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_102
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1573
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 852a49f16f47b8e50800000000000000
+      internalID: 6812667461768618584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_103
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 1568
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8b17473df9df8d40800000000000000
+      internalID: 5588925344167435146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_104
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 1573
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec66b5c274068d000800000000000000
+      internalID: 60904453772633806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_105
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1572
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e29b1d8ca644a030800000000000000
+      internalID: 3505004116916802279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_106
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1580
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55733e1e4c85fced0800000000000000
+      internalID: -2391595274483845291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_107
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 1573
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d69007b804cd14fe0800000000000000
+      internalID: -1206441055383189139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_108
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 1553
+        width: 44
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6791345cda9e2e7b0800000000000000
+      internalID: -5196334087484008074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_109
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 1581
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f863fb2fff0f5de70800000000000000
+      internalID: 9139476000898233999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_110
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 1572
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a85a0140423832520800000000000000
+      internalID: 2676126794298467722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_111
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 1578
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7803a28fd861bc80800000000000000
+      internalID: -8308744528343136132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_112
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 1573
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccedda5d8e941aaf0800000000000000
+      internalID: -386946828610969908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_113
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 1572
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7f5e384a902f6070800000000000000
+      internalID: 8101730101671911290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_114
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 1576
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f7f2b99af67a4110800000000000000
+      internalID: 1245939065613907957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_115
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 1574
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415394d68e81d73c0800000000000000
+      internalID: -4360301477679778540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_116
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 1572
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bdcd6a8fdbe03a20800000000000000
+      internalID: 3040189093807771063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_117
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 1581
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bd841f8e9089bcf0800000000000000
+      internalID: -236016086966563408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_118
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 1571
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ce28008b20498f10800000000000000
+      internalID: 2272418042560917190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_119
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 1559
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb4de804793b13250800000000000000
+      internalID: 5922712447173448895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_120
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 1573
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 105a514a9cbfd1200800000000000000
+      internalID: 152554805860345089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_121
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 1576
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0d54dc4dec4fd410800000000000000
+      internalID: 1504005382644981006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_122
+      rect:
+        serializedVersion: 2
+        x: 654
+        y: 1564
+        width: 26
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb9e759b1570701c0800000000000000
+      internalID: -4537650051969193541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_123
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 1580
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3211bb54df9c4b210800000000000000
+      internalID: 1347924278124417315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_124
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 1573
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 454a2324f73bb5df0800000000000000
+      internalID: -190361200080280492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_125
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1571
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b0ac846f521d8c0800000000000000
+      internalID: -3976355256278054009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_126
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 1563
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 175a14014f9e26240800000000000000
+      internalID: 4783642988674917745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_127
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 1568
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a4654ddca3987850800000000000000
+      internalID: 6375007643198907558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_128
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 1566
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 711e815ad331653a0800000000000000
+      internalID: -6677128242046377705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_129
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1562
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acd4bd1a872624e90800000000000000
+      internalID: -7042958597002932790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_130
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 1561
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d86cae1fd3059c90800000000000000
+      internalID: -7163815375435700016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_131
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 1566
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b399206f8b7bbdb20800000000000000
+      internalID: 3160321568559765819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_132
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1568
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac835969567da360800000000000000
+      internalID: 7182527107117059244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_133
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 1562
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af23e46aad0e3ed70800000000000000
+      internalID: 9071341304151945978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_134
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 1558
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 020e6a505896ca5a0800000000000000
+      internalID: -6508711341410820064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_135
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 1572
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbf98810aee910010800000000000000
+      internalID: 1153377707468824509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_136
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 1572
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb5dd3c1be4c47e90800000000000000
+      internalID: -7028776604348328517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_137
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 1566
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c11d4995059f2c70800000000000000
+      internalID: 8948534835887804873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_138
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 1558
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b3a522d3008be5f0800000000000000
+      internalID: -726346160991263819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_139
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 1571
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 358864ed5ae2f63b0800000000000000
+      internalID: -5517139728571922349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_140
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 1566
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 564d998767d0cea90800000000000000
+      internalID: -7283431694884285339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_141
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 1571
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80d1a6f8e626ed1c0800000000000000
+      internalID: -4477032752567673592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_142
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 1559
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b68cc1e73b31d5980800000000000000
+      internalID: -8548654856043444117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_143
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1558
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08d83e796145ed210800000000000000
+      internalID: 1359616593526754688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_144
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 1572
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 477ca6e6f8755eb70800000000000000
+      internalID: 8927638109876307828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_145
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 1568
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 694ac10ee70562c30800000000000000
+      internalID: 4334240197246755990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_146
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 1568
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e8e0156af41b9c40800000000000000
+      internalID: 5520028833942661353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_147
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 1568
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72199d327a1625ec0800000000000000
+      internalID: -3579691383317229273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_148
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 1573
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fec87c769139c6990800000000000000
+      internalID: -7391371151097230097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_149
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 1562
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9ba5697981e41190800000000000000
+      internalID: -7992515458112312417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_150
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 1573
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ae018da2e0a61a0800000000000000
+      internalID: -6815619508895421898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_151
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 1568
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9940e3399f02af0800000000000000
+      internalID: -423063954176828947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_152
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 1547
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08715b4aad72f2b90800000000000000
+      internalID: -7264543853905635456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_153
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1562
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e19dfc9679e65230800000000000000
+      internalID: 3627343245542789603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_154
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 1557
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 748d3e1a32d7497c0800000000000000
+      internalID: -4065486971615324089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_155
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1562
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43484a799f5312380800000000000000
+      internalID: -8997851234402270156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_156
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1558
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ddf725b6eb40a4e0800000000000000
+      internalID: -1972493182534418988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_157
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 1558
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84f4b0af28c9deb30800000000000000
+      internalID: 4318279704072900424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_158
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1562
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9221f18b806126430800000000000000
+      internalID: 3774603664394490409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_159
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 1553
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99854fd6d652e39d0800000000000000
+      internalID: -2792753566996735847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_160
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 1558
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 592af229109f591f0800000000000000
+      internalID: -1038650353896152427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_161
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 1559
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bce9a23fe0f79780800000000000000
+      internalID: -8676201246968124239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_162
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 1557
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4571e8b933e74ba30800000000000000
+      internalID: 4230144710125950804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_163
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 1555
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bba32abafe29c8870800000000000000
+      internalID: 8686479339365219003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_164
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 1563
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 955d7eba8f6ead560800000000000000
+      internalID: 7339432498464019801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_165
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 1566
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cd3ed8d2b334cb90800000000000000
+      internalID: -7222591059159794231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_166
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 1566
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cecbe9ee78061210800000000000000
+      internalID: 1303238483353784000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_167
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 1559
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30531f5ae08d5480800000000000000
+      internalID: -8908822743763169222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_168
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 1566
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a44e6747be571300800000000000000
+      internalID: 222750847848563878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_169
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 1557
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5938d7e2132da940800000000000000
+      internalID: 5308938099845773662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_170
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1549
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13aee705c0cbe5520800000000000000
+      internalID: 2692796388290259505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_171
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 992
+        height: 1565
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed89ed140996f2c0800000000000000
+      internalID: -4398159743119946268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_172
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 1554
+        width: 21
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4db0e06fc087ee220800000000000000
+      internalID: 2517081238809742292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_173
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 1558
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aec44fd8a6e281f40800000000000000
+      internalID: 5699356363620371690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_174
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 1557
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db3eaa65a72a1280800000000000000
+      internalID: -9071894907971552301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_175
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 1553
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7af98290a0bc69910800000000000000
+      internalID: 1843884341418565543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_176
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 1548
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0935425e95fb95590800000000000000
+      internalID: -7684900896313683056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_177
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 1559
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a621cc5f19b8c17d0800000000000000
+      internalID: -2946326597196836246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_178
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 1559
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1aed46b589e71520800000000000000
+      internalID: 2672861664366160413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_179
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 1554
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f8880a8394cf040800000000000000
+      internalID: 4682698220118773656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_180
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1558
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c939d3cbf703c50800000000000000
+      internalID: 6642949896835144807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_181
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 1555
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0edc34db3952b1260800000000000000
+      internalID: 7069285356553883104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_182
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 1557
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b1fec308033cb7a0800000000000000
+      internalID: -6360152464237334087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_183
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 1556
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c84437211fcdd320800000000000000
+      internalID: 2584449433759664322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_184
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 1553
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4563397e010cdcc20800000000000000
+      internalID: 3228447686731707988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_185
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 1559
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edaa86ba174471e30800000000000000
+      internalID: 4474120009813633758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_186
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 1553
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a45b4b35ab1b01d20800000000000000
+      internalID: 3247290745160512842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_187
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 1554
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c825170eb8330cb20800000000000000
+      internalID: 3152576415018341004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_188
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 1554
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a01c3da70a2cdb00800000000000000
+      internalID: 854604241753084068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_189
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 1549
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e65b81f332795bb0800000000000000
+      internalID: -4946797148268439832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_190
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 1552
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cd5c44131a8c24c0800000000000000
+      internalID: -4310918928750846524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: popup_daily_191
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1558
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bf386c837bea96f0800000000000000
+      internalID: -676969912456429645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      popup_daily_0: 7122693835187345562
+      popup_daily_1: -4656229373095130590
+      popup_daily_10: 2361272547132297016
+      popup_daily_100: 4567512410924385675
+      popup_daily_101: 4934002345335389661
+      popup_daily_102: 6812667461768618584
+      popup_daily_103: 5588925344167435146
+      popup_daily_104: 60904453772633806
+      popup_daily_105: 3505004116916802279
+      popup_daily_106: -2391595274483845291
+      popup_daily_107: -1206441055383189139
+      popup_daily_108: -5196334087484008074
+      popup_daily_109: 9139476000898233999
+      popup_daily_11: 1197012676254990175
+      popup_daily_110: 2676126794298467722
+      popup_daily_111: -8308744528343136132
+      popup_daily_112: -386946828610969908
+      popup_daily_113: 8101730101671911290
+      popup_daily_114: 1245939065613907957
+      popup_daily_115: -4360301477679778540
+      popup_daily_116: 3040189093807771063
+      popup_daily_117: -236016086966563408
+      popup_daily_118: 2272418042560917190
+      popup_daily_119: 5922712447173448895
+      popup_daily_12: 374612834294220888
+      popup_daily_120: 152554805860345089
+      popup_daily_121: 1504005382644981006
+      popup_daily_122: -4537650051969193541
+      popup_daily_123: 1347924278124417315
+      popup_daily_124: -190361200080280492
+      popup_daily_125: -3976355256278054009
+      popup_daily_126: 4783642988674917745
+      popup_daily_127: 6375007643198907558
+      popup_daily_128: -6677128242046377705
+      popup_daily_129: -7042958597002932790
+      popup_daily_13: 2292845660286218006
+      popup_daily_130: -7163815375435700016
+      popup_daily_131: 3160321568559765819
+      popup_daily_132: 7182527107117059244
+      popup_daily_133: 9071341304151945978
+      popup_daily_134: -6508711341410820064
+      popup_daily_135: 1153377707468824509
+      popup_daily_136: -7028776604348328517
+      popup_daily_137: 8948534835887804873
+      popup_daily_138: -726346160991263819
+      popup_daily_139: -5517139728571922349
+      popup_daily_14: -8576623971989270928
+      popup_daily_140: -7283431694884285339
+      popup_daily_141: -4477032752567673592
+      popup_daily_142: -8548654856043444117
+      popup_daily_143: 1359616593526754688
+      popup_daily_144: 8927638109876307828
+      popup_daily_145: 4334240197246755990
+      popup_daily_146: 5520028833942661353
+      popup_daily_147: -3579691383317229273
+      popup_daily_148: -7391371151097230097
+      popup_daily_149: -7992515458112312417
+      popup_daily_15: -4394815137797756115
+      popup_daily_150: -6815619508895421898
+      popup_daily_151: -423063954176828947
+      popup_daily_152: -7264543853905635456
+      popup_daily_153: 3627343245542789603
+      popup_daily_154: -4065486971615324089
+      popup_daily_155: -8997851234402270156
+      popup_daily_156: -1972493182534418988
+      popup_daily_157: 4318279704072900424
+      popup_daily_158: 3774603664394490409
+      popup_daily_159: -2792753566996735847
+      popup_daily_16: -1290947000210998955
+      popup_daily_160: -1038650353896152427
+      popup_daily_161: -8676201246968124239
+      popup_daily_162: 4230144710125950804
+      popup_daily_163: 8686479339365219003
+      popup_daily_164: 7339432498464019801
+      popup_daily_165: -7222591059159794231
+      popup_daily_166: 1303238483353784000
+      popup_daily_167: -8908822743763169222
+      popup_daily_168: 222750847848563878
+      popup_daily_169: 5308938099845773662
+      popup_daily_17: -2078501186114882729
+      popup_daily_170: 2692796388290259505
+      popup_daily_171: -4398159743119946268
+      popup_daily_172: 2517081238809742292
+      popup_daily_173: 5699356363620371690
+      popup_daily_174: -9071894907971552301
+      popup_daily_175: 1843884341418565543
+      popup_daily_176: -7684900896313683056
+      popup_daily_177: -2946326597196836246
+      popup_daily_178: 2672861664366160413
+      popup_daily_179: 4682698220118773656
+      popup_daily_18: 1921013758342491689
+      popup_daily_180: 6642949896835144807
+      popup_daily_181: 7069285356553883104
+      popup_daily_182: -6360152464237334087
+      popup_daily_183: 2584449433759664322
+      popup_daily_184: 3228447686731707988
+      popup_daily_185: 4474120009813633758
+      popup_daily_186: 3247290745160512842
+      popup_daily_187: 3152576415018341004
+      popup_daily_188: 854604241753084068
+      popup_daily_189: -4946797148268439832
+      popup_daily_19: 7828538329694552462
+      popup_daily_190: -4310918928750846524
+      popup_daily_191: -676969912456429645
+      popup_daily_2: 53375892243016707
+      popup_daily_20: 3137523242934037566
+      popup_daily_21: -6598640450917975067
+      popup_daily_22: 6554095535345343558
+      popup_daily_23: -267948441446449284
+      popup_daily_24: -1081353008297348998
+      popup_daily_25: -4225149181581071726
+      popup_daily_26: -7109045710521808698
+      popup_daily_27: -7329834186493974450
+      popup_daily_28: -4844041733819945772
+      popup_daily_29: -7316197541223522063
+      popup_daily_3: 4151534657464139793
+      popup_daily_30: -5822560803809578761
+      popup_daily_31: -5139907975727800286
+      popup_daily_32: 3499568247431050845
+      popup_daily_33: -6174865672339430691
+      popup_daily_34: 9111210443696948213
+      popup_daily_35: -9204476323206143001
+      popup_daily_36: 4846173139528613803
+      popup_daily_37: -916158897467833760
+      popup_daily_38: 3559703245382561356
+      popup_daily_39: 9001158305866408326
+      popup_daily_4: 8281650806720249696
+      popup_daily_40: 2276176093503159700
+      popup_daily_41: 8741994191194320652
+      popup_daily_42: -5243497049631702560
+      popup_daily_43: 4350693682811335386
+      popup_daily_44: -7808252666952646390
+      popup_daily_45: 7425826828436350685
+      popup_daily_46: 2330880937342628748
+      popup_daily_47: -7359117572474301440
+      popup_daily_48: -4004922765636911119
+      popup_daily_49: 299276679319384862
+      popup_daily_5: 6962674221898591309
+      popup_daily_50: 1280420548819706614
+      popup_daily_51: 2433614277349557187
+      popup_daily_52: -7746757582438766308
+      popup_daily_53: -400044412188094075
+      popup_daily_54: -8911166779441121415
+      popup_daily_55: -109715923993633976
+      popup_daily_56: 9150051911936904728
+      popup_daily_57: 8903369842427869208
+      popup_daily_58: 1242452036097488661
+      popup_daily_59: 8723357157254218934
+      popup_daily_6: -1140191716826583077
+      popup_daily_60: -4317480412695123062
+      popup_daily_61: 4654598565546427199
+      popup_daily_62: -9135462301011112524
+      popup_daily_63: 6022600877296077648
+      popup_daily_64: -7256753526807770977
+      popup_daily_65: 3517245512740706131
+      popup_daily_66: 6201793451839601081
+      popup_daily_67: -7311480390056664609
+      popup_daily_68: 4444614348191052617
+      popup_daily_69: 3456157302317956563
+      popup_daily_7: 7994603542716884098
+      popup_daily_70: 6140104652412265512
+      popup_daily_71: -481491615141289037
+      popup_daily_72: -2256006584805359764
+      popup_daily_73: -7604683550399955998
+      popup_daily_74: -5170915965740430546
+      popup_daily_75: -7033976943893707208
+      popup_daily_76: -5695366953787272961
+      popup_daily_77: -3214639958597494958
+      popup_daily_78: 4965478839658120439
+      popup_daily_79: 7633106444684330642
+      popup_daily_8: 6424768040636586957
+      popup_daily_80: -1255283604063699940
+      popup_daily_81: -6764622072672537191
+      popup_daily_82: -2297598648138097863
+      popup_daily_83: 1230810995100711057
+      popup_daily_84: -8655336931352209735
+      popup_daily_85: 4253161919599034570
+      popup_daily_86: 375365892758193002
+      popup_daily_87: 6195682728661874066
+      popup_daily_88: 6015547353286768686
+      popup_daily_89: 2874837652090316866
+      popup_daily_9: 6767044054062757696
+      popup_daily_90: -749177649556536219
+      popup_daily_91: 255254181888974122
+      popup_daily_92: -2373877102988524408
+      popup_daily_93: -5190879955163228610
+      popup_daily_94: -6143762066765275745
+      popup_daily_95: 2540293616073901293
+      popup_daily_96: 724654198132324220
+      popup_daily_97: 5211830960996051943
+      popup_daily_98: 3827341116753427745
+      popup_daily_99: -6886682424133750194
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

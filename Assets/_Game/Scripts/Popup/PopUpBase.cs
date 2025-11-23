@@ -20,8 +20,8 @@ namespace Popup
             TfmPopup.gameObject.SetActive(true);
             TfmPopup.DOLocalMoveY(posY, duration).SetEase(Ease.OutBack).OnComplete(() =>
             {
-                LoadCoinUI();
-                coinBanner.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+                // LoadCoinUI();
+                // coinBanner.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
                 onComplete?.Invoke();
             });
         }

@@ -30,11 +30,6 @@ public class LoadingScreen : ScreenBase
     private async UniTask LoadingSceneAsync(string sceneName)
     {
         progressBar.DOFillAmount(1, 2f).SetEase(Ease.Linear).From(0);
-        // await DOVirtual.Int(0, 100, 2f, (x) =>
-        // {
-        //     if (textPercent != null)
-        //         textPercent.text = x + "%";
-        // });
         await DOVirtual.Int(0, 100, 2f, x => {
             textPercent.text = x + "%";
         }).AsyncWaitForCompletion();

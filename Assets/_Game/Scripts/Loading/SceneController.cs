@@ -66,9 +66,9 @@ public class SceneController : Singleton<SceneController>, ISceneController
                 });
         */
         await LoadingFade.Instance.ShowLoadingFade(midSpriteIndex);
-        await Task.Delay(1000);
+        await Task.Delay(2000);
         SceneManager.LoadScene($"{currentScene}");
-        await Task.Delay(1000);
+        await Task.Delay(2000);       
         await LoadingFade.Instance.HideLoadingFade();
     }
 
@@ -83,8 +83,5 @@ public enum SceneType
 {
     LoadingScene = 0,
     MainScene = 1,
-    Menu = 2,
-    GameScene = 3,
-    LevelScene = 4,
-    Loading = 5,
+    GameScene = 2,
 }

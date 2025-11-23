@@ -15,6 +15,7 @@ public class MainScreen : ScreenBase
     [FormerlySerializedAs("dailyReward")]
     [Header("Main Screen")]
     [SerializeField] private Button btnDailyReward;
+    [SerializeField] private Animator animDailyReward;
     [SerializeField] private Button btnSpinReward;
     [SerializeField] private Button btnLevelMode;
     [SerializeField] private Button btnClassicMode;
@@ -39,8 +40,8 @@ public class MainScreen : ScreenBase
     [SerializeField] private Text hightScoreText;
     [SerializeField] private Text coinText;
     [SerializeField] private Text textLevel;
-    // [SerializeField] private Animator topAnim;
-    // [SerializeField] private Animator bottomAnim;
+    
+    private bool stopIdleAnim = false;
 
     public void OnEnable()
     {
@@ -49,6 +50,7 @@ public class MainScreen : ScreenBase
     public void OnDisable()
     {
         EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
+        stopIdleAnim = true;
     }
     async UniTask Start()
     {
@@ -58,7 +60,7 @@ public class MainScreen : ScreenBase
         // topAnim.SetBool("isShow", true);
         // bottomAnim.SetBool("isShow", true);
         // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
-
+        StartDailyRewardIdleAnim();
     }
     #region Override Methods
     public override void ShowScreen(UnityAction onComplete)
@@ -86,9 +88,14 @@ public class MainScreen : ScreenBase
     public void ClickStartButton()
     {
         var level = DBController.Instance.LEVEL;
-        // InGameData.GAME_SCENE = SceneType.GamePlayScene;
+        InGameData.GAME_SCENE = SceneType.GameScene;
         InGameData.GAME_STATE = GameState.Loading;
-        SceneController.Instance?.ChangeScene(InGameData.GAME_SCENE);
+        SceneController.Instance.ChangeScene(InGameData.GAME_SCENE);
+    }
+    public void OnClickShowPausePopup()
+    {
+        Debug.Log($"CheckClickShowPopup");
+        PopupController.Instance.ClickShowPausePopUp();
     }
     public void OnClickShowLeaderBoard()
     {
@@ -103,7 +110,22 @@ public class MainScreen : ScreenBase
         if (DBController.Instance.MUSIC)
             AudioController.Instance.PlayMusic(Sound.Name.Music_Menu);
     }
+    private async void StartDailyRewardIdleAnim()
+    {
+        stopIdleAnim = false;
 
+        while (!stopIdleAnim)
+        {
+            float waitTime = UnityEngine.Random.Range(4f, 9f);
+            await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: this.GetCancellationTokenOnDestroy());
+
+            if (stopIdleAnim) break;
+            
+            animDailyReward.SetBool("isJump", true);
+            await AnimatorHelper.Instance.WaitForStateComplete(animDailyReward,"Anim_Gift");
+            animDailyReward.SetBool("isJump", false);
+        }
+    }
     #region Show/Hide Main Screen
     public async UniTask DoShowMainScreen() // knight
     {
@@ -131,13 +153,13 @@ public class MainScreen : ScreenBase
             .SetEase(Ease.OutBack)  
             .AsyncWaitForCompletion();
         
-        await rectTopBanner.DOAnchorPosY(0, 0.5f).AsyncWaitForCompletion();
+        rectTopBanner.DOAnchorPosY(0, 0.5f);
         var t1 = btnSpinReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t2 = btnDailyReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t3 = btnPveMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t4 = btnLevelMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t5 = btnClassicMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
-        // AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
+        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
         EventDispatcher.Push(EventId.OnMainScreen);
         await UniTask.WhenAll(t1, t2, t3, t4, t5);
     }

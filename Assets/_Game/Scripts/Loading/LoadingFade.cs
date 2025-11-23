@@ -11,7 +11,7 @@ using UnityEngine.Serialization;
 public class LoadingFade : Singleton<LoadingFade>
 {
     [SerializeField] private float timeClose = 0.8f;
-    [SerializeField] private float timeOpen = 0.5f;
+    [SerializeField] private float timeOpen = 0.8f;
     [SerializeField] private Ease easeOpen = Ease.OutQuad;
     [SerializeField] private Ease easeClose = Ease.OutQuad;
 
@@ -65,7 +65,10 @@ public class LoadingFade : Singleton<LoadingFade>
             hitPos: 0f
         );
         txtBottomBanner.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
-        await Task.Delay(500);
+        DOTween.To(()=>0, x=>{
+            txtBottomBanner.text = "Loading" + new string('.', x % 4);
+        }, 3, 1f).SetLoops(-1).SetEase(Ease.Linear);
+        await Task.Delay(1000);
     }
     public async UniTask HideLoadingFade()
     {

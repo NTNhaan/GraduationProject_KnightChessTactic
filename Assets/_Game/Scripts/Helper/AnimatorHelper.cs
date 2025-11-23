@@ -14,23 +14,16 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
     public async UniTask WaitForStateComplete(Animator animator, string stateName, int layer = 0)
     {
         Debug.Log($"[AnimatorHelper] State Name: {stateName}");
-        await UniTask.Yield();
         int hash = Animator.StringToHash(stateName);
-        await UniTask.WaitUntil(() =>
-            {
-                var current = animator.GetCurrentAnimatorStateInfo(layer);
-                var next = animator.GetNextAnimatorStateInfo(layer);
-                return current.shortNameHash == hash || next.shortNameHash == hash;
-            }
-        );
+        
+        await UniTask.Yield();
+        await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(layer).shortNameHash == hash);
         await UniTask.WaitUntil(() =>
         {
             var s = animator.GetCurrentAnimatorStateInfo(layer);
-            return !animator.IsInTransition(layer) && s.shortNameHash == hash && s.normalizedTime >= 1f;
+            return s.normalizedTime >= 1f && !animator.IsInTransition(layer);
         });
         Debug.Log($"[AnimatorHelper] Done State Name: {stateName}");
-        
-        // animator.enabled = false;
     }
 
     public void ObjectFly(Vector3 firstPos, int objectAmount, Transform lastPos, Transform parent,

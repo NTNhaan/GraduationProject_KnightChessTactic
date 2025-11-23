@@ -17,8 +17,6 @@ public class PausePopup : PopUpBase
     [SerializeField] private Image imgSound;
     [SerializeField] private Image imgMusic;
     [SerializeField] private Image imgVibration;
-    [SerializeField] private Button btnRestart;
-    [SerializeField] private Button btnLoadHome;
     [SerializeField] private Button btnQuit;
     [SerializeField] private ButtonType[] sprtSound;
     [SerializeField] private ButtonType[] sprtMusic;
@@ -94,52 +92,44 @@ public class PausePopup : PopUpBase
     #region PausePopup
     public void ShowPausePopUp()
     {
-        InitStateButton(true);
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
+        // InitStateButton(true);
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
         InGameData.PRE_STATE = InGameData.GAME_STATE;
         InGameData.GAME_STATE = GameState.PauseGame;
         EventDispatcher.Push(EventId.OnGameStateChanged);
         EventManager.PasueGame();
-        ShowPopUp(0f, 0.5f, () =>
+        ShowPopUp(100f, 0.5f, () =>
         {
             DoShowPausePopup();
         });
     }
     public void HidePausePopup()
     {
-        EventDispatcher.Push(EventId.OnSoundClick);
+        // EventDispatcher.Push(EventId.OnSoundClick);
         DoHidePausePopUp();
     }
     [ContextMenu("Show Pause Popup")]
     public async UniTask DoShowPausePopup()
     {
-        var task1 = btnRestart.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).ToUniTask();
-        var task2 = btnLoadHome.transform.DOScale(1f, 0.2f).SetEase(Ease.OutBack).ToUniTask();
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
-        await UniTask.WhenAll(task1, task2);
-
-        imgSound.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-        imgMusic.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-        imgVibration.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+        await imgSound.transform.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await imgMusic.transform.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        await imgVibration.transform.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         btnQuit.interactable = true;
-        btnQuit.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
+        await btnQuit.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
     }
     [ContextMenu("Hide Pause Popup")]
     public async UniTask DoHidePausePopUp(UnityAction onCompleted = null)
     {
-        InitStateButton(false);
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupClose);
-        var t1 = btnQuit.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
-        var t2 = btnRestart.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
-        var t3 = btnLoadHome.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
-        await UniTask.WhenAll(t1, t2, t3);
-        var t4 = imgSound.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
-        var t5 = imgMusic.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
-        var t6 = imgVibration.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).ToUniTask();
+        // InitStateButton(false);
+        // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupClose);
+        await btnQuit.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).AsyncWaitForCompletion().AsUniTask();
+        var t4 = imgSound.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).AsyncWaitForCompletion().AsUniTask();
+        var t5 = imgMusic.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).AsyncWaitForCompletion().AsUniTask();
+        var t6 = imgVibration.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack).AsyncWaitForCompletion().AsUniTask();
         await UniTask.WhenAll(t4, t5, t6);
 
-        HidePopUp(-1800f, 0.5f, () =>
+        HidePopUp(2000f, 0.5f, () =>
         {
             InGameData.GAME_STATE = GameState.PlayingGame;
             EventDispatcher.Push(EventId.OnGameStateChanged);
@@ -174,7 +164,6 @@ public class PausePopup : PopUpBase
     }
     public void InitSetting()
     {
-        Debug.Log($"InitSettingPause");
         SettingCtrl.Instance.UpdateSettingImage(imgSound, sprtSound, DBController.Instance.SOUND);
         SettingCtrl.Instance.UpdateSettingImage(imgVibration, sprtVibration, DBController.Instance.VIBRATE);
         SettingCtrl.Instance.UpdateSettingImage(imgMusic, sprtMusic, DBController.Instance.MUSIC);
@@ -182,8 +171,8 @@ public class PausePopup : PopUpBase
     public void InitStateButton(bool state)
     {
         btnQuit.interactable = state;
-        btnRestart.interactable = state;
-        btnLoadHome.interactable = state;
+        // btnRestart.interactable = state;
+        // btnLoadHome.interactable = state;
     }
     #endregion
 }
