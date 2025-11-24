@@ -26,11 +26,11 @@ public class PieceReward : MonoBehaviour
     }
     public void Update()
     {
-        if (timeBar.role == TimeBar.Role.Player)
+        if (timeBar.role == Role.Player)
         {
             targetPos = target.position;
         }
-        else if (timeBar.role == TimeBar.Role.Demon)
+        else if (timeBar.role == Role.Demon)
         {
             targetPos = targetDemon.position;
         }

@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         itemBehaviors = new Dictionary<ItemPieces.ItemType, System.Action<GamePieces>>
         {
             {ItemPieces.ItemType.Sword, (GamePieces piece) => {
-                if(timeswap.role == TimeBar.Role.Player)
+                if(timeswap.role == Role.Player)
                 {
                     player.PerformAttack(enemy);
                 }
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
                 }
             } },
             {ItemPieces.ItemType.Apple, (GamePieces piece) => {
-                if(timeswap.role == TimeBar.Role.Player)
+                if(timeswap.role == Role.Player)
                 {
                     player.RestoreHealth(5);
                 }
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
                 }
             } },
             {ItemPieces.ItemType.Heart, (GamePieces piece) => {
-                if(timeswap.role == TimeBar.Role.Player)
+                if(timeswap.role == Role.Player)
                 {
                     player.RestoreHealth(player.maxHealth);
                 }
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
                 }
             } },
             {ItemPieces.ItemType.AppleGreen, (GamePieces piece) => {
-                if(timeswap.role == TimeBar.Role.Player)
+                if(timeswap.role == Role.Player)
                 {
                     enemy.ApplyBurnEffect();
                 }

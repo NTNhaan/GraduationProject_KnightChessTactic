@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 public class TimeBar : MonoBehaviour
 {
-    public enum Role
-    {
-        Player,
-        Demon
-    }
     public static TimeBar Instance { get; private set; }
     public Slider TimeSliderDemon;
     public Slider TimeSliderHero;
@@ -20,12 +15,14 @@ public class TimeBar : MonoBehaviour
     public float currentSpeed;
     public Role role;
     public Animator animator;
+    
+    
     private bool isPaused = false;
     private bool hasPlayedWarning = false;
     private const float WARNING_THRESHOLD = 30f;
     private bool isGameStarted = false;
-    public float maxTimeScale = 3f; // Giới hạn tốc độ tối đa
-    public float minTimeScale = 0.5f;
+    // public float maxTimeScale = 3f; // Giới hạn tốc độ tối đa
+    // public float minTimeScale = 0.5f;
     public void Awake()
     {
         if (Instance == null)
@@ -148,4 +145,10 @@ public class TimeBar : MonoBehaviour
         isPaused = true;
         SwapTurn.Instance.StartSwap();
     }
+}
+
+public enum Role
+{
+    Player,
+    Demon
 }

@@ -157,7 +157,7 @@ public class MatchThreeAgent : Agent
         if (timeBar != null)
         {
             // Reset enemy swap state when switching to player's turn
-            if (timeBar.role == TimeBar.Role.Player)
+            if (timeBar.role == Role.Player)
             {
                 isEnemyTurn = false;
                 gameGrid.ResetEnemySwapState();
@@ -165,7 +165,7 @@ public class MatchThreeAgent : Agent
                 isWaitingForMove = true; // Prevent AI from making moves
             }
             // Enable AI and handle enemy's turn
-            else if (timeBar.role == TimeBar.Role.Demon)
+            else if (timeBar.role == Role.Demon)
             {
                 isWaitingForMove = false; // Allow AI to make moves
                 if (!isEnemyTurn && !isEnemyThinking)
@@ -367,7 +367,7 @@ public class MatchThreeAgent : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         // Only process AI actions during enemy's turn
-        if (isWaitingForMove || timeBar.role != TimeBar.Role.Demon) return;
+        if (isWaitingForMove || timeBar.role != Role.Demon) return;
 
         // Get discrete actions
         int sourceX = Mathf.Clamp(actions.DiscreteActions[0], 0, gameGrid.xDim - 1);

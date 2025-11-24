@@ -47,7 +47,7 @@ public class Grid : MonoBehaviour
     private GamePieces pressedPiece;
     private GamePieces enteredPiece;
     // Update is called once per 
-    private TimeBar.Role role;
+    private Role role;
     [SerializeField] private TimeBar timeswap;
 
     public PieceReward pieceReward;
@@ -64,7 +64,7 @@ public class Grid : MonoBehaviour
 
     public void Awake()
     {
-        role = TimeBar.Role.Player;
+        role = Role.Player;
         timeswap = FindObjectOfType<TimeBar>();
         gameManager = GetComponent<GameManager>();
     }
@@ -320,7 +320,7 @@ public class Grid : MonoBehaviour
         }
 
         // Check if it's the enemy's turn and if they've already swapped
-        if (timeswap != null && timeswap.role == TimeBar.Role.Demon)
+        if (timeswap != null && timeswap.role == Role.Demon)
         {
             if (hasEnemySwapped)
             {
@@ -329,7 +329,7 @@ public class Grid : MonoBehaviour
             }
         }
         // If it's player's turn, only allow manual swaps
-        else if (timeswap != null && timeswap.role == TimeBar.Role.Player)
+        else if (timeswap != null && timeswap.role == Role.Player)
         {
             // Player can only swap manually, not through AI
             if (!isManualSwap)
