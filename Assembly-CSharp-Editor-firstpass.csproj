@@ -980,11 +980,11 @@
     <Reference Include="CandyCoded.HapticFeedback.Android">
       <HintPath>C:\Users\Nhan\Documents\Project\gametest\KnightChessTactic\Library\ScriptAssemblies\CandyCoded.HapticFeedback.Android.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:\Users\Nhan\Documents\Project\gametest\KnightChessTactic\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>C:\Users\Nhan\Documents\Project\gametest\KnightChessTactic\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>C:\Users\Nhan\Documents\Project\gametest\KnightChessTactic\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UniTask.Addressables">
       <HintPath>C:\Users\Nhan\Documents\Project\gametest\KnightChessTactic\Library\ScriptAssemblies\UniTask.Addressables.dll</HintPath>

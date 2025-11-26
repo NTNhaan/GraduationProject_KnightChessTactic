@@ -10,7 +10,7 @@ using Data;
 using DG.Tweening;
 using UnityEngine.Serialization;
 
-public class MainScreen : ScreenBase
+public class HomeScreen : ScreenBase
 {
     [FormerlySerializedAs("dailyReward")]
     [Header("Main Screen")]
@@ -21,7 +21,8 @@ public class MainScreen : ScreenBase
     [SerializeField] private Button btnClassicMode;
     [SerializeField] private Button btnPveMode;
     [SerializeField] private RectTransform rectTopBanner;
-
+    [SerializeField] private RectTransform rectBottomBanner;
+    
     [Header("Effect Logo")]
     [SerializeField] private RectTransform rectShield;
     [SerializeField] private Transform trfBannerLogo;
@@ -35,12 +36,12 @@ public class MainScreen : ScreenBase
     [SerializeField] private Transform trfRibbon;
     [SerializeField] private RectTransform rectSwordLeft;
     [SerializeField] private RectTransform rectSwordRight;
-
+    
     [Header("=====HightScore MainScene=====")]
     [SerializeField] private Text hightScoreText;
     [SerializeField] private Text coinText;
     [SerializeField] private Text textLevel;
-
+    
     private bool stopIdleAnim = false;
 
     public void OnEnable()
@@ -120,15 +121,16 @@ public class MainScreen : ScreenBase
             await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: this.GetCancellationTokenOnDestroy());
 
             if (stopIdleAnim) break;
-
+            
             animDailyReward.SetBool("isJump", true);
-            await AnimatorHelper.Instance.WaitForStateComplete(animDailyReward, "Anim_Gift");
+            await AnimatorHelper.Instance.WaitForStateComplete(animDailyReward,"Anim_Gift");
             animDailyReward.SetBool("isJump", false);
         }
     }
     #region Show/Hide Main Screen
     public async UniTask DoShowMainScreen() // knight
     {
+        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
         await rectShield.DOAnchorPosY(0, 0.5f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await trfBannerLogo.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await trfKTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
@@ -137,31 +139,32 @@ public class MainScreen : ScreenBase
         await trfGTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await trfHTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await trfTTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
-
+        
         trfChessTacticTxt.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
         await trfRibbon.DOScaleX(1f, 0.5f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
 
         Vector2 swordRightPos = rectShield.anchoredPosition + new Vector2(217, 5);
         rectSwordRight.anchoredPosition = new Vector2(1000, swordRightPos.y + 800);
         await rectSwordRight.DOAnchorPos(swordRightPos, 0.4f)
-            .SetEase(Ease.OutBack)
+            .SetEase(Ease.OutBack)  
             .AsyncWaitForCompletion();
-
+        
         Vector2 swordLeftPos = rectShield.anchoredPosition + new Vector2(-217, 5);
         rectSwordLeft.anchoredPosition = new Vector2(-1000, swordLeftPos.y + 800);
         await rectSwordLeft.DOAnchorPos(swordLeftPos, 0.4f)
-            .SetEase(Ease.OutBack)
+            .SetEase(Ease.OutBack)  
             .AsyncWaitForCompletion();
-
+        
         rectTopBanner.DOAnchorPosY(0, 0.5f);
         var t1 = btnSpinReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t2 = btnDailyReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t3 = btnPveMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t4 = btnLevelMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t5 = btnClassicMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
-        EventDispatcher.Push(EventId.OnMainScreen);
         await UniTask.WhenAll(t1, t2, t3, t4, t5);
+        
+        rectBottomBanner.DOAnchorPosY(0, 0.5f);
+        EventDispatcher.Push(EventId.OnMainScreen);
     }
 
     public async UniTask DoHideMainScreen(UnityAction onComplete = null)
