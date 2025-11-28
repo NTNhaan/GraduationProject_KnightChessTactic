@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeBar : MonoBehaviour
+public class TimeController : Singleton<TimeController>
 {
-    public static TimeBar Instance { get; private set; }
     public Slider TimeSliderDemon;
     public Slider TimeSliderHero;
     public float MaxTime = 100;
@@ -25,14 +25,6 @@ public class TimeBar : MonoBehaviour
     // public float minTimeScale = 0.5f;
     public void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
         TimeSliderHero.value = MaxTime;
         TimeSliderDemon.value = MaxTime;
     }
@@ -91,7 +83,7 @@ public class TimeBar : MonoBehaviour
         // Chỉ cập nhật thời gian khi game đã bắt đầu
         if (!isGameStarted) return;
 
-        bool SwapOnBoard = SwapTurn.Instance.IsSwapping;
+        bool SwapOnBoard = TurnController.Instance.IsSwapping;
         if (role == Role.Player && !isPaused)
         {
             TimeSliderHero.value -= Time.deltaTime * 10;
@@ -105,7 +97,7 @@ public class TimeBar : MonoBehaviour
             if (TimeSliderHero.value <= 0)
             {
                 // Dừng âm thanh cảnh báo khi slider về 0
-                SwapTurn.Instance.StartSwap();
+                TurnController.Instance.StartSwap();
                 PlayAnimation("StartTurn");
             }
         }
@@ -122,7 +114,7 @@ public class TimeBar : MonoBehaviour
             if (TimeSliderDemon.value <= 0)
             {
                 // Dừng âm thanh cảnh báo khi slider về 0
-                SwapTurn.Instance.StartSwap();
+                TurnController.Instance.StartSwap();
                 PlayAnimation("StartTurnBack");
             }
         }
@@ -143,7 +135,7 @@ public class TimeBar : MonoBehaviour
     public void Pause()
     {
         isPaused = true;
-        SwapTurn.Instance.StartSwap();
+        TurnController.Instance.StartSwap();
     }
 }
 

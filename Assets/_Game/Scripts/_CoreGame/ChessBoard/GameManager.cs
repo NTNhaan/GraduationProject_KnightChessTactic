@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<ItemPieces.ItemType, System.Action<GamePieces>> itemBehaviors;
     [SerializeField] private EnemyCharacter enemy;
     [SerializeField] private HeroCharater player;
-    [SerializeField] private TimeBar timeswap;
+    [SerializeField] private TimeController timeswap;
 
     // Score and combo system
     private int currentScore = 0;
@@ -36,34 +36,55 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // Khởi tạo các tham chiếu nếu chưa được gán trong Inspector
+        // OPTIMIZED: Use FindFirstObjectByType instead of deprecated FindObjectOfType
         if (timeswap == null)
-            timeswap = FindObjectOfType<TimeBar>();
+            timeswap = FindFirstObjectByType<TimeController>();
 
         if (enemy == null)
-            enemy = FindObjectOfType<EnemyCharacter>();
+            enemy = FindFirstObjectByType<EnemyCharacter>();
 
         if (player == null)
-            player = FindObjectOfType<HeroCharater>();
+            player = FindFirstObjectByType<HeroCharater>();
 
         comboMultiplier = 1f;
         currentScore = 0;
     }
 
-    void Update()
+    // OPTIMIZED: Removed Update() loop - using coroutine instead for better performance
+    private Coroutine comboCoroutine;
+
+    void Start()
     {
-        // Update combo timer
-        if (comboTimer > 0)
+        // Start combo timer coroutine
+        InitializeItemBehaviors();
+        comboCoroutine = StartCoroutine(ComboTimerCoroutine());
+    }
+
+    private IEnumerator ComboTimerCoroutine()
+    {
+        while (true)
         {
-            comboTimer -= Time.deltaTime;
-            if (comboTimer <= 0)
+            if (comboTimer > 0)
             {
-                comboMultiplier = 1f;
+                comboTimer -= 0.1f; // Update every 0.1s instead of every frame
+                if (comboTimer <= 0)
+                {
+                    comboMultiplier = 1f;
+                }
             }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    void Start()
+    void OnDestroy()
+    {
+        if (comboCoroutine != null)
+        {
+            StopCoroutine(comboCoroutine);
+        }
+    }
+
+    void InitializeItemBehaviors()
     {
         // Kiểm tra xem các tham chiếu đã được khởi tạo chưa
         if (enemy == null || player == null || timeswap == null)
@@ -139,51 +160,14 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (itemBehaviors.ContainsKey(piece.ItemComponent.Item))
+        // OPTIMIZED: Removed duplicate switch statement - Dictionary already handles this
+        if (itemBehaviors != null && itemBehaviors.ContainsKey(piece.ItemComponent.Item))
         {
             itemBehaviors[piece.ItemComponent.Item].Invoke(piece);
         }
         else
         {
-            // Debug.Log("No item behavior found for " + piece.ItemComponent.Item);
-        }
-        switch (piece.ItemComponent.Item)
-        {
-            case ItemPieces.ItemType.Apple:
-                // Handle Apple behavior
-                break;
-            case ItemPieces.ItemType.AppleGreen:
-                // Handle AppleGreen behavior
-                break;
-            case ItemPieces.ItemType.Beer:
-                // if (timeswap.role == TimeBar.Role.Player)
-                // {
-                //     enemy.ApplySpeedUpEffect();
-                // }
-                // else
-                // {
-                //     player.ApplySpeedUpEffect();
-                // }
-                // Handle Beer behavior
-                break;
-            case ItemPieces.ItemType.Sword:
-                // Handle Sword behavior
-                break;
-            case ItemPieces.ItemType.Heart:
-                // Handle Heart behavior
-                break;
-            case ItemPieces.ItemType.Armor:
-                // Handle Armor behavior
-                break;
-            case ItemPieces.ItemType.Shield:
-                // Handle Shield behavior
-                break;
-            case ItemPieces.ItemType.Mushroom:
-                // Handle Mushroom behavior
-                break;
-            default:
-                Debug.LogError($"No item behavior found for {piece.ItemComponent.Item}");
-                break;
+            Debug.LogWarning($"No item behavior found for {piece.ItemComponent.Item}");
         }
     }
 }

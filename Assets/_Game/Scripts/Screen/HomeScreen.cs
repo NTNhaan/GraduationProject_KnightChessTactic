@@ -21,7 +21,6 @@ public class HomeScreen : ScreenBase
     [SerializeField] private Button btnClassicMode;
     [SerializeField] private Button btnPveMode;
     [SerializeField] private RectTransform rectTopBanner;
-    [SerializeField] private RectTransform rectBottomBanner;
     
     [Header("Effect Logo")]
     [SerializeField] private RectTransform rectShield;
@@ -95,12 +94,15 @@ public class HomeScreen : ScreenBase
     }
     public void OnClickShowPausePopup()
     {
-        Debug.Log($"CheckClickShowPopup");
         PopupController.Instance.ClickShowPausePopUp();
     }
-    public void OnClickShowLeaderBoard()
+    public void OnClickShowDailyRW()
     {
-        PopupController.Instance?.ClickShowLeaderBoardPopUp();
+        PopupController.Instance.ClickShowDailyRWPopUp();
+    }
+    public void OnClickShowSpinRW()
+    {
+        PopupController.Instance.ClickShowSpinRWPopUp();
     }
     public void InitGame()
     {
@@ -163,7 +165,7 @@ public class HomeScreen : ScreenBase
         var t5 = btnClassicMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await UniTask.WhenAll(t1, t2, t3, t4, t5);
         
-        rectBottomBanner.DOAnchorPosY(0, 0.5f);
+        TabController.Instance.ShowBottomTab();
         EventDispatcher.Push(EventId.OnMainScreen);
     }
 

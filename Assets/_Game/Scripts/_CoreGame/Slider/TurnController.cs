@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
-public class SwapTurn : MonoBehaviour
+public class TurnController : Singleton<TurnController>
 {
     private bool isSwapping = false;
-    public static SwapTurn Instance { get; private set; }
     public static event Action OnTranslationEnd;
     public bool IsSwapping
     {
@@ -16,23 +16,11 @@ public class SwapTurn : MonoBehaviour
     {
         isSwapping = true;
     }
-    void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        //TimeBar.Instance.animator = GetComponent<Animator>();
-    }
     public void OnAnimationEnd()
     {
         isSwapping = false;
-        TimeBar.Instance.SwapRole();
-        TimeBar.Instance.ResetAnimation();
+        TimeController.Instance.SwapRole();
+        TimeController.Instance.ResetAnimation();
     }
     public void TranslationHero()
     {

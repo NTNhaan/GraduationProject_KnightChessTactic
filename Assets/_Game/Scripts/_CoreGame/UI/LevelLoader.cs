@@ -11,7 +11,7 @@ public class LevelLoader : MonoBehaviour
     private bool isPlayingPlayerAnim = false;
     private bool isPlayingDemonAnim = false;
     public Grid grid;
-    private TimeBar timeBar;
+    private TimeController timeController;
     private Animator animator;
     public GameObject imageTranlation;
     void Start()
@@ -27,7 +27,7 @@ public class LevelLoader : MonoBehaviour
         //SwapTurn.OnTranslationEnd += TranslationCharacter;
         animator = GetComponent<Animator>();
         grid = FindObjectOfType<Grid>();
-        timeBar = FindObjectOfType<TimeBar>();
+        timeController = FindObjectOfType<TimeController>();
         imageTranlation.SetActive(true);
 
     }

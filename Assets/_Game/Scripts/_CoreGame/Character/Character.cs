@@ -27,14 +27,24 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    // OPTIMIZED: Reduce Update frequency for health UI
+    private float healthUIUpdateInterval = 0.05f; // Update every 0.05s instead of every frame
+    private float healthUIUpdateTimer = 0f;
+
     public void Update()
     {
-
         if (currentState != null)
         {
             currentState.Update(this);
         }
-        UpdateHealthUI();
+
+        // OPTIMIZED: Update health UI less frequently
+        healthUIUpdateTimer += Time.deltaTime;
+        if (healthUIUpdateTimer >= healthUIUpdateInterval)
+        {
+            UpdateHealthUI();
+            healthUIUpdateTimer = 0f;
+        }
     }
 
     public void ChangeState(ICharacterState newState)
@@ -46,18 +56,31 @@ public abstract class Character : MonoBehaviour
         currentState.Enter(this);
     }
 
+    // OPTIMIZED: Cache health fraction calculation and reduce redundant operations
+    private float lastHealthFraction = -1f;
+
     public void UpdateHealthUI()
     {
         health = Mathf.Clamp(health, 0, maxHealth);
+        float hFraction = health / maxHealth;
+
+        // OPTIMIZED: Skip update if health hasn't changed significantly
+        if (Mathf.Abs(hFraction - lastHealthFraction) < 0.001f && lerpTimer == 0f)
+            return;
+
+        lastHealthFraction = hFraction;
+
+        // OPTIMIZED: Cache component references
+        if (fontHealthBar == null || backHealthBar == null) return;
+
         float fillFont = fontHealthBar.fillAmount;
         float fillBack = backHealthBar.fillAmount;
-        float hFraction = health / maxHealth;
 
         if (fillBack > hFraction)
         {
             fontHealthBar.fillAmount = hFraction;
             backHealthBar.color = Color.red;
-            lerpTimer += Time.deltaTime;
+            lerpTimer += healthUIUpdateInterval; // Use update interval instead of deltaTime
             float percentComplete = Mathf.Pow(lerpTimer / chipSpeed, 2);
             backHealthBar.fillAmount = Mathf.Lerp(fillBack, hFraction, percentComplete);
         }
@@ -65,7 +88,7 @@ public abstract class Character : MonoBehaviour
         {
             backHealthBar.fillAmount = hFraction;
             backHealthBar.color = Color.green;
-            lerpTimer += Time.deltaTime;
+            lerpTimer += healthUIUpdateInterval;
             float percentComplete = Mathf.Pow(lerpTimer / chipSpeed, 2);
             fontHealthBar.fillAmount = Mathf.Lerp(fillFont, hFraction, percentComplete);
         }

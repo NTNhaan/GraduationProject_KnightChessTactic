@@ -10,18 +10,14 @@ using UnityEngine.Serialization;
 
 public class DailyRewardPopup : PopUpBase
 {
-    [SerializeField] private Text coinField;
-    [SerializeField] private Transform startCoinPos;
-    [SerializeField] private Transform endCoinPos;
-    [SerializeField] private Transform parentTransform;
-    [FormerlySerializedAs("rectReward")]
-    [Header("Reward Popup")]
-    [SerializeField] private RectTransform rectRewardBanner;
-    [SerializeField] private Animator giftAnim;
-    [SerializeField] private Image shineRotate;
-    [SerializeField] private ParticleSystem confettiParticle;
-    [SerializeField] private ParticleSystem shineParticle;
-    [SerializeField] private Transform coinReward;
+    [SerializeField] private Transform Day1;
+    [SerializeField] private Transform Day2;
+    [SerializeField] private Transform Day3;
+    [SerializeField] private Transform Day4;
+    [SerializeField] private Transform Day5;
+    [SerializeField] private Transform Day6;
+    [SerializeField] private Transform Day7;
+    [SerializeField] private Transform btnClose;
     
     #region Overrides Func
     public override void ShowPopUp(float posY, float duration, UnityAction onComplete = null)
@@ -54,87 +50,56 @@ public class DailyRewardPopup : PopUpBase
     #endregion
     
      #region RewardPopup
-    [ContextMenu("Show Reward Popup")]
-    public async UniTask ShowRewardPopUp()
+    [ContextMenu("Show Daily Reward Popup")]
+    public async UniTask ShowDailyRewardPopUp()
     {
         AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
-        InGameData.GAME_STATE = GameState.PauseGame;
-        EventDispatcher.Push(EventId.OnGameStateChanged);
-        EventManager.PasueGame();
+        // InGameData.GAME_STATE = GameState.PauseGame;
+        // EventDispatcher.Push(EventId.OnGameStateChanged);
+        // EventManager.PasueGame();
+        TabController.Instance.HideBottomTab();
         ShowPopUp(0f, 0.3f, async () =>
         {
-            AudioController.Instance.PlayEffect(Sound.Name.Sound_Celebrate);
-            await rectRewardBanner.DOScale(1f, 0.5f).SetEase(Ease.OutBack).ToUniTask();
-            await rectRewardBanner.DOAnchorPosY(500, 0.5f).SetEase(Ease.OutBack).ToUniTask();
-            
-            giftAnim.transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
-            {
-                AudioController.Instance.PlayEffect(Sound.Name.Sound_Gift);
-                giftAnim.SetBool("isOpen", true); 
-            });
-            
-            await UniTask.Delay(1000);
-            shineParticle.Play();
-            shineParticle.gameObject.SetActive(true);
-            
-            await AnimatorHelper.Instance.WaitForStateComplete(giftAnim, "Anim_Gift");
-            giftAnim.SetBool("isOpen", false);
-            
-            confettiParticle.Play();
-            AudioController.Instance.PlayEffect(Sound.Name.Sound_Confetti);
-            confettiParticle.gameObject.SetActive(true);
-            
-            await AnimatorHelper.Instance.WaitForComplePartical(shineParticle, () =>
-            {
-                shineRotate.DOFade(1f, 0.5f);
-                coinReward.DOScale(1f, 0.5f).SetEase(Ease.OutBack).OnComplete(() =>
-                {
-                    Vector3 firstPosition = startCoinPos.transform.position;
-                    AnimatorHelper.Instance.ObjectFly(firstPosition, 10, endCoinPos, parentTransform, () =>
-                    {
-                        CoinController.Instance.AddCoin(GameConfig.COIN_PLUS, coinField, ()  =>
-                        {
-                            UniTask.Delay(2000);
-                            HideRewardPopUp(); 
-                        });
-                    });
-                });
-            });
+            var t1 = Day1.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            var t2 = Day2.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            var t3 = Day3.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            await UniTask.WhenAll(t1, t2, t3);
+            var t4 = Day4.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            var t5 = Day5.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            var t6 = Day6.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            await UniTask.WhenAll(t4, t5, t6);
+
+            await Day7.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
+            await btnClose.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         });
     }
     
     [ContextMenu("Hide Reward Popup")]
-    public void HideRewardPopUp()
+    public void HideDailyRewardPopUp()
     {
         AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
-        InGameData.GAME_STATE = GameState.PauseGame;
-        EventDispatcher.Push(EventId.OnGameStateChanged);
-        EventManager.PasueGame();
-        DoHidePopupReward();
+        // InGameData.GAME_STATE = GameState.PauseGame;
+        // EventDispatcher.Push(EventId.OnGameStateChanged);
+        // EventManager.PasueGame();
+        DoHidePopupDailyRW();
     }
     
-    public async UniTask DoHidePopupReward()
+    public async UniTask DoHidePopupDailyRW()
     {
-        var t1 = shineRotate.DOFade(0f, 0.5f).SetEase(Ease.OutQuad).ToUniTask();
-        var t2 = coinReward.DOScale(0f, 0.5f).SetEase(Ease.InBack).ToUniTask();
-        await UniTask.WhenAll(t1, t2);
+        btnClose.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
 
-        confettiParticle.gameObject.SetActive(false);
-        shineParticle.gameObject.SetActive(false);
-        
-        var t3 = giftAnim.transform.DOScale(0f, 0.5f).SetEase(Ease.InBack).ToUniTask();
-        // var t4 = coinBanner.DOScale(0f, 0.5f).SetEase(Ease.InBack).ToUniTask();
-        await UniTask.WhenAll(t3);
+        Day1.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+        Day2.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+        Day3.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+       
+        Day4.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+        Day5.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+        Day6.DOScale(0f, 0.3f).SetEase(Ease.InBack);
+        Day7.DOScale(0f, 0.3f).SetEase(Ease.InBack);
 
-        await rectRewardBanner.DOAnchorPosY(-20, 0.5f).SetEase(Ease.OutBack).ToUniTask();
-        await rectRewardBanner.DOScale(0f, 0.5f).SetEase(Ease.OutBack).ToUniTask();
-        
-        giftAnim.SetBool("isClose", true);
-        HidePopUp(-1800f, 0.3f, () =>
+        HidePopUp(2000, 0.3f, () =>
         {
-            EventDispatcher.Push(EventId.OnHidePopupReward);
-            // btnRetry.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            // btnHome.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+            TabController.Instance.ShowBottomTab();
         });
     }
     #endregion

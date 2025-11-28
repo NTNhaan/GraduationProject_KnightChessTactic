@@ -39,7 +39,7 @@ namespace Popup
         public virtual void ShowCover(float duration=0.5f, UnityAction onComplete = null)
         {
             imgCover.gameObject.SetActive(true);
-            imgCover.DOFade(0.9921569f, duration).SetEase(Ease.Linear).OnComplete(() =>
+            imgCover.DOFade(0.8f, duration).SetEase(Ease.Linear).OnComplete(() =>
             {
                 onComplete?.Invoke();
             });

@@ -14,7 +14,7 @@ public class MatchThreeAgent : Agent
     public GameManager gameManager;
     public EnemyCharacter enemyCharacter;
     public HeroCharater playerCharacter;
-    public TimeBar timeBar;
+    public TimeController timeController;
 
     [Header("UI References")]
     public TextMeshProUGUI scoreText;
@@ -81,13 +81,17 @@ public class MatchThreeAgent : Agent
     // Add StatsRecorder field
     private StatsRecorder statsRecorder;
 
+    // OPTIMIZED: Cache enum values to avoid repeated GetValues calls
+    private static readonly int PieceTypeCount = System.Enum.GetValues(typeof(Grid.PieceType)).Length;
+    private static readonly int ItemTypeCount = System.Enum.GetValues(typeof(ItemPieces.ItemType)).Length;
+
     public override void Initialize()
     {
-        // Chỉ tìm references nếu chưa được set
-        if (gameGrid == null) gameGrid = GetComponentInParent<Grid>() ?? FindObjectOfType<Grid>();
-        if (gameManager == null) gameManager = GetComponentInParent<GameManager>() ?? FindObjectOfType<GameManager>();
-        if (enemyCharacter == null) enemyCharacter = GetComponentInParent<EnemyCharacter>() ?? FindObjectOfType<EnemyCharacter>();
-        if (playerCharacter == null) playerCharacter = GetComponentInParent<HeroCharater>() ?? FindObjectOfType<HeroCharater>();
+        // OPTIMIZED: Cache references - use FindFirstObjectByType instead of deprecated FindObjectOfType
+        if (gameGrid == null) gameGrid = GetComponentInParent<Grid>() ?? FindFirstObjectByType<Grid>();
+        if (gameManager == null) gameManager = GetComponentInParent<GameManager>() ?? FindFirstObjectByType<GameManager>();
+        if (enemyCharacter == null) enemyCharacter = GetComponentInParent<EnemyCharacter>() ?? FindFirstObjectByType<EnemyCharacter>();
+        if (playerCharacter == null) playerCharacter = GetComponentInParent<HeroCharater>() ?? FindFirstObjectByType<HeroCharater>();
 
         // Validate references
         if (gameGrid == null || gameManager == null || enemyCharacter == null || playerCharacter == null)
@@ -135,8 +139,8 @@ public class MatchThreeAgent : Agent
     private void CalculateSpecs()
     {
         // Tính tổng số observation:
-        // 1. Piece types và items: gameGrid.xDim * gameGrid.yDim * 2
-        // 2. Match potentials: gameGrid.xDim * gameGrid.yDim * 2
+        // 1. Piece types và items: gameGrid.xDim * gameGrid.yDim * 2 (piece type + item type)
+        // 2. Match potentials: gameGrid.xDim * gameGrid.yDim * 2 (horizontal + vertical)
         // 3. Character states: 2 (enemy health, player health)
         // 4. Combo multiplier: 1
         observationSize = (gameGrid.xDim * gameGrid.yDim * 4) + 3;
@@ -147,31 +151,46 @@ public class MatchThreeAgent : Agent
         branchSizes[2] = gameGrid.xDim;
         branchSizes[3] = gameGrid.yDim;
 
-        // Debug.Log($"Calculated observation size: {observationSize}");
-        // Debug.Log($"Grid dimensions: {gameGrid.xDim}x{gameGrid.yDim}");
-        // Debug.Log($"Expected observations: {(gameGrid.xDim * gameGrid.yDim * 4) + 3}");
+        Debug.Log($"Calculated observation size: {observationSize}");
+        Debug.Log($"Grid dimensions: {gameGrid.xDim}x{gameGrid.yDim}");
+        Debug.Log($"Expected observations: {(gameGrid.xDim * gameGrid.yDim * 4) + 3}");
     }
+
+    // OPTIMIZED: Cache last role to avoid unnecessary checks
+    private Role lastRole = Role.Player;
 
     private void Update()
     {
-        if (timeBar != null)
+        if (timeController != null)
         {
-            // Reset enemy swap state when switching to player's turn
-            if (timeBar.role == Role.Player)
+            Role currentRole = timeController.role;
+
+            // OPTIMIZED: Only process if role changed
+            if (currentRole != lastRole)
             {
-                isEnemyTurn = false;
-                gameGrid.ResetEnemySwapState();
-                // Disable AI processing during player's turn
-                isWaitingForMove = true; // Prevent AI from making moves
-            }
-            // Enable AI and handle enemy's turn
-            else if (timeBar.role == Role.Demon)
-            {
-                isWaitingForMove = false; // Allow AI to make moves
-                if (!isEnemyTurn && !isEnemyThinking)
+                lastRole = currentRole;
+
+                // Reset enemy swap state when switching to player's turn
+                if (currentRole == Role.Player)
                 {
-                    StartCoroutine(EnemyTurn());
+                    isEnemyTurn = false;
+                    gameGrid.ResetEnemySwapState();
+                    isWaitingForMove = true; // Prevent AI from making moves
                 }
+                // Enable AI and handle enemy's turn
+                else if (currentRole == Role.Demon)
+                {
+                    isWaitingForMove = false; // Allow AI to make moves
+                    if (!isEnemyTurn && !isEnemyThinking)
+                    {
+                        StartCoroutine(EnemyTurn());
+                    }
+                }
+            }
+            // OPTIMIZED: Only check for enemy turn if already in Demon role
+            else if (currentRole == Role.Demon && !isEnemyTurn && !isEnemyThinking)
+            {
+                StartCoroutine(EnemyTurn());
             }
         }
     }
@@ -257,15 +276,15 @@ public class MatchThreeAgent : Agent
                 GamePieces piece = gameGrid._pieces[x, y];
                 if (piece != null)
                 {
-                    // Normalize piece type
-                    float normalizedPieceType = (float)piece.Type / (float)System.Enum.GetValues(typeof(Grid.PieceType)).Length;
+                    // OPTIMIZED: Use cached enum count instead of GetValues every time
+                    float normalizedPieceType = (float)piece.Type / (float)PieceTypeCount;
                     sensor.AddObservation(normalizedPieceType);
 
                     // Add item information if piece has an item
                     if (piece.IsItemed())
                     {
-                        float normalizedItemType = (float)piece.ItemComponent.Item /
-                            (float)System.Enum.GetValues(typeof(ItemPieces.ItemType)).Length;
+                        // OPTIMIZED: Use cached enum count
+                        float normalizedItemType = (float)piece.ItemComponent.Item / (float)ItemTypeCount;
                         sensor.AddObservation(normalizedItemType);
                     }
                     else
@@ -320,10 +339,15 @@ public class MatchThreeAgent : Agent
 
         if (observationCount != observationSize)
         {
-            // Debug.LogWarning($"Observation count mismatch! Expected: {observationSize}, Actual: {observationCount}");
+            Debug.LogWarning($"Observation count mismatch! Expected: {observationSize}, Actual: {observationCount}. Grid size: {gameGrid.xDim}x{gameGrid.yDim}");
             CalculateSpecs(); // Recalculate observation size if needed
         }
     }
+
+    // OPTIMIZED: Cache match results to avoid repeated calculations
+    private Dictionary<string, float> matchPotentialCache = new Dictionary<string, float>();
+    private const float CACHE_DURATION = 0.1f; // Cache for 0.1 seconds
+    private float lastCacheClear = 0f;
 
     private float CalculateMatchPotential(int x1, int y1, int x2, int y2)
     {
@@ -336,38 +360,113 @@ public class MatchThreeAgent : Agent
         if (piece1 == null || piece2 == null)
             return 0f;
 
-        // Temporarily swap pieces
-        gameGrid._pieces[x1, y1] = piece2;
-        gameGrid._pieces[x2, y2] = piece1;
+        // OPTIMIZED: Use cache key to avoid redundant calculations
+        string cacheKey = $"{x1},{y1},{x2},{y2}";
 
+        // Clear cache periodically
+        if (Time.time - lastCacheClear > CACHE_DURATION)
+        {
+            matchPotentialCache.Clear();
+            lastCacheClear = Time.time;
+        }
+
+        // Check cache first
+        if (matchPotentialCache.TryGetValue(cacheKey, out float cachedPotential))
+        {
+            return cachedPotential;
+        }
+
+        // OPTIMIZED: Simplified match check without actual swap
+        // Check if swapping would create matches by checking adjacent pieces
         float potential = 0f;
 
-        // Check for matches after swap
-        List<GamePieces> matches = gameGrid.FindMatches();
-        if (matches != null && matches.Count > 0)
-        {
-            // Higher potential for more matches
-            potential = Mathf.Min(matches.Count / 3f, 1f);
+        // Quick check: count potential matches without full swap
+        int potentialMatches = 0;
 
-            // Bonus for special pieces or items
-            foreach (GamePieces match in matches)
+        // Check horizontal matches for piece1 at new position
+        if (x2 > 0 && x2 < gameGrid.xDim - 1)
+        {
+            GamePieces left = gameGrid._pieces[x2 - 1, y2];
+            GamePieces right = gameGrid._pieces[x2 + 1, y2];
+            if (left != null && right != null && piece1.IsItemed() && left.IsItemed() && right.IsItemed())
             {
-                if (match.IsItemed())
-                    potential += 0.2f;
+                if (piece1.ItemComponent.Item == left.ItemComponent.Item &&
+                    piece1.ItemComponent.Item == right.ItemComponent.Item)
+                {
+                    potentialMatches++;
+                }
             }
         }
 
-        // Swap pieces back
-        gameGrid._pieces[x1, y1] = piece1;
-        gameGrid._pieces[x2, y2] = piece2;
+        // Check vertical matches for piece1 at new position
+        if (y2 > 0 && y2 < gameGrid.yDim - 1)
+        {
+            GamePieces up = gameGrid._pieces[x2, y2 - 1];
+            GamePieces down = gameGrid._pieces[x2, y2 + 1];
+            if (up != null && down != null && piece1.IsItemed() && up.IsItemed() && down.IsItemed())
+            {
+                if (piece1.ItemComponent.Item == up.ItemComponent.Item &&
+                    piece1.ItemComponent.Item == down.ItemComponent.Item)
+                {
+                    potentialMatches++;
+                }
+            }
+        }
 
+        // Similar checks for piece2 at new position
+        if (x1 > 0 && x1 < gameGrid.xDim - 1)
+        {
+            GamePieces left = gameGrid._pieces[x1 - 1, y1];
+            GamePieces right = gameGrid._pieces[x1 + 1, y1];
+            if (left != null && right != null && piece2.IsItemed() && left.IsItemed() && right.IsItemed())
+            {
+                if (piece2.ItemComponent.Item == left.ItemComponent.Item &&
+                    piece2.ItemComponent.Item == right.ItemComponent.Item)
+                {
+                    potentialMatches++;
+                }
+            }
+        }
+
+        if (y1 > 0 && y1 < gameGrid.yDim - 1)
+        {
+            GamePieces up = gameGrid._pieces[x1, y1 - 1];
+            GamePieces down = gameGrid._pieces[x1, y1 + 1];
+            if (up != null && down != null && piece2.IsItemed() && up.IsItemed() && down.IsItemed())
+            {
+                if (piece2.ItemComponent.Item == up.ItemComponent.Item &&
+                    piece2.ItemComponent.Item == down.ItemComponent.Item)
+                {
+                    potentialMatches++;
+                }
+            }
+        }
+
+        if (potentialMatches > 0)
+        {
+            potential = Mathf.Min(potentialMatches / 3f, 1f);
+
+            // Bonus for special pieces
+            if (piece1.IsItemed()) potential += 0.1f;
+            if (piece2.IsItemed()) potential += 0.1f;
+        }
+
+        // Cache result
+        matchPotentialCache[cacheKey] = potential;
         return potential;
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        // OPTIMIZED: Add null check for timeController
+        if (timeController == null)
+        {
+            Debug.LogWarning("[MatchThreeAgent] timeController is null, skipping action");
+            return;
+        }
+
         // Only process AI actions during enemy's turn
-        if (isWaitingForMove || timeBar.role != Role.Demon) return;
+        if (isWaitingForMove || timeController.role != Role.Demon) return;
 
         // Get discrete actions
         int sourceX = Mathf.Clamp(actions.DiscreteActions[0], 0, gameGrid.xDim - 1);

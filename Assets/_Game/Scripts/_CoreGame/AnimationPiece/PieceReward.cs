@@ -6,7 +6,7 @@ public class PieceReward : MonoBehaviour
     public Transform target;
     public Transform targetDemon;
     public Camera cam;
-    private TimeBar timeBar;
+    private TimeController timeController;
     private Vector3 targetPos = Vector3.zero;
     public static PieceReward Instance { get; private set; }
     private void Awake()
@@ -22,19 +22,19 @@ public class PieceReward : MonoBehaviour
     }
     private void Start()
     {
-        timeBar = FindObjectOfType<TimeBar>();
+        timeController = FindObjectOfType<TimeController>();
     }
     public void Update()
     {
-        if (timeBar.role == Role.Player)
+        if (timeController.role == Role.Player)
         {
             targetPos = target.position;
         }
-        else if (timeBar.role == Role.Demon)
+        else if (timeController.role == Role.Demon)
         {
             targetPos = targetDemon.position;
         }
-        Debug.Log("Role Pos: " + timeBar.role);
+        Debug.Log("Role Pos: " + timeController.role);
     }
     public void StartCoinMove(Vector3 _intialPos, GameObject Coiprefab)
     {

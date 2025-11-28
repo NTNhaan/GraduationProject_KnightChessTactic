@@ -43,7 +43,12 @@ public class PopupController : Singleton<PopupController>
     [Header("Reward Popup")]
     [SerializeField] private RewardPopup popUpReward;
 
-
+    [Header("Daily Reward Popup")]
+    [SerializeField] private DailyRewardPopup popUpDailyRW;
+    
+    [Header("Spin Reward Popup")]
+    [SerializeField] private SpinRewardPopup popUpSpinRW;
+    
     private bool isFirstClick = true;
 
     public void OnEnable()
@@ -157,7 +162,7 @@ public class PopupController : Singleton<PopupController>
     #endregion
     
         
-    #region RewardPopup
+    #region ------------RewardPopup------------
     [ContextMenu("Show Reward Popup")]
     public void ClickShowRewardPopUp()
     {
@@ -167,6 +172,32 @@ public class PopupController : Singleton<PopupController>
     public void ClickHideRewardPopUp()
     {
         popUpReward.HideRewardPopUp();
+    }
+    #endregion
+    
+    #region ------------DailyRWPopup------------
+    [ContextMenu("Show DailyReward Popup")]
+    public void ClickShowDailyRWPopUp()
+    {
+        popUpDailyRW.ShowDailyRewardPopUp();
+    }    
+    [ContextMenu("Hide DailyReward Popup")]
+    public void ClickHideDailyRWPopUp()
+    {
+        popUpDailyRW.HideDailyRewardPopUp();
+    }
+    #endregion
+    
+    #region ------------SpinRWPopup------------
+    [ContextMenu("Show SpinReward Popup")]
+    public void ClickShowSpinRWPopUp()
+    {
+        popUpSpinRW.ShowSpinRewardPopUp();
+    }    
+    [ContextMenu("Hide SpinReward Popup")]
+    public void ClickHideSpinRWPopUp()
+    {
+        popUpSpinRW.HideSpinRewardPopUp();;
     }
     #endregion
 }

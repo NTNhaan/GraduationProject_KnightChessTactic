@@ -10,7 +10,7 @@ public class TabController : Singleton<TabController>
     [SerializeField] private List<TabItem> tabButtons;
     [SerializeField] private List<TabContent> tabs;
     [SerializeField] private RectTransform tabContainer;
-    
+    [SerializeField] private RectTransform bottomTab;
     private TabType? currentTab = null;
     private TabType previousTab;
     private TabType nextTab;
@@ -123,6 +123,15 @@ public class TabController : Singleton<TabController>
 
         tabs[curIndex].gameObject.SetActive(false);
         isAnimating = false;
+    }
+
+    public void ShowBottomTab()
+    {
+        bottomTab.DOAnchorPosY(0, 0.5f);
+    }
+    public void HideBottomTab()
+    {
+        bottomTab.DOAnchorPosY(-250, 0.5f);
     }
 }
 public enum TabType
