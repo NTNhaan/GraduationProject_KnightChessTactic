@@ -196,7 +196,7 @@ namespace Data
             CheckDependency(DBKey.BEST_SCORE, key => BEST_SCORE = 0);
             CheckDependency(DBKey.LEVEL, key => LEVEL = 1);
             CheckDependency(DBKey.EXP, key => EXP = 0);
-            CheckDependency(DBKey.COIN, key => COIN = 300);
+            CheckDependency(DBKey.COIN, key => COIN = 500);
             CheckDependency(DBKey.COIN_PER_LEVEL, key => COIN_PER_LEVEL = 10);
             CheckDependency(DBKey.DOG_SKIN, key => DOG_SKIN = 0);
             CheckDependency(DBKey.CAT_SKIN, key => CAT_SKIN = 0);

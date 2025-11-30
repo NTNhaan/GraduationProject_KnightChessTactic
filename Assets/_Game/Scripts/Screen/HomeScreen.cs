@@ -14,13 +14,12 @@ public class HomeScreen : ScreenBase
 {
     [FormerlySerializedAs("dailyReward")]
     [Header("Main Screen")]
-    [SerializeField] private Button btnDailyReward;
-    [SerializeField] private Animator animDailyReward;
-    [SerializeField] private Button btnSpinReward;
+    // [SerializeField] private Button btnDailyReward;
+    [SerializeField] private Animator btnDailyReward;
+    [SerializeField] private Animator btnSpinReward;
     [SerializeField] private Button btnLevelMode;
     [SerializeField] private Button btnClassicMode;
     [SerializeField] private Button btnPveMode;
-    [SerializeField] private RectTransform rectTopBanner;
     
     [Header("Effect Logo")]
     [SerializeField] private RectTransform rectShield;
@@ -60,7 +59,7 @@ public class HomeScreen : ScreenBase
         // topAnim.SetBool("isShow", true);
         // bottomAnim.SetBool("isShow", true);
         // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
-        StartDailyRewardIdleAnim();
+        StartIdleLoop();
     }
     #region Override Methods
     public override void ShowScreen(UnityAction onComplete)
@@ -90,7 +89,7 @@ public class HomeScreen : ScreenBase
         var level = DBController.Instance.LEVEL;
         InGameData.GAME_SCENE = SceneType.GameScene;
         InGameData.GAME_STATE = GameState.Loading;
-        SceneController.Instance.ChangeScene(InGameData.GAME_SCENE);
+        DoHideMainScreen().ContinueWith(()=> SceneController.Instance.ChangeScene(InGameData.GAME_SCENE));
     }
     public void OnClickShowPausePopup()
     {
@@ -113,20 +112,52 @@ public class HomeScreen : ScreenBase
         if (DBController.Instance.MUSIC)
             AudioController.Instance.PlayMusic(Sound.Name.Music_Menu);
     }
-    private async void StartDailyRewardIdleAnim()
+    private Animator GetAnimatorByType(IdleAnimType type)
+    {
+        switch (type)
+        {
+            case IdleAnimType.DailyReward:
+                return btnDailyReward;
+            case IdleAnimType.SpinReward:
+                return btnSpinReward;
+            default:
+                return null;
+        }
+    }
+    private async UniTask PlayIdleAnimation(IdleAnimType type)
+    {
+        Animator anim = GetAnimatorByType(type);
+        if (anim == null) return;
+
+        anim.SetBool("isJump", true);
+        if (type == IdleAnimType.DailyReward)
+        {
+            await AnimatorHelper.Instance.WaitForStateComplete(anim, "Anim_Gift");
+        }
+        else
+        {
+            await AnimatorHelper.Instance.WaitForStateComplete(anim, "Anim_SpinRun");
+        }
+        anim.SetBool("isJump", false);
+    }
+    private async void StartIdleLoop()
     {
         stopIdleAnim = false;
 
         while (!stopIdleAnim)
         {
             float waitTime = UnityEngine.Random.Range(4f, 9f);
-            await UniTask.Delay(TimeSpan.FromSeconds(waitTime), cancellationToken: this.GetCancellationTokenOnDestroy());
+            await UniTask.Delay(TimeSpan.FromSeconds(waitTime),
+                cancellationToken: this.GetCancellationTokenOnDestroy());
 
             if (stopIdleAnim) break;
-            
-            animDailyReward.SetBool("isJump", true);
-            await AnimatorHelper.Instance.WaitForStateComplete(animDailyReward,"Anim_Gift");
-            animDailyReward.SetBool("isJump", false);
+
+            // random pick 1 trong 2
+            IdleAnimType chosen = (UnityEngine.Random.value > 0.5f)
+                ? IdleAnimType.DailyReward
+                : IdleAnimType.SpinReward;
+
+            await PlayIdleAnimation(chosen);
         }
     }
     #region Show/Hide Main Screen
@@ -156,8 +187,8 @@ public class HomeScreen : ScreenBase
         await rectSwordLeft.DOAnchorPos(swordLeftPos, 0.4f)
             .SetEase(Ease.OutBack)  
             .AsyncWaitForCompletion();
-        
-        rectTopBanner.DOAnchorPosY(0, 0.5f);
+
+        UITopController.Instance.ShowTab();
         var t1 = btnSpinReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t2 = btnDailyReward.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t3 = btnPveMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
@@ -171,6 +202,8 @@ public class HomeScreen : ScreenBase
 
     public async UniTask DoHideMainScreen(UnityAction onComplete = null)
     {
+        UITopController.Instance.HideTab();
+        TabController.Instance.HideBottomTab();
         // InitStateButton(false);
         // var t4 = playBtn.transform.DOScale(0f, .3f).SetEase(Ease.InBack).ToUniTask();
         // var t5 = leaderBoard.transform.DOScale(0f, .3f).SetEase(Ease.InBack).ToUniTask();
@@ -208,4 +241,10 @@ public class HomeScreen : ScreenBase
         SettingCtrl.Instance.SetMusic();
     }
     #endregion
+}
+
+public enum IdleAnimType
+{
+    DailyReward,
+    SpinReward
 }

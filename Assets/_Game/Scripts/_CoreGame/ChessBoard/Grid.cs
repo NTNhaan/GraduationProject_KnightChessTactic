@@ -7,7 +7,7 @@ public class Grid : MonoBehaviour
 {
     // public EnemyCharacter enemy;
     // public HeroCharater player;
-    private GameManager gameManager;
+    private GamePlayController gamePlayController;
     public enum PieceType
     {
         NORMAL,
@@ -28,7 +28,7 @@ public class Grid : MonoBehaviour
         public int x;
         public int y;
     };
-
+    
     public int xDim;
     public int yDim;
     public float FillTime;
@@ -61,19 +61,15 @@ public class Grid : MonoBehaviour
 
     private bool hasEnemySwapped = false;
 
-    // Thêm event để thông báo khi board đã fill xong
-    public static event Action OnBoardFilled;  // observer để theo dõi sự kiện
+    public static event Action OnBoardFilled;
 
     public void Awake()
     {
         role = Role.Player;
-        // OPTIMIZED: Use FindFirstObjectByType instead of deprecated FindObjectOfType
         if (timeswap == null)
             timeswap = FindFirstObjectByType<TimeController>();
-        if (gameManager == null)
-            gameManager = GetComponent<GameManager>();
-
-        // CRITICAL: Ensure Main Camera has Physics2DRaycaster for OnMouse events to work
+        if (gamePlayController == null)
+            gamePlayController = GetComponent<GamePlayController>();
     }
 
 
@@ -106,7 +102,6 @@ public class Grid : MonoBehaviour
                 bg.transform.parent = transform;
             }
         }
-        //instantiating pieces
         _pieces = new GamePieces[xDim, yDim];
         for (int i = 0; i < initialPieces.Length; i++)
         {
@@ -134,16 +129,12 @@ public class Grid : MonoBehaviour
         yield return StartCoroutine(FillCoroutine(true));
         isFilling = false;
 
-        // Thông báo cho tất cả các observer khi board đã fill xong
         OnBoardFilled?.Invoke();
         Debug.Log("[FILL] Initial fill completed");
     }
 
-    // OPTIMIZED: Removed infinite loop - Fill() is now called explicitly when needed
-    // CheckAndFill() removed - no longer needed as Fill() handles its own completion
     public IEnumerator Fill()
     {
-        // OPTIMIZED: Prevent multiple Fill() coroutines from running simultaneously
         if (isFilling && fillCoroutine != null)
         {
             Debug.Log("[FILL] Fill() already running, skipping...");
@@ -153,6 +144,11 @@ public class Grid : MonoBehaviour
         bool needRefill = true;
         isFilling = true;
         fillCoroutine = StartCoroutine(FillCoroutine(needRefill));
+
+        while (isFilling)
+        {
+            yield return null;
+        }
     }
 
     private IEnumerator FillCoroutine(bool initialNeedRefill)
@@ -162,7 +158,6 @@ public class Grid : MonoBehaviour
         while (needRefill && isFilling)
         {
             yield return new WaitForSeconds(FillTime);
-            // Thực hiện fill trong một frame
             bool movedPiece = false;
             do
             {
@@ -173,10 +168,8 @@ public class Grid : MonoBehaviour
                 }
             } while (movedPiece);
 
-            // Kiểm tra và xóa matches
             needRefill = ClearAllValidMatches();
 
-            // Cho phép game update trạng thái
             yield return null;
         }
 
@@ -193,7 +186,6 @@ public class Grid : MonoBehaviour
             {
                 int x = loopX;
                 GamePieces piece = _pieces[x, y];
-                // OPTIMIZED: Only set name in debug builds to reduce string allocations
 #if UNITY_EDITOR
                 piece.name = "Piece(" + x + "," + y + ")" + "[" + piece.X + "," + piece.Y + "]";
 #endif
@@ -204,7 +196,6 @@ public class Grid : MonoBehaviour
                     if (pieceBelow.Type == PieceType.EMPTY)
                     {
                         Destroy(pieceBelow.gameObject);
-                        //Debug.Log("Spawn piece for the second row and fill chessboard:  " + "[" + tmpx + "," + tmpy + "]");
                         piece.MovableComponent.Move(x, y + 1, FillTime);
                         _pieces[x, y + 1] = piece;
                         SpawnNewPiece(x, y, PieceType.EMPTY);
@@ -226,7 +217,6 @@ public class Grid : MonoBehaviour
                 _pieces[x, 0].Init(x, -1, this, PieceType.NORMAL);
                 _pieces[x, 0].MovableComponent.Move(x, 0, FillTime);
 
-                // Lấy danh sách các item type không tạo match
                 ItemPieces.ItemType newType = GetNonMatchingItemType(x, 0);
                 _pieces[x, 0].ItemComponent.SetItem(newType);
                 movedPiece = true;
@@ -234,7 +224,6 @@ public class Grid : MonoBehaviour
         }
         return movedPiece;
     }
-    // OPTIMIZED: Cache lists to reduce allocations
     private List<ItemPieces.ItemType> _cachedAvailableTypes = new List<ItemPieces.ItemType>();
     private List<ItemPieces.ItemType> _cachedInvalidTypes = new List<ItemPieces.ItemType>();
 
@@ -244,7 +233,6 @@ public class Grid : MonoBehaviour
         _cachedAvailableTypes.AddRange(_itemWeights.Keys);
         _cachedInvalidTypes.Clear();
 
-        // Kiểm tra match ngang
         if (x >= 2)
         {
             if (_pieces[x - 1, y].IsItemed() && _pieces[x - 2, y].IsItemed() &&
@@ -254,7 +242,6 @@ public class Grid : MonoBehaviour
             }
         }
 
-        // Kiểm tra match dọc
         if (y >= 2)
         {
             if (_pieces[x, y - 1].IsItemed() && _pieces[x, y - 2].IsItemed() &&
@@ -264,20 +251,17 @@ public class Grid : MonoBehaviour
             }
         }
 
-        // Loại bỏ các type không hợp lệ
         foreach (var invalidType in _cachedInvalidTypes)
         {
             _cachedAvailableTypes.Remove(invalidType);
         }
 
-        // Nếu không còn type hợp lệ, sử dụng tất cả các type
         if (_cachedAvailableTypes.Count == 0)
         {
             _cachedAvailableTypes.Clear();
             _cachedAvailableTypes.AddRange(_itemWeights.Keys);
         }
 
-        // Chọn ngẫu nhiên từ các type còn lại dựa trên trọng số
         float totalWeight = 0;
         foreach (var type in _cachedAvailableTypes)
         {
@@ -299,7 +283,7 @@ public class Grid : MonoBehaviour
         return _cachedAvailableTypes[0];
     }
     public GamePieces SpawnNewPiece(int x, int y, PieceType type)
-    { // Tạo mảnh ghép mới tại vị trí xác định
+    {
         GameObject newPiece = (GameObject)Instantiate(_piecePrefabDict[type], GetWorldPosition(x, y, 0), Quaternion.identity);
         newPiece.transform.parent = transform;
         _pieces[x, y] = newPiece.GetComponent<GamePieces>();
@@ -312,7 +296,6 @@ public class Grid : MonoBehaviour
 
         _pieces[x, y].Init(x, y, this, type);
 
-        // OPTIMIZED: Ensure collider exists and is enabled after spawn
         BoxCollider2D col = _pieces[x, y].GetComponent<BoxCollider2D>();
         if (col == null)
         {
@@ -321,7 +304,6 @@ public class Grid : MonoBehaviour
 
         if (col != null && !col.enabled)
         {
-            Debug.LogWarning($"SpawnNewPiece: Enabling collider on piece at ({x}, {y})");
             col.enabled = true;
         }
 
@@ -329,7 +311,7 @@ public class Grid : MonoBehaviour
     }
 
     public static bool IsAdjacent(GamePieces piece1, GamePieces piece2)
-    {  // kiểm tra 2 mảnh có liền kề hay không
+    {
         return (piece1.X == piece2.X && Mathf.Abs(piece1.Y - piece2.Y) == 1) ||
             (piece1.Y == piece2.Y && Mathf.Abs(piece1.X - piece2.X) == 1);
     }
@@ -348,47 +330,38 @@ public class Grid : MonoBehaviour
             return;
         }
 
-        // OPTIMIZED: Allow swap even during fill - fill will handle itself
         if (isFilling)
         {
             Debug.Log("[SWAP] Board is filling, but allowing swap to proceed");
-            // Don't return - allow swap to proceed
         }
 
-        if (gameManager == null)
+        if (gamePlayController == null)
         {
-            gameManager = FindFirstObjectByType<GameManager>();
-            if (gameManager == null)
+            gamePlayController = FindFirstObjectByType<GamePlayController>();
+            if (gamePlayController == null)
             {
-                Debug.LogError("GameManager not found!");
+                Debug.LogError("[Grid] GamePlayController not found!");
                 return;
             }
         }
 
-        // Check if it's the enemy's turn and if they've already swapped
         if (timeswap != null && timeswap.role == Role.Demon)
         {
             if (hasEnemySwapped)
             {
-                Debug.Log("Enemy has already swapped this turn");
                 return;
             }
-            // Mark enemy swap for this turn
             hasEnemySwapped = true;
         }
-        // If it's player's turn, only allow manual swaps
         else if (timeswap != null && timeswap.role == Role.Player)
         {
-            // Player can only swap manually, not through AI
             if (!isManualSwap)
             {
-                Debug.Log("Player can only swap manually");
                 return;
             }
         }
         else if (timeswap == null)
         {
-            Debug.LogWarning("TimeBar (timeswap) is null - cannot determine turn");
             return;
         }
 
@@ -401,35 +374,25 @@ public class Grid : MonoBehaviour
         piece1.MovableComponent.Move(piece2.X, piece2.Y, FillTime);
         piece2.MovableComponent.Move(piece1X, piece1Y, FillTime);
 
-        // Add safety checks for timeswap
-        // if (timeswap != null)
-        // {
-        //     try
-        //     {
-        //         if (timeswap.role == TimeBar.Role.Player)
-        //         {
-        //             timeswap.Pause();
-        //             timeswap.PlayAnimation("StartTurn");
-        //         }
-        //         else if (timeswap.role == TimeBar.Role.Demon)
-        //         {
-        //             timeswap.Pause();
-        //             timeswap.PlayAnimation("StartTurnBack");
-        //             hasEnemySwapped = true;
-        //         }
-        //     }
-        //     catch (System.Exception e)
-        //     {
-        //         Debug.LogError($"Error during timeswap animation: {e.Message}");
-        //     }
-        // }
-
         Debug.Log($"[SWAP] SwapPiece completed - pieces swapped at ({piece1.X},{piece1.Y}) and ({piece2.X},{piece2.Y})");
 
         ClearAllValidMatches();
+        StartCoroutine(FillAndSwapRole());
+    }
 
-        // OPTIMIZED: Start Fill() but don't block - allow user to swap again immediately
-        StartCoroutine(Fill());
+    private IEnumerator FillAndSwapRole()
+    {
+        yield return StartCoroutine(Fill());
+
+        Debug.Log("[SWAP] Fill completed, swapping role...");
+        if (TurnController.Instance != null)
+        {
+            TurnController.Instance.StartTurnChange();
+        }
+        else
+        {
+            Debug.LogWarning("[SWAP] TurnController not found, cannot swap role");
+        }
     }
 
     public void ResetEnemySwapState()
@@ -449,10 +412,8 @@ public class Grid : MonoBehaviour
         piece1.MovableComponent.Move(piece2.X, piece2.Y, FillTime);
         piece2.MovableComponent.Move(piece1X, piece1Y, FillTime);
 
-        // Wait for another delay
         yield return new WaitForSeconds(delay);
 
-        // Swap back
         _pieces[piece1.X, piece1.Y] = piece1;
         _pieces[piece2.X, piece2.Y] = piece2;
         piece1.MovableComponent.Move(piece1X, piece1Y, FillTime);
@@ -476,7 +437,6 @@ public class Grid : MonoBehaviour
                     else x = NewX + xOffset; // right
                     if (x < 0 || x >= xDim) break;
 
-                    // piece is the same item type  => add to the list
                     if (_pieces[x, NewY].IsItemed() && _pieces[x, NewY].ItemComponent.Item == type)
                     {
                         horizontalPieces.Add(_pieces[x, NewY]);
@@ -490,11 +450,9 @@ public class Grid : MonoBehaviour
                 for (int i = 0; i < horizontalPieces.Count; i++)
                 {
                     matchingPieces.Add(horizontalPieces[i]);
-                    //Debug.Log("PieceTypeHorizontalList: " + horizontalPieces[i].ItemComponent.Item);
                 }
             }
 
-            // Traverse vertically if we found a match (3 or more pieces)
             if (horizontalPieces.Count >= 3)
             {
                 for (int i = 0; i < horizontalPieces.Count; i++)
@@ -534,11 +492,10 @@ public class Grid : MonoBehaviour
             horizontalPieces.Clear();
             verticalPieces.Clear();
 
-            //check verticalPiece---m----------------
             verticalPieces.Add(piece);
             for (int dir = 0; dir <= 1; dir++)
             {
-                for (int yOffset = 1; yOffset < xDim; yOffset++)  //(*****************)
+                for (int yOffset = 1; yOffset < xDim; yOffset++)
                 {
                     int y;
                     if (dir == 0) y = NewY - yOffset; // left
@@ -560,10 +517,8 @@ public class Grid : MonoBehaviour
                 for (int i = 0; i < verticalPieces.Count; i++)
                 {
                     matchingPieces.Add(verticalPieces[i]);
-                    //Debug.Log("PieceTypeVerticalList: " + verticalPieces[i].ItemComponent.Item);
                 }
             }
-            // Traverse horizontal if we found a match (3 or more pieces)
             if (verticalPieces.Count >= 3)
             {
                 for (int i = 0; i < verticalPieces.Count; i++)
@@ -603,18 +558,16 @@ public class Grid : MonoBehaviour
         }
         return null;
     }
-    // OPTIMIZED: Cache HashSet to track cleared pieces and avoid duplicate processing
     private HashSet<GamePieces> _processedPieces = new HashSet<GamePieces>();
 
     private bool ClearAllValidMatches()
     {
         bool needRefill = false;
-        _processedPieces.Clear(); // Clear cache at start
+        _processedPieces.Clear();
 
-        // OPTIMIZED: Ensure gameManager is initialized
-        if (gameManager == null)
+        if (gamePlayController == null)
         {
-            gameManager = GetComponent<GameManager>() ?? FindFirstObjectByType<GameManager>();
+            gamePlayController = GetComponent<GamePlayController>() ?? FindFirstObjectByType<GamePlayController>();
         }
 
         for (int y = 0; y < yDim; y++)
@@ -630,22 +583,17 @@ public class Grid : MonoBehaviour
 
                 foreach (var gamePiece in match)
                 {
-                    // OPTIMIZED: Add null check for gamePiece (might be destroyed during loop)
                     if (gamePiece == null || _processedPieces.Contains(gamePiece)) continue;
                     _processedPieces.Add(gamePiece);
 
-                    // OPTIMIZED: Add null checks for gameManager and pieceReward
-                    if (gameManager != null)
+                    if (gamePlayController != null)
                     {
-                        gameManager.HandleItemBehaviour(gamePiece);  // xử lý action khi match piece
+                        gamePlayController.HandleItemBehaviour(gamePiece);
                     }
 
                     BoxCollider2D boxCollider = gamePiece.GetComponent<BoxCollider2D>();
                     if (boxCollider != null)
                     {
-                        // OPTIMIZED: Don't disable collider - it prevents OnMouse events from working
-                        // Instead, we'll check if piece is being cleared before allowing input
-                        // boxCollider.enabled = false;
                         Debug.Log($"[SWAP] Piece at ({gamePiece.X}, {gamePiece.Y}) matched - keeping collider enabled for cleanup");
                     }
 
@@ -654,7 +602,6 @@ public class Grid : MonoBehaviour
                         pieceReward.StartCoinMove(gamePiece.transform.position, gamePiece.gameObject);
                     }
 
-                    // OPTIMIZED: Check gamePiece is still valid before clearing (might be destroyed)
                     if (gamePiece != null && gamePiece.gameObject != null)
                     {
                         if (!ClearPiece(gamePiece.X, gamePiece.Y)) continue;
@@ -667,7 +614,6 @@ public class Grid : MonoBehaviour
     }
     public bool ClearPiece(int x, int y)
     {
-        // OPTIMIZED: Add null check for piece
         if (x < 0 || x >= xDim || y < 0 || y >= yDim)
             return false;
 
@@ -683,8 +629,6 @@ public class Grid : MonoBehaviour
         }
         return false;
     }
-
-    // auxiliary methods
     Vector2 GetPrefabSize(GameObject prefab)
     {
         Renderer prefabRederer = prefab.GetComponent<Renderer>();
@@ -694,7 +638,6 @@ public class Grid : MonoBehaviour
         }
         else
         {
-            //Debug.LogError("check prefab Renderer");
             return Vector2.zero;
         }
     }
@@ -707,28 +650,24 @@ public class Grid : MonoBehaviour
     }
 
 
+    private static GamePieces lastPressedPiece = null;
+
     public void PressPiece(GamePieces piece)
     {
         pressedPiece = piece;
-        Debug.Log($"[INPUT] PressPiece: Piece at ({piece.X}, {piece.Y})");
+        lastPressedPiece = piece;
     }
 
     public void EnterPiece(GamePieces piece)
     {
         enteredPiece = piece;
-        Debug.Log($"[INPUT] EnterPiece: Piece at ({piece.X}, {piece.Y})");
     }
 
     public void ReleasePiece()
     {
-        Debug.Log($"[INPUT] ReleasePiece called - isFilling: {isFilling}");
-
-        // OPTIMIZED: Allow swap even during fill - only block if actively moving pieces
-        // The fill process will handle itself, user should be able to swap immediately
         if (isFilling)
         {
             Debug.Log("[SWAP] Board is filling, but allowing swap (fill will continue in background)");
-            // Don't return - allow swap to proceed
         }
 
         // Check if it's player's turn
@@ -742,34 +681,35 @@ public class Grid : MonoBehaviour
 
         if (timeswap.role != Role.Player)
         {
-            Debug.Log($"[SWAP] Not player's turn (current: {timeswap.role}) - cannot swap");
             return;
         }
 
         bool Swaped = TurnController.Instance != null && TurnController.Instance.IsSwapping;
-        Debug.Log($"[SWAP] TurnController.IsSwapping: {Swaped}, pressedPiece: {pressedPiece != null}, enteredPiece: {enteredPiece != null}");
 
         if (!Swaped)
         {
+            if (pressedPiece == null && lastPressedPiece != null)
+            {
+                pressedPiece = lastPressedPiece;
+            }
+
             if (pressedPiece == null || enteredPiece == null)
             {
-                Debug.Log($"[SWAP] Pressed or entered piece is null - pressed: {pressedPiece != null}, entered: {enteredPiece != null}");
+                pressedPiece = null;
+                enteredPiece = null;
+                lastPressedPiece = null;
                 return;
             }
 
             if (pressedPiece == enteredPiece)
             {
-                Debug.Log($"[SWAP] Overlapping piece at ({pressedPiece.X}, {pressedPiece.Y})");
                 return;
             }
             else
             {
                 bool adjacent = IsAdjacent(pressedPiece, enteredPiece);
-                Debug.Log($"[SWAP] Pieces at ({pressedPiece.X},{pressedPiece.Y}) and ({enteredPiece.X},{enteredPiece.Y}) - Adjacent: {adjacent}");
-
                 if (adjacent)
                 {
-                    Debug.Log("[SWAP] Calling SwapPiece...");
                     SwapPiece(pressedPiece, enteredPiece, true);
                 }
                 else
@@ -783,20 +723,18 @@ public class Grid : MonoBehaviour
             Debug.Log("[SWAP] Already swapping (TurnController.IsSwapping = true) - cannot swap again");
         }
 
-        // Reset pieces after attempt
         pressedPiece = null;
         enteredPiece = null;
+        lastPressedPiece = null;
     }
 
-    // OPTIMIZED: Use HashSet for O(1) lookup instead of List.Contains() which is O(n)
     private HashSet<GamePieces> _matchCache = new HashSet<GamePieces>();
 
     public List<GamePieces> FindMatches()
     {
-        _matchCache.Clear(); // Clear cache
+        _matchCache.Clear();
         List<GamePieces> matchingPieces = new List<GamePieces>();
 
-        // Check horizontal matches
         for (int y = 0; y < yDim; y++)
         {
             for (int x = 0; x < xDim - 2; x++)
@@ -809,7 +747,6 @@ public class Grid : MonoBehaviour
                     piece1.Type == piece2.Type && piece2.Type == piece3.Type &&
                     piece1.Type != PieceType.EMPTY)
                 {
-                    // OPTIMIZED: Use HashSet for O(1) lookup
                     if (!_matchCache.Contains(piece1))
                     {
                         _matchCache.Add(piece1);
@@ -828,8 +765,6 @@ public class Grid : MonoBehaviour
                 }
             }
         }
-
-        // Check vertical matches
         for (int x = 0; x < xDim; x++)
         {
             for (int y = 0; y < yDim - 2; y++)
@@ -842,7 +777,6 @@ public class Grid : MonoBehaviour
                     piece1.Type == piece2.Type && piece2.Type == piece3.Type &&
                     piece1.Type != PieceType.EMPTY)
                 {
-                    // OPTIMIZED: Use HashSet for O(1) lookup
                     if (!_matchCache.Contains(piece1))
                     {
                         _matchCache.Add(piece1);

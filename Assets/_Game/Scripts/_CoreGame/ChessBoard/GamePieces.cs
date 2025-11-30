@@ -146,44 +146,78 @@ public class GamePieces : MonoBehaviour
         _grid.ReleasePiece();
     }
 
-    // DEBUG: Alternative input method - only enable if OnMouse events don't work
-    // Uncomment this if OnMouseDown/Up don't fire
-    /*
+    // FIXED: Use Update() method instead of OnMouse events because UI is blocking OnMouse
+    // This works even when UI is over the pieces
+    private bool isMouseDown = false;
+    private bool isMouseOver = false;
+    private static GamePieces currentHoverPiece = null; // Track which piece mouse is over
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        // OPTIMIZED: Only check when mouse button is pressed or released
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonUp(0))
+            return;
+
+        // Check if mouse is over this piece using raycast
+        if (cachedCollider == null || !cachedCollider.enabled)
+            return;
+
+        Camera mainCam = Camera.main;
+        if (mainCam == null)
+            return;
+
+        Vector3 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = transform.position.z;
+
+        bool mouseOverPiece = cachedCollider.bounds.Contains(mousePos);
+
+        // Handle mouse enter/exit (only when mouse moves over different piece)
+        if (mouseOverPiece && currentHoverPiece != this)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = transform.position.z;
-            
-            BoxCollider2D col = GetComponent<BoxCollider2D>();
-            if (col != null && col.enabled && col.bounds.Contains(mousePos))
+            if (currentHoverPiece != null)
             {
-                Debug.Log($"[DEBUG INPUT] Manual click detected on piece at ({X}, {Y})");
-                if (_grid != null)
-                {
-                    _grid.PressPiece(this);
-                }
+                currentHoverPiece.isMouseOver = false;
+            }
+            currentHoverPiece = this;
+            isMouseOver = true;
+            Debug.Log($"[INPUT] Mouse entered piece at ({X}, {Y})");
+            if (_grid != null)
+            {
+                _grid.EnterPiece(this);
             }
         }
-        
+        else if (!mouseOverPiece && isMouseOver && currentHoverPiece == this)
+        {
+            isMouseOver = false;
+            currentHoverPiece = null;
+        }
+
+        // Handle mouse down
+        if (Input.GetMouseButtonDown(0) && mouseOverPiece)
+        {
+            isMouseDown = true;
+            Debug.Log($"[INPUT] Mouse down on piece at ({X}, {Y})");
+            if (_grid != null)
+            {
+                _grid.PressPiece(this);
+            }
+        }
+
+        // Handle mouse up - FIXED: Always call ReleasePiece if mouse was down, even if mouse is not over piece anymore
         if (Input.GetMouseButtonUp(0))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = transform.position.z;
-            
-            BoxCollider2D col = GetComponent<BoxCollider2D>();
-            if (col != null && col.enabled && col.bounds.Contains(mousePos))
+            if (isMouseDown)
             {
-                Debug.Log($"[DEBUG INPUT] Manual release detected on piece at ({X}, {Y})");
+                Debug.Log($"[INPUT] Mouse up - was down on piece at ({X}, {Y}), current mouseOver: {mouseOverPiece}");
                 if (_grid != null)
                 {
+                    // Always release, even if mouse moved away from piece
                     _grid.ReleasePiece();
                 }
             }
+            isMouseDown = false;
         }
     }
-    */
     // các phương thức kiểm tra trạng thái
     public bool IsMoveable()
     {

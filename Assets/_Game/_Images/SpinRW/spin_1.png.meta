@@ -1,10 +1,7 @@
 fileFormatVersion: 2
-guid: 8a6c7f0ed998cc14d83d97c1676168aa
+guid: 66f9785120bc06b4397a31e8e4cfa6ab
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -8483259033098780477
-    second: giap_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: giap_0
+      name: img_gift_leaderboard1_1_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 19
-        width: 202
-        height: 206
+        x: 0
+        y: 0
+        width: 634
+        height: 524
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3c0068a0bd8654a80800000000000000
-      internalID: -8483259033098780477
+      spriteID: 78de52e01c7b53de0800000000000000
+      internalID: -1353974073161028217
       vertices: []
       indices: 
       edges: []
@@ -161,7 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      giap_0: -8483259033098780477
+      img_gift_leaderboard1_1_0: -1353974073161028217
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

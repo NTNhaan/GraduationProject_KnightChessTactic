@@ -272,7 +272,7 @@ public class LevelController : Singleton<LevelController>
 
     public void IncreaseLevel()
     {
-        TutorialPanel.Instance.HideTutorial();
+        // TutorialPanel.Instance.HideTutorial();
         var level = DBController.Instance.LEVEL + 1;
         if (level >= levelData.levels.Count)
             return;
@@ -292,7 +292,7 @@ public class LevelController : Singleton<LevelController>
 
     public void DecreaseLevel()
     {
-        TutorialPanel.Instance.HideTutorial();
+        // TutorialPanel.Instance.HideTutorial();
         var level = DBController.Instance.LEVEL - 1;
         if (level < 0)
             return;

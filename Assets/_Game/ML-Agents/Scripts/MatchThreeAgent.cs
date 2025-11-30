@@ -11,7 +11,7 @@ public class MatchThreeAgent : Agent
 {
     [Header("Game References")]
     public Grid gameGrid;
-    public GameManager gameManager;
+    public GamePlayController gamePlayController;
     public EnemyCharacter enemyCharacter;
     public HeroCharater playerCharacter;
     public TimeController timeController;
@@ -89,12 +89,26 @@ public class MatchThreeAgent : Agent
     {
         // OPTIMIZED: Cache references - use FindFirstObjectByType instead of deprecated FindObjectOfType
         if (gameGrid == null) gameGrid = GetComponentInParent<Grid>() ?? FindFirstObjectByType<Grid>();
-        if (gameManager == null) gameManager = GetComponentInParent<GameManager>() ?? FindFirstObjectByType<GameManager>();
+        if (gamePlayController == null) gamePlayController = GetComponentInParent<GamePlayController>() ?? FindFirstObjectByType<GamePlayController>();
         if (enemyCharacter == null) enemyCharacter = GetComponentInParent<EnemyCharacter>() ?? FindFirstObjectByType<EnemyCharacter>();
         if (playerCharacter == null) playerCharacter = GetComponentInParent<HeroCharater>() ?? FindFirstObjectByType<HeroCharater>();
 
+        // CRITICAL: Find TimeController if not assigned in Inspector
+        if (timeController == null)
+        {
+            timeController = FindFirstObjectByType<TimeController>();
+            if (timeController == null)
+            {
+                Debug.LogError("[MatchThreeAgent] TimeController not found! Enemy AI will not work!");
+            }
+            else
+            {
+                Debug.Log("[MatchThreeAgent] TimeController found and assigned automatically");
+            }
+        }
+
         // Validate references
-        if (gameGrid == null || gameManager == null || enemyCharacter == null || playerCharacter == null)
+        if (gameGrid == null || gamePlayController == null || enemyCharacter == null || playerCharacter == null)
         {
             Debug.LogError("Missing required references in MatchThreeAgent");
             return;
@@ -200,16 +214,20 @@ public class MatchThreeAgent : Agent
         isEnemyTurn = true;
         isEnemyThinking = true;
 
+        Debug.Log("[ENEMY AI] Enemy turn started - requesting decision from model...");
+
         // Add a small delay for more natural feel
         yield return new WaitForSeconds(1.0f);
 
         // Request decision from the trained model
+        Debug.Log("[ENEMY AI] Calling RequestDecision()...");
         RequestDecision();
 
         // Wait for the decision to be made
         yield return new WaitForSeconds(0.5f);
 
         isEnemyThinking = false;
+        Debug.Log("[ENEMY AI] Enemy thinking completed");
     }
 
     public override void OnEpisodeBegin()
@@ -333,7 +351,7 @@ public class MatchThreeAgent : Agent
         observationCount += 2;
 
         // Add combo multiplier
-        float comboMultiplier = gameManager.GetComboMultiplier();
+        float comboMultiplier = gamePlayController != null ? gamePlayController.GetComboMultiplier() : 1f;
         sensor.AddObservation(comboMultiplier);
         observationCount++;
 
@@ -458,21 +476,37 @@ public class MatchThreeAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        Debug.Log($"[ENEMY AI] OnActionReceived called - isWaitingForMove: {isWaitingForMove}, role: {(timeController != null ? timeController.role.ToString() : "NULL")}");
+
         // OPTIMIZED: Add null check for timeController
         if (timeController == null)
         {
-            Debug.LogWarning("[MatchThreeAgent] timeController is null, skipping action");
+            Debug.LogWarning("[ENEMY AI] timeController is null, skipping action");
             return;
         }
 
         // Only process AI actions during enemy's turn
-        if (isWaitingForMove || timeController.role != Role.Demon) return;
+        if (isWaitingForMove)
+        {
+            Debug.Log("[ENEMY AI] Skipping - isWaitingForMove = true");
+            return;
+        }
+
+        if (timeController.role != Role.Demon)
+        {
+            Debug.Log($"[ENEMY AI] Skipping - not enemy's turn (current: {timeController.role})");
+            return;
+        }
+
+        Debug.Log("[ENEMY AI] Processing action from model...");
 
         // Get discrete actions
         int sourceX = Mathf.Clamp(actions.DiscreteActions[0], 0, gameGrid.xDim - 1);
         int sourceY = Mathf.Clamp(actions.DiscreteActions[1], 0, gameGrid.yDim - 1);
         int targetX = Mathf.Clamp(actions.DiscreteActions[2], 0, gameGrid.xDim - 1);
         int targetY = Mathf.Clamp(actions.DiscreteActions[3], 0, gameGrid.yDim - 1);
+
+        Debug.Log($"[ENEMY AI] Model action: ({sourceX}, {sourceY}) -> ({targetX}, {targetY})");
 
         // Try to perform the swap
         if (IsValidMove(sourceX, sourceY, targetX, targetY))
@@ -537,7 +571,7 @@ public class MatchThreeAgent : Agent
     private IEnumerator PerformMove(GamePieces sourcePiece, GamePieces targetPiece)
     {
         totalMoves++;
-        int initialScore = gameManager.GetCurrentScore();
+        int initialScore = DefaultNamespace.ScoreController.Instance != null ? DefaultNamespace.ScoreController.Instance.Score : 0;
 
         // Cache matches before swap
         List<GamePieces> initialMatches = gameGrid.FindMatches();
@@ -584,7 +618,7 @@ public class MatchThreeAgent : Agent
 
     private void ProcessMatchesQuick(int initialScore, bool hadInitialMatches)
     {
-        int finalScore = gameManager.GetCurrentScore();
+        int finalScore = DefaultNamespace.ScoreController.Instance != null ? DefaultNamespace.ScoreController.Instance.Score : 0;
         int scoreDelta = finalScore - initialScore;
         List<GamePieces> finalMatches = gameGrid.FindMatches();
 
@@ -641,7 +675,7 @@ public class MatchThreeAgent : Agent
 
     private void ProcessMatches(int initialScore, bool hadInitialMatches)
     {
-        int finalScore = gameManager.GetCurrentScore();
+        int finalScore = DefaultNamespace.ScoreController.Instance != null ? DefaultNamespace.ScoreController.Instance.Score : 0;
         int scoreDelta = finalScore - initialScore;
         List<GamePieces> finalMatches = gameGrid.FindMatches();
 

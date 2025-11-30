@@ -79,7 +79,7 @@ public abstract class Character : MonoBehaviour
         if (fillBack > hFraction)
         {
             fontHealthBar.fillAmount = hFraction;
-            backHealthBar.color = Color.red;
+            // backHealthBar.color = Color.red;
             lerpTimer += healthUIUpdateInterval; // Use update interval instead of deltaTime
             float percentComplete = Mathf.Pow(lerpTimer / chipSpeed, 2);
             backHealthBar.fillAmount = Mathf.Lerp(fillBack, hFraction, percentComplete);
@@ -87,7 +87,7 @@ public abstract class Character : MonoBehaviour
         else
         {
             backHealthBar.fillAmount = hFraction;
-            backHealthBar.color = Color.green;
+            // backHealthBar.color = Color.green;
             lerpTimer += healthUIUpdateInterval;
             float percentComplete = Mathf.Pow(lerpTimer / chipSpeed, 2);
             fontHealthBar.fillAmount = Mathf.Lerp(fillFont, hFraction, percentComplete);

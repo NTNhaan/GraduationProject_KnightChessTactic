@@ -22,10 +22,12 @@ public class PieceReward : MonoBehaviour
     }
     private void Start()
     {
-        timeController = FindObjectOfType<TimeController>();
+        timeController = FindFirstObjectByType<TimeController>();
     }
     public void Update()
     {
+        if (timeController == null) return;
+
         if (timeController.role == Role.Player)
         {
             targetPos = target.position;
@@ -34,15 +36,35 @@ public class PieceReward : MonoBehaviour
         {
             targetPos = targetDemon.position;
         }
-        Debug.Log("Role Pos: " + timeController.role);
+        // OPTIMIZED: Removed debug log
     }
     public void StartCoinMove(Vector3 _intialPos, GameObject Coiprefab)
     {
         GameObject _coin = Instantiate(Coiprefab, _intialPos, Quaternion.identity);
         _coin.transform.localScale = new Vector3(1, 1, 1);
-        StartCoroutine(MoveCoin(_coin.transform, _intialPos, targetPos));
 
+        // OPTIMIZED: Disable collider when coin starts moving
+        DisableColliderOnCoin(_coin);
+
+        StartCoroutine(MoveCoin(_coin.transform, _intialPos, targetPos));
     }
+
+    private void DisableColliderOnCoin(GameObject coin)
+    {
+        // Disable all colliders (2D and 3D) on coin and its children
+        Collider2D[] colliders2D = coin.GetComponentsInChildren<Collider2D>();
+        foreach (var col in colliders2D)
+        {
+            col.enabled = false;
+        }
+
+        Collider[] colliders3D = coin.GetComponentsInChildren<Collider>();
+        foreach (var col in colliders3D)
+        {
+            col.enabled = false;
+        }
+    }
+
     IEnumerator MoveCoin(Transform obj, Vector3 StartPos, Vector3 EndPos)
     {
         float time = 0;

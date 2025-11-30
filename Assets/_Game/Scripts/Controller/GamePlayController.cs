@@ -12,123 +12,85 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.Serialization;
 
+/// <summary>
+/// Main gameplay controller - manages game state, item behaviors, combo system, and score
+/// Replaces the old GameManager
+/// </summary>
 public class GamePlayController : Singleton<GamePlayController>
 {
-    [SerializeField] private LineCtrl lineCtrl;
-    [Header("TimeManager")]
-    [SerializeField] private Text timeManager;
-    [SerializeField] private GameObject setting;
-    [SerializeField] private GameObject btnHowToPlay;
-    [SerializeField] private GameObject btnBooster;
-    [SerializeField] private GameObject bannerCoin;
+    [Header("Game References")]
+    [SerializeField] private EnemyCharacter enemy;
+    [SerializeField] private HeroCharater player;
+    [SerializeField] private TimeController timeController;
 
+    [Header("Combo System")]
+    private float comboMultiplier = 1f;
+    private float comboTimer = 0f;
+    private const float COMBO_DURATION = 2f;
+    private const float MAX_COMBO = 4f;
+    private Coroutine comboCoroutine;
 
-    [Header("Booster")]
-    [SerializeField] private Text textBooster;
+    [Header("Item Behaviors")]
+    private Dictionary<ItemPieces.ItemType, System.Action<GamePieces>> itemBehaviors;
 
-    [SerializeField] private Image boosterFake;
-    [SerializeField] private Image boosterGamePlay;
-    [SerializeField] private Image handBooster;
-    [SerializeField] private Sprite boosterActive;
-
-    [Header("CheatGamePlay")]
-    [SerializeField] private GameObject cheatGamePlay;
-    private bool hasReversed = false;
-    private int patternIndex = 0;
-    public static GameState State { get; private set; }
-    private bool checkLineState;
-    private bool isActiveCheat = false;
-    public bool CheckLineState
-    {
-        get { return checkLineState; }
-        set { checkLineState = value; }
-    }
     void OnEnable()
     {
-        EventManager.OnAddPoints += ScoreController.Instance.AddPoints;
+        EventManager.OnAddPoints += HandleAddPoints;
         EventManager.OnHPchanged += HandleHealthChanged;
-        EventDispatcher.Register(EventId.OnHideLineGuide, OnHideLineGuide);
         EventDispatcher.Register(EventId.OnGameStateChanged, OnGameStateChanged);
     }
+
     void OnDisable()
     {
-        EventManager.OnAddPoints -= ScoreController.Instance.AddPoints;
+        EventManager.OnAddPoints -= HandleAddPoints;
         EventManager.OnHPchanged -= HandleHealthChanged;
-        EventDispatcher.RemoveCallback(EventId.OnHideLineGuide, OnHideLineGuide);
         EventDispatcher.RemoveCallback(EventId.OnGameStateChanged, OnGameStateChanged);
+    }
+    void OnDestroy()
+    {
+        if (comboCoroutine != null)
+        {
+            StopCoroutine(comboCoroutine);
+        }
+    }
+    void CustomAwake()
+    {
+        if (timeController == null)
+            timeController = FindFirstObjectByType<TimeController>();
+
+        if (enemy == null)
+            enemy = FindFirstObjectByType<EnemyCharacter>();
+
+        if (player == null)
+            player = FindFirstObjectByType<HeroCharater>();
+        comboMultiplier = 1f;
     }
 
     async UniTask Start()
     {
-        checkLineState = true;
         Application.targetFrameRate = 60;
+        InitializeItemBehaviors();
+        comboCoroutine = StartCoroutine(ComboTimerCoroutine());
+
         await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
         EventDispatcher.Push(EventId.OnGamePlayScreen);
-        if (!DBController.Instance.TUTORIAL_COMPLETED)
-        {
-            ChangeState(GameState.Tutorial);
-        }
-        else
-        {
-            ChangeState(GameState.PlayingGame);
-            TutorialPanel.Instance.ShowTutorial();
-            lineCtrl.TurnOnLine();
-            lineCtrl.StartFillLoop();
-        }
-    }
-    void Update()
-    {
-        // Debug.Log($"CheckStateGame: {InGameData.PRE_STATE} - {InGameData.GAME_STATE}");
-        if (!TimeManager.Instance
-            || InGameData.GAME_STATE == GameState.PauseGame)
-            return;
 
-        float elapsed = TimeManager.Instance.ElapsedTime;
-        if (elapsed <= 0f) return;
-        // Debug.Log($"ElapsedTime: {elapsed} {GameConfig.REVERSE_TIME}");
-        int currentStep = Mathf.FloorToInt(elapsed / GameConfig.REVERSE_TIME);
-        // Debug.Log($"CurrentPattern: {currentStep} {patternIndex}");
-        if (currentStep != patternIndex)
-        {
-            patternIndex = currentStep;
-            ApplyClockPattern((ClockPattern)(patternIndex % 4));
-        }
+        ChangeState(GameState.PlayingGame);
     }
-    private void InitData(bool state)
-    {
-        if (state)
-        {
-            bannerCoin.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            setting.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            btnHowToPlay.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            btnBooster.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
-            timeManager.DOFade(1f, 0.5f);
-        }
-        else
-        {
-            bannerCoin.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            setting.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            btnHowToPlay.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            btnBooster.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack);
-            timeManager.DOFade(0f, 0.5f);
-        }
-    }
+
+    #region Game State Management
+
     public void ChangeState(GameState newState)
     {
-        State = newState;
-
-        switch (State)
+        InGameData.GAME_STATE = newState;
+        switch (InGameData.GAME_STATE)
         {
-            case GameState.Tutorial:
-                InGameData.GAME_STATE = GameState.Tutorial;
-                InitData(false);
-                EventDispatcher.Push(EventId.OnTutorialScreen);
-                break;
             case GameState.PlayingGame:
                 InGameData.GAME_STATE = GameState.PlayingGame;
+                UITopController.Instance.ShowTab();
                 break;
             case GameState.GameOver:
-                TutorialPanel.Instance.HideTutorial();
+                // TutorialPanel.Instance.HideTutorial();
                 if (DBController.Instance.TUTORIAL_COMPLETED)
                 {
                     if (InGameData.GIVE_UP_COUNT != 0)
@@ -187,6 +149,11 @@ public class GamePlayController : Singleton<GamePlayController>
                 break;
         }
     }
+
+    #endregion
+
+    #region Health Management
+
     public void HandleHealthChanged(int damage)
     {
         ScoreController.Instance.TakeDamage(damage);
@@ -196,103 +163,138 @@ public class GamePlayController : Singleton<GamePlayController>
             ChangeState(GameState.GameOver);
         }
     }
+
+    #endregion
+
+    #region Score & Combo System
+
+    public float GetComboMultiplier()
+    {
+        return comboMultiplier;
+    }
+
+    private void HandleAddPoints(int points)
+    {
+        // Apply combo multiplier to score
+        int finalScore = Mathf.RoundToInt(points * comboMultiplier);
+        ScoreController.Instance.AddPoints(finalScore);
+
+        // Increase combo multiplier
+        comboMultiplier = Mathf.Min(comboMultiplier + 0.5f, MAX_COMBO);
+        comboTimer = COMBO_DURATION;
+    }
+
+    private IEnumerator ComboTimerCoroutine()
+    {
+        while (true)
+        {
+            if (comboTimer > 0)
+            {
+                comboTimer -= 0.1f; // Update every 0.1s instead of every frame
+                if (comboTimer <= 0)
+                {
+                    comboMultiplier = 1f;
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    #endregion
+
+    #region Item Behaviors
+
+    void InitializeItemBehaviors()
+    {
+        // Validate references
+        if (enemy == null || player == null || timeController == null)
+        {
+            Debug.LogError("[GamePlayController] Các tham chiếu quan trọng chưa được khởi tạo!");
+            return;
+        }
+
+        itemBehaviors = new Dictionary<ItemPieces.ItemType, System.Action<GamePieces>>
+        {
+            {ItemPieces.ItemType.Sword, (GamePieces piece) => {
+                if(timeController.role == Role.Player)
+                {
+                    player.PerformAttack(enemy);
+                }
+                else
+                {
+                    enemy.PerformAttack(player);
+                }
+            } },
+            {ItemPieces.ItemType.Apple, (GamePieces piece) => {
+                if(timeController.role == Role.Player)
+                {
+                    player.RestoreHealth(5);
+                }
+                else
+                {
+                    enemy.RestoreHealth(5);
+                }
+            } },
+            {ItemPieces.ItemType.Heart, (GamePieces piece) => {
+                if(timeController.role == Role.Player)
+                {
+                    player.RestoreHealth(player.maxHealth);
+                }
+                else
+                {
+                    enemy.RestoreHealth(enemy.maxHealth);
+                }
+            } },
+            {ItemPieces.ItemType.AppleGreen, (GamePieces piece) => {
+                if(timeController.role == Role.Player)
+                {
+                    enemy.ApplyBurnEffect();
+                }
+                else
+                {
+                    player.ApplyBurnEffect();
+                }
+            } },
+        };
+    }
+
+    /// <summary>
+    /// Handle item behavior when a piece is matched
+    /// Called from Grid.cs when clearing matches
+    /// </summary>
+    public void HandleItemBehaviour(GamePieces piece)
+    {
+        // Validate piece
+        if (piece == null || piece.ItemComponent == null)
+        {
+            Debug.LogError("[GamePlayController] GamePieces hoặc ItemComponent là null!");
+            return;
+        }
+
+        // Execute item behavior
+        if (itemBehaviors != null && itemBehaviors.ContainsKey(piece.ItemComponent.Item))
+        {
+            itemBehaviors[piece.ItemComponent.Item].Invoke(piece);
+        }
+        else
+        {
+            Debug.LogWarning($"[GamePlayController] No item behavior found for {piece.ItemComponent.Item}");
+        }
+    }
+
+    #endregion
+
+    #region UI Methods
+
     public void OnClickShowPausePopup()
     {
         PopupController.Instance.ClickShowPausePopUp();
     }
+
     public void OnClickShowHowToPlayPopup()
     {
         PopupController.Instance.ClickShowHowToPlayPopUp();
     }
-    private void ApplyClockPattern(ClockPattern pattern)
-    {
-        // var clock = ClockController.Instance;
-        // if (clock == null) return;
-        // EventDispatcher.Push(EventId.OnClockPatternChanged, pattern);
-        // switch (pattern)
-        // {
-        //     case ClockPattern.ReverseBoth:
-        //         clock.ToggleDirection();
-        //         Debug.Log($"[Pattern 1] Reverse both hands (elapsed: {TimeManager.Instance.ElapsedTime:F1}s)");
-        //         break;
 
-        //     case ClockPattern.HourClockwise_MinuteCCW:
-        //         clock.HourHand.SetDirection(clockwise: true);
-        //         clock.MinuteHand.SetDirection(clockwise: false);
-        //         Debug.Log($"[Pattern 2] Hour clockwise, Minute counter-clockwise");
-        //         break;
-
-        //     case ClockPattern.HourCCW_MinuteClockwise:
-        //         clock.HourHand.SetDirection(clockwise: false);
-        //         clock.MinuteHand.SetDirection(clockwise: true);
-        //         Debug.Log($"[Pattern 3] Hour counter-clockwise, Minute clockwise");
-        //         break;
-
-        //     case ClockPattern.NormalDirection:
-        //         clock.HourHand.SetDirection(clockwise: true);
-        //         clock.MinuteHand.SetDirection(clockwise: true);
-        //         Debug.Log($"[Pattern 4] Both back to normal");
-        //         break;
-        // }
-    }
-
-    #region LineTutorial
-    private void OnHideLineGuide(object data = null)
-    {
-        Debug.Log("CheckEventHidePopup");
-        TutorialPanel.Instance.HideTutorial();
-        checkLineState = false;
-        TimeManager.Instance.StartTimer();
-        AudioController.Instance.FadeBackgroundForAlert(0.3f);
-        AudioController.Instance.PlayEffect(Sound.Name.Sound_Clock);
-        InitData(true);
-
-        if (DBController.Instance.GUIDE_BOOSTER == 0)
-            BoosterGuide();
-    }
-
-    private async UniTask BoosterGuide()
-    {
-        await UniTask.Delay(1000);
-
-        InGameData.GAME_STATE = GameState.PauseGame;
-        TutorialPanel.Instance.ShowTutorial(() =>
-        {
-            boosterFake.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).OnComplete(() =>
-            {
-                handBooster.DOFade(1f, 0.3f);
-                boosterGamePlay.transform.DOScale(0f, 0.3f);
-            });
-        });
-
-        await UniTask.WaitUntil(() => DBController.Instance.GUIDE_BOOSTER == 1);
-        boosterFake.transform.DOScale(0f, 0.3f);
-        boosterGamePlay.transform.DOScale(1f, 0.3f);
-        boosterFake.sprite = boosterActive;
-        boosterGamePlay.sprite = boosterActive;
-        TutorialPanel.Instance.HideTutorial();
-    }
-    #endregion
-
-    #region CheatGamePlay
-
-    public void OnClickShowCheatPanel()
-    {
-        isActiveCheat = !isActiveCheat;
-        cheatGamePlay.SetActive(isActiveCheat);
-    }
-    public void OnClickCheatNextTutorial()
-    {
-        TutorialPanel.Instance.HideTutorial();
-        DBController.Instance.TUTORIAL_COMPLETED = true;
-        // SceneController.Instance?.ChangeScene(SceneType.GamePlayScene);
-    }
-
-    public void CheatAddCoin(int amount)
-    {
-        DBController.Instance.COIN += amount;
-        EventDispatcher.Push(EventId.OnCoinChanged, DBController.Instance.COIN);
-        Debug.Log($"[CHEAT] Added {amount} coins. Current coin: {DBController.Instance.COIN}");
-    }
     #endregion
 }

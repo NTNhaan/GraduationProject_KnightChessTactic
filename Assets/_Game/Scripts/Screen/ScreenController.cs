@@ -12,10 +12,10 @@ public class ScreenController : Singleton<ScreenController>
 {
     [Header("Main Screen")]
     [SerializeField] private HomeScreen homeScreen;
-    
+
     [Header("Shop IAP")]
     [SerializeField] private ShopScreen shopScreen;
-    
+
     [Header("Current Screen")]
     [SerializeField] private ScreenGame curScreen;
     private ScreenGame _preScreen;
@@ -34,7 +34,7 @@ public class ScreenController : Singleton<ScreenController>
 
     private async UniTask StartAsync()
     {
-        await UniTask.WaitUntil(()=> InGameData.GAME_STATE == GameState.LoadingDone);
+        await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
         CurScreen = ScreenGame.MainScreen;
         InGameData.GAME_STATE = GameState.MainMenu;
         ShowScreen(CurScreen);
@@ -42,8 +42,9 @@ public class ScreenController : Singleton<ScreenController>
     void Update()
     {
         // Debug.Log($"CurrentState: {CurScreen}");
+        Debug.Log($"CurrentState: {InGameData.GAME_STATE}");
     }
-    
+
     public void OnPlayClick()
     {
         EventDispatcher.Push(EventId.OnSoundClick);
@@ -56,7 +57,7 @@ public class ScreenController : Singleton<ScreenController>
         switch (CurScreen)
         {
             case ScreenGame.MainScreen:
-                ChangeScreen(ScreenGame.ShopScreen); 
+                ChangeScreen(ScreenGame.ShopScreen);
                 break;
             case ScreenGame.ShopScreen:
                 ChangeScreen(ScreenGame.MainScreen);
@@ -78,12 +79,12 @@ public class ScreenController : Singleton<ScreenController>
         {
             case ScreenGame.MainScreen:
                 homeScreen.ShowTransition();
-                homeScreen.ShowScreen(async ()=> await homeScreen.DoShowMainScreen());
+                homeScreen.ShowScreen(async () => await homeScreen.DoShowMainScreen());
                 CurScreen = ScreenGame.MainScreen;
                 break;
             case ScreenGame.ShopScreen:
                 shopScreen.ShowTransition();
-                shopScreen.ShowScreen(async ()=> await shopScreen.DoShowShopIAP());
+                shopScreen.ShowScreen(async () => await shopScreen.DoShowShopIAP());
                 CurScreen = ScreenGame.ShopScreen;
                 break;
             default:
@@ -95,10 +96,10 @@ public class ScreenController : Singleton<ScreenController>
         switch (CurScreen)
         {
             case ScreenGame.MainScreen:
-                homeScreen.DoHideMainScreen().ContinueWith(()=> homeScreen.HideScreen(onComplete));
+                homeScreen.DoHideMainScreen().ContinueWith(() => homeScreen.HideScreen(onComplete));
                 break;
             case ScreenGame.ShopScreen:
-                shopScreen.DoHideShopIAP().ContinueWith(()=> shopScreen.HideScreen(onComplete));
+                shopScreen.DoHideShopIAP().ContinueWith(() => shopScreen.HideScreen(onComplete));
                 break;
 
             default:

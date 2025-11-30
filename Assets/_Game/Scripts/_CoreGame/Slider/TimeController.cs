@@ -15,22 +15,24 @@ public class TimeController : Singleton<TimeController>
     public float currentSpeed;
     public Role role;
     public Animator animator;
-    
-    
+
+
     private bool isPaused = false;
     private bool hasPlayedWarning = false;
     private const float WARNING_THRESHOLD = 30f;
     private bool isGameStarted = false;
     // public float maxTimeScale = 3f; // Giới hạn tốc độ tối đa
     // public float minTimeScale = 0.5f;
-    public void Awake()
+    protected override void CustomAwake()
     {
-        TimeSliderHero.value = MaxTime;
-        TimeSliderDemon.value = MaxTime;
+        Debug.Log("TimeController Awake: " + this);
     }
 
     public void Start()
     {
+        TimeSliderHero.value = MaxTime;
+        TimeSliderDemon.value = MaxTime;
+        Debug.Log("TimeController Start: " + this);
         currentSpeed = baseSpeed;
         role = Role.Player;
         // Đăng ký lắng nghe sự kiện board đã fill xong
@@ -84,7 +86,14 @@ public class TimeController : Singleton<TimeController>
         if (!isGameStarted) return;
 
         bool SwapOnBoard = TurnController.Instance.IsSwapping;
-        if (role == Role.Player && !isPaused)
+
+        // OPTIMIZED: Pause slider during turn change animation
+        if (SwapOnBoard || isPaused)
+        {
+            return; // Don't update slider during swap animation
+        }
+
+        if (role == Role.Player)
         {
             TimeSliderHero.value -= Time.deltaTime * 10;
 
@@ -96,12 +105,11 @@ public class TimeController : Singleton<TimeController>
 
             if (TimeSliderHero.value <= 0)
             {
-                // Dừng âm thanh cảnh báo khi slider về 0
-                TurnController.Instance.StartSwap();
-                PlayAnimation("StartTurn");
+                // Start turn change with new animation effect
+                TurnController.Instance.StartTurnChange();
             }
         }
-        if (role == Role.Demon && !isPaused)
+        else if (role == Role.Demon)
         {
             TimeSliderDemon.value -= Time.deltaTime * 10;
 
@@ -113,11 +121,28 @@ public class TimeController : Singleton<TimeController>
 
             if (TimeSliderDemon.value <= 0)
             {
-                // Dừng âm thanh cảnh báo khi slider về 0
-                TurnController.Instance.StartSwap();
-                PlayAnimation("StartTurnBack");
+                // Start turn change with new animation effect
+                TurnController.Instance.StartTurnChange();
             }
         }
+    }
+
+    /// <summary>
+    /// Resume time slider after turn change animation completes
+    /// </summary>
+    public void ResumeTimeSlider()
+    {
+        isPaused = false;
+        // Reset slider to max for the new role
+        if (role == Role.Player)
+        {
+            TimeSliderHero.value = MaxTime;
+        }
+        else
+        {
+            TimeSliderDemon.value = MaxTime;
+        }
+        hasPlayedWarning = false;
     }
     public void SetTimeScale(float newScale)
     {

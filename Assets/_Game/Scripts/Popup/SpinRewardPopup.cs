@@ -51,7 +51,7 @@ public class SpinRewardPopup : PopUpBase
         // EventDispatcher.Push(EventId.OnGameStateChanged);
         // EventManager.PasueGame();
         TabController.Instance.HideBottomTab();
-        ShowPopUp(0f, 0.3f, () =>
+        ShowPopUp(-250f, 0.3f, () =>
         {
             btnClose.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
         });

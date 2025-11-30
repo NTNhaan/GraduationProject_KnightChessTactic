@@ -81,11 +81,11 @@ namespace Setting
             imgSound = soundImg;
             imgMusic = musicImg;
             imgVibration = vibrationImg;
-
+        
             sprtSound = soundSprites;
             sprtMusic = musicSprites;
             sprtVibration = vibrationSprites;
-
+        
             _isUIInitialized = (imgSound && imgMusic && imgVibration);
             if (_isUIInitialized)
                 InitSetting();
