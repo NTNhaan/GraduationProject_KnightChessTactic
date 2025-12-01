@@ -65,7 +65,7 @@ public class SceneController : Singleton<SceneController>, ISceneController
                     });
                 });
         */
-        await LoadingFade.Instance.ShowLoadingFade(midSpriteIndex);
+        await LoadingFade.Instance.ShowLoadingFade();
         await Task.Delay(2000);
         SceneManager.LoadScene($"{currentScene}");
         await Task.Delay(2000);       

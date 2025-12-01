@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Data;
+using TMPro;
 using UnityEngine.Serialization;
 
 public class LoadingFade : Singleton<LoadingFade>
@@ -14,56 +15,49 @@ public class LoadingFade : Singleton<LoadingFade>
     [SerializeField] private float timeOpen = 0.8f;
     [SerializeField] private Ease easeOpen = Ease.OutQuad;
     [SerializeField] private Ease easeClose = Ease.OutQuad;
-
-    [SerializeField] private RectTransform imgLeftBanner;
-    [SerializeField] private RectTransform imgRightBanner;
-    [SerializeField] private Text txtBottomBanner;
-
-    // [SerializeField] private List<Sprite> midSprites;
+    
+    [Header("Doors")]
+    [SerializeField] private DoorMover leftDoor;
+    [SerializeField] private DoorMover rightDoor;
+    [Header("UI")]
+    [SerializeField] private TextMeshPro txtBottomBanner;
     
     private float bounceDistance  = 40f; 
+    private int doorHitCount = 0;
     
+    private void CustomAwake()
+    {
+        txtBottomBanner.gameObject.SetActive(false);
+        leftDoor.gameObject.SetActive(false);
+        rightDoor.gameObject.SetActive(false);
+    }
     public async UniTask ShowLoadingFade(int midSpriteIndex = -1)
     {
         InGameData.GAME_STATE = GameState.Loading;
-        imgLeftBanner.gameObject.SetActive(true);
-        imgRightBanner.gameObject.SetActive(true);
+        doorHitCount = 0;
+
+        leftDoor.ResetDoor();
+        rightDoor.ResetDoor();
+
+        leftDoor.OnHitOtherDoor = OnDoorHit;
+        rightDoor.OnHitOtherDoor = OnDoorHit;
+
+        leftDoor.gameObject.SetActive(true);
+        rightDoor.gameObject.SetActive(true);
         txtBottomBanner.gameObject.SetActive(true);
 
-        // if (midSpriteIndex >= 0 && midSpriteIndex < midSprites.Count)
-        // {
-        //     midBanner.sprite = midSprites[midSpriteIndex];
-        // }
-        // else
-        // {
-        //     int rand = Random.Range(0, midSprites.Count);
-        //     midBanner.sprite = midSprites[rand];
-        // }
+        leftDoor.StartMoveIn();
+        rightDoor.StartMoveIn();
 
-        // var tLeftIn = imgLeftBanner.DOAnchorPosX(0f, 0.45f)
-        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        // var tRightIn = imgRightBanner.DOAnchorPosX(0f, 0.45f)
-        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        // await UniTask.WhenAll(tLeftIn, tRightIn);
-        //
-        //
-        // var tLeftBounce = imgLeftBanner.DOAnchorPosX(0f - bounceDistance, 0.12f)
-        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        // var tRightBounce = imgRightBanner.DOAnchorPosX(0f + bounceDistance, 0.12f)
-        //     .SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        // await UniTask.WhenAll(tLeftBounce, tRightBounce);
-        //
-        // var tLeftSnap = imgLeftBanner.DOAnchorPosX(0f, 0.12f)
-        //     .SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
-        // var tRightSnap = imgRightBanner.DOAnchorPosX(0f, 0.12f)
-        //     .SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
-        // await UniTask.WhenAll(tLeftSnap, tRightSnap);
+        // chỉ cần 1 cửa báo chạm
+        await UniTask.WaitUntil(() => doorHitCount >= 1);
+
+        // STOP cả 2
+        leftDoor.Stop();
+        rightDoor.Stop();
+
+        await BounceDoors();
         
-        await BannerAnimationHelper.PlayDoubleImpact(
-            imgLeftBanner,
-            imgRightBanner,
-            hitPos: 0f
-        );
         txtBottomBanner.DOFade(1, 1f).From(0).SetEase(Ease.OutQuad);
         DOTween.To(()=>0, x=>{
             txtBottomBanner.text = "Loading" + new string('.', x % 4);
@@ -72,19 +66,61 @@ public class LoadingFade : Singleton<LoadingFade>
     }
     public async UniTask HideLoadingFade()
     {
-        var tLeft = imgLeftBanner.DOAnchorPosX(-1000, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        var tRight = imgRightBanner.DOAnchorPosX(1000, 0.5f).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
-        var t3 = txtBottomBanner.DOFade(0, 0.5f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask();
+        txtBottomBanner.DOFade(0, 0.3f);
 
-        await UniTask.WhenAll(tLeft, tRight, t3);
+        leftDoor.StartMoveOut();
+        rightDoor.StartMoveOut();
 
-        // await imgBackground.DOFade(0, 1f).From(1).SetEase(Ease.OutQuad).AsyncWaitForCompletion();
+        // Đợi cho cửa ra khỏi màn hình
+        await UniTask.Delay(700);
+
+        leftDoor.Stop();
+        rightDoor.Stop();
+
+        leftDoor.gameObject.SetActive(false);
+        rightDoor.gameObject.SetActive(false);
+        txtBottomBanner.gameObject.SetActive(false);
 
         InGameData.GAME_STATE = GameState.LoadingDone;
+    }
+    private void OnDoorHit()
+    {
+        doorHitCount++;
+    }
+    private async UniTask BounceDoors()
+    {
+        float bounce = 0.1f;   // nhỏ hơn để đỡ gắt
+        float bounceTime = 0.18f;
+        float snapTime   = 0.22f;
 
-        imgLeftBanner.gameObject.SetActive(false);
-        imgRightBanner.gameObject.SetActive(false);
-        txtBottomBanner.gameObject.SetActive(false);
+        float leftX  = leftDoor.transform.localPosition.x;
+        float rightX = rightDoor.transform.localPosition.x;
+
+        // bật nhẹ ra (mềm hơn)
+        await UniTask.WhenAll(
+            leftDoor.transform.DOLocalMoveX(leftX - bounce, bounceTime)
+                .SetEase(Ease.OutSine)
+                .AsyncWaitForCompletion()
+                .AsUniTask(),
+
+            rightDoor.transform.DOLocalMoveX(rightX + bounce, bounceTime)
+                .SetEase(Ease.OutSine)
+                .AsyncWaitForCompletion()
+                .AsUniTask()
+        );
+
+        // sát lại chậm và mềm
+        await UniTask.WhenAll(
+            leftDoor.transform.DOLocalMoveX(leftX, snapTime)
+                .SetEase(Ease.OutSine)
+                .AsyncWaitForCompletion()
+                .AsUniTask(),
+
+            rightDoor.transform.DOLocalMoveX(rightX, snapTime)
+                .SetEase(Ease.OutSine)
+                .AsyncWaitForCompletion()
+                .AsUniTask()
+        );
     }
 
 }

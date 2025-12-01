@@ -8,7 +8,8 @@ public static class BannerAnimationHelper
     public static async UniTask PlayDoubleImpact(
         RectTransform left,
         RectTransform right,
-        float hitPos = 0f,
+        float leftHitPos,
+        float rightHitPos,
         float inTime = 0.45f,
         float bounce1 = 60f,
         float bounce2 = 20f,
@@ -18,32 +19,32 @@ public static class BannerAnimationHelper
     {
         // STEP 1: Move vào hitPos
         await UniTask.WhenAll(
-            left.DOAnchorPosX(hitPos, inTime).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask(),
-            right.DOAnchorPosX(hitPos, inTime).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask()
+            left.DOAnchorPosX(leftHitPos, inTime).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask(),
+            right.DOAnchorPosX(rightHitPos, inTime).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask()
         );
 
-        // STEP 2: Bounce 1 (bật mạnh xa nhất)
+        // STEP 2: Bounce mạnh
         await UniTask.WhenAll(
-            left.DOAnchorPosX(hitPos - bounce1, bounceTime1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask(),
-            right.DOAnchorPosX(hitPos + bounce1, bounceTime1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask()
+            left.DOAnchorPosX(leftHitPos - bounce1, bounceTime1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask(),
+            right.DOAnchorPosX(rightHitPos + bounce1, bounceTime1).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask()
         );
 
-        // STEP 3: Trở lại gần hitPos
+        // STEP 3
         await UniTask.WhenAll(
-            left.DOAnchorPosX(hitPos + 10f, bounceTime1).SetEase(Ease.InQuad).AsyncWaitForCompletion().AsUniTask(),
-            right.DOAnchorPosX(hitPos - 10f, bounceTime1).SetEase(Ease.InQuad).AsyncWaitForCompletion().AsUniTask()
+            left.DOAnchorPosX(leftHitPos + 10f, bounceTime1).SetEase(Ease.InQuad).AsyncWaitForCompletion().AsUniTask(),
+            right.DOAnchorPosX(rightHitPos - 10f, bounceTime1).SetEase(Ease.InQuad).AsyncWaitForCompletion().AsUniTask()
         );
 
-        // STEP 4: Bounce 2 nhỏ
+        // STEP 4: Bounce nhỏ
         await UniTask.WhenAll(
-            left.DOAnchorPosX(hitPos - bounce2, bounceTime2).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask(),
-            right.DOAnchorPosX(hitPos + bounce2, bounceTime2).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask()
+            left.DOAnchorPosX(leftHitPos - bounce2, bounceTime2).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask(),
+            right.DOAnchorPosX(rightHitPos + bounce2, bounceTime2).SetEase(Ease.OutQuad).AsyncWaitForCompletion().AsUniTask()
         );
 
-        // STEP 5: Snap lại vào hitPos
+        // STEP 5: Snap lại
         await UniTask.WhenAll(
-            left.DOAnchorPosX(hitPos, snapTime).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask(),
-            right.DOAnchorPosX(hitPos, snapTime).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask()
+            left.DOAnchorPosX(leftHitPos, snapTime).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask(),
+            right.DOAnchorPosX(rightHitPos, snapTime).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask()
         );
     }
 }

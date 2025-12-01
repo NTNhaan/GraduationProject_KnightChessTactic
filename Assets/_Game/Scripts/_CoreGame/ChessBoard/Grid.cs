@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks;
+using Data;
 
 public class Grid : MonoBehaviour
 {
@@ -73,8 +75,10 @@ public class Grid : MonoBehaviour
     }
 
 
-    public void Start()
+    public async UniTask Start()
     {
+        await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
+
         _piecePrefabDict = new Dictionary<PieceType, GameObject>();
         _itemWeights = new Dictionary<ItemPieces.ItemType, float>
             {
