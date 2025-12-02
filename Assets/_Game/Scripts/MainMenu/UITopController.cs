@@ -13,6 +13,6 @@ public class UITopController : Singleton<UITopController>
     }
     public void HideTab()
     {
-        rectTopBanner.DOAnchorPosY(250, 0.5f);
+        rectTopBanner.DOAnchorPosY(500, 0.5f);
     }
 }

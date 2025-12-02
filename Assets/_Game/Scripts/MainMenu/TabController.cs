@@ -40,6 +40,18 @@ public class TabController : Singleton<TabController>
     }
     private void OnTabSelected(TabType tab)
     {
+        switch (tab)
+        {
+            case TabType.Home:
+                UITopController.Instance.ShowTab();
+                break;
+            case TabType.Shop:
+                UITopController.Instance.HideTab();
+                break;
+            case TabType.Leaderboard:
+                UITopController.Instance.HideTab();
+                break;
+        }
         if (isAnimating)
             return;
 
@@ -131,7 +143,7 @@ public class TabController : Singleton<TabController>
     }
     public void HideBottomTab()
     {
-        bottomTab.DOAnchorPosY(-250, 0.5f);
+        bottomTab.DOAnchorPosY(-500, 0.5f);
     }
 }
 public enum TabType

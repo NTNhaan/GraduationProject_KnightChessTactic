@@ -51,6 +51,7 @@ public class SpinRewardPopup : PopUpBase
         // EventDispatcher.Push(EventId.OnGameStateChanged);
         // EventManager.PasueGame();
         TabController.Instance.HideBottomTab();
+        UITopController.Instance.HideTab();
         ShowPopUp(-250f, 0.3f, () =>
         {
             btnClose.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
@@ -67,6 +68,7 @@ public class SpinRewardPopup : PopUpBase
         HidePopUp(2000f, 0.3f);
         btnClose.DOScale(0f, 0.3f).SetEase(Ease.InBack);
         TabController.Instance.ShowBottomTab();
+        UITopController.Instance.ShowTab();
     }
     
     public async UniTask DoHidePopupDailyRW()

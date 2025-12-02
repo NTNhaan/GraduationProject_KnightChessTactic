@@ -178,13 +178,13 @@ public class HomeScreen : ScreenBase
 
         Vector2 swordRightPos = rectShield.anchoredPosition + new Vector2(217, 5);
         rectSwordRight.anchoredPosition = new Vector2(1000, swordRightPos.y + 800);
-        await rectSwordRight.DOAnchorPos(swordRightPos, 0.4f)
+        await rectSwordRight.DOAnchorPos(swordRightPos, 0.3f)
             .SetEase(Ease.OutBack)  
             .AsyncWaitForCompletion();
         
         Vector2 swordLeftPos = rectShield.anchoredPosition + new Vector2(-217, 5);
         rectSwordLeft.anchoredPosition = new Vector2(-1000, swordLeftPos.y + 800);
-        await rectSwordLeft.DOAnchorPos(swordLeftPos, 0.4f)
+        await rectSwordLeft.DOAnchorPos(swordLeftPos, 0.3f)
             .SetEase(Ease.OutBack)  
             .AsyncWaitForCompletion();
 

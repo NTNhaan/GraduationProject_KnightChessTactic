@@ -58,6 +58,7 @@ public class DailyRewardPopup : PopUpBase
         // EventDispatcher.Push(EventId.OnGameStateChanged);
         // EventManager.PasueGame();
         TabController.Instance.HideBottomTab();
+        UITopController.Instance.HideTab();
         ShowPopUp(0f, 0.3f, async () =>
         {
             var t1 = Day1.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
@@ -100,6 +101,7 @@ public class DailyRewardPopup : PopUpBase
         HidePopUp(2000, 0.3f, () =>
         {
             TabController.Instance.ShowBottomTab();
+            UITopController.Instance.ShowTab();
         });
     }
     #endregion

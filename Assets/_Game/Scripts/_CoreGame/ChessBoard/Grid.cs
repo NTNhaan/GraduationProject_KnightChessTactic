@@ -30,7 +30,7 @@ public class Grid : MonoBehaviour
         public int x;
         public int y;
     };
-    
+
     public int xDim;
     public int yDim;
     public float FillTime;
@@ -55,7 +55,9 @@ public class Grid : MonoBehaviour
     public PieceReward pieceReward;
     public bool isFilling = false;
     private Coroutine fillCoroutine; // Track current fill coroutine
-
+    [SerializeField] private float cellSize = 0.1f;
+    [SerializeField] private float offsetX = 0f;
+    [SerializeField] private float offsetY = 0f;
     public void SetFilling(bool value)
     {
         isFilling = value;
@@ -647,10 +649,15 @@ public class Grid : MonoBehaviour
     }
     public Vector3 GetWorldPosition(float x, float y, float z)
     {
+        // return new Vector3(
+        //     transform.position.x - xDim / 2.0f + x,
+        //     transform.position.y + yDim / 2.0f - y,
+        //     transform.position.z);
         return new Vector3(
-            transform.position.x - xDim / 2.0f + x - 3,
-            transform.position.y + yDim / 2.0f - y + 2,
-            transform.position.z);
+            transform.position.x - (xDim / 2f) * cellSize + x * cellSize + offsetX,
+            transform.position.y + (yDim / 2f) * cellSize - y * cellSize + offsetY,
+            transform.position.z
+        );
     }
 
 
