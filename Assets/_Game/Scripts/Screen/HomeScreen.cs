@@ -44,17 +44,18 @@ public class HomeScreen : ScreenBase
 
     public void OnEnable()
     {
-        EventDispatcher.Register(EventId.OnCoinChanged, UpdateCoinUI);
+        // EventDispatcher.Register(EventId.OnCoinChanged, UpdateCoinUI);
     }
     public void OnDisable()
     {
-        EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
+        // EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
         stopIdleAnim = true;
     }
     async UniTask Start()
     {
         // InitGame();
-
+        InitExp();
+        
         await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
         // topAnim.SetBool("isShow", true);
         // bottomAnim.SetBool("isShow", true);
@@ -78,10 +79,10 @@ public class HomeScreen : ScreenBase
         base.LoadCoinUI();
     }
 
-    public void UpdateCoinUI(object data = null)
-    {
-        coinText.text = DBController.Instance.COIN.ToString("n0");
-    }
+    // public void UpdateCoinUI(object data = null)
+    // {
+    //     coinText.text = DBController.Instance.COIN.ToString("n0");
+    // }
     #endregion
 
     public void ClickStartButton()
@@ -108,9 +109,14 @@ public class HomeScreen : ScreenBase
         textLevel.text = DBController.Instance.LEVEL.ToString();
         hightScoreText.text = DBController.Instance.BEST_SCORE.ToString();
 
-        UpdateCoinUI();
+        // UpdateCoinUI();
         if (DBController.Instance.MUSIC)
             AudioController.Instance.PlayMusic(Sound.Name.Music_Menu);
+    }
+
+    public void InitExp()
+    {
+        ExpBarController.Instance.Init();
     }
     private Animator GetAnimatorByType(IdleAnimType type)
     {

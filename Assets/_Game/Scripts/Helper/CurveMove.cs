@@ -10,42 +10,42 @@ namespace Data
         private Vector3 _startPos;
         private Vector3 _endPos;
         private Vector3 _randomPos;
+        private int _direct = 1;
         private Action _callBack;
 
         private bool _isStarted = false;
 
-        public void CurveMoveAnim(Vector3 startPos, Vector3 endPosition, float t, Action callBack)
+        public void CurveMoveVer1(Vector3 startPos, Vector3 endPosition, float t, Action callBack)
         {
-            // _startPos = startPos;
-            // _moveTime = t;
-            // _endPos = endPosition;
-            //
-            // var posX = UnityEngine.Random.Range(-UnityEngine.Random.Range(_endPos.x, _startPos.x) * 2,
-            //     UnityEngine.Random.Range(_endPos.x, _startPos.x) * 2);
-            // _randomPos = new Vector3(posX, UnityEngine.Random.Range(_endPos.y, _startPos.y));
-            // _isStarted = true;
-            // _callBack = callBack;
-            
             _startPos = startPos;
             _moveTime = t;
             _endPos = endPosition;
             _callBack = callBack;
-
             Vector3 midPoint = (_startPos + _endPos) / 2f;
-
             float offsetX = UnityEngine.Random.Range(-500f, 500f);
             float offsetY = UnityEngine.Random.Range(100f, 250f);
 
-            // _randomPos = midPoint + new Vector3(offsetX, offsetY, 0f);
             _randomPos = new Vector3(
                 _startPos.x + offsetX,
                 _startPos.y + offsetY,
                 _startPos.z
             );
-
             _isStarted = true;
         }
-
+        public void CurveMoveVer2(Vector3 startPos, Vector3 endPosition, float time, int direct, Action callBack)
+        {
+            _startPos = startPos;
+            _moveTime = time;
+            _endPos = endPosition;
+            _direct = direct;
+            var posX = UnityEngine.Random.Range(-UnityEngine.Random.Range(_endPos.x, _startPos.x),
+                UnityEngine.Random.Range(_endPos.x, _startPos.x));
+            //var posX = (-UnityEngine.Random.Range(_endPos.x, _startPos.x) * _direct) * 2;
+            //_randomPos = new Vector3(posX, UnityEngine.Random.Range(_endPos.y, _startPos.y));
+            _randomPos = new Vector3(posX, _startPos.y);
+            _isStarted = true;
+            _callBack = callBack;
+        }
         public Vector3 Lerp(Vector3 a, Vector3 b, float t)
         {
             return a + (b - a) * t;

@@ -84,4 +84,13 @@ public enum EventId
     OnGameStateChanged = 17,
     OnCheatChangeSpeed = 18,
     OnHidePopupReward = 19,
+    
+    OnEnergyUpdate = 20,
+    
+    OnSpinReward = 21,
+    OnAccumulateReward = 22,
+    OnSpinStateChanged = 23,
+    OnAccumulateChanged = 24,
+    
+    OnUpdateRemainTime = 25,
 }

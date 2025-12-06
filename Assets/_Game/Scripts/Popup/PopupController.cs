@@ -49,21 +49,23 @@ public class PopupController : Singleton<PopupController>
     [Header("Spin Reward Popup")]
     [SerializeField] private SpinRewardPopup popUpSpinRW;
     
+    [Header("Spin Reward Popup")]
+    [SerializeField] private LevelUpPopup popupLevelUp;
     private bool isFirstClick = true;
 
-    public void OnEnable()
-    {
-        EventDispatcher.Register(EventId.OnCoinChanged, UpdateCoinUI);
-    }
-    public void OnDisable()
-    {
-        EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
-    }
+    // public void OnEnable()
+    // {
+    //     EventDispatcher.Register(EventId.OnCoinChanged, UpdateCoinUI);
+    // }
+    // public void OnDisable()
+    // {
+    //     EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
+    // }
 
-    private void UpdateCoinUI(object data = null)
-    {
-        numberCoin.text = DBController.Instance.COIN.ToString();
-    }
+    // private void UpdateCoinUI(object data = null)
+    // {
+    //     numberCoin.text = DBController.Instance.COIN.ToString();
+    // }
     
     #region ------------LosePopup------------
     [ContextMenu("Show Lose Popup")]
@@ -161,7 +163,6 @@ public class PopupController : Singleton<PopupController>
     }
     #endregion
     
-        
     #region ------------RewardPopup------------
     [ContextMenu("Show Reward Popup")]
     public void ClickShowRewardPopUp()
@@ -198,6 +199,19 @@ public class PopupController : Singleton<PopupController>
     public void ClickHideSpinRWPopUp()
     {
         popUpSpinRW.HideSpinRewardPopUp();;
+    }
+    #endregion
+    
+    #region ------------LevelUpPopup------------
+    [ContextMenu("Show LevelUp Popup")]
+    public void ClickShowLevelUpPopUp()
+    {
+        popupLevelUp.ShowSpinRewardPopUp();
+    }    
+    [ContextMenu("Hide LevelUp Popup")]
+    public void ClickHideLevelUpPopUp()
+    {
+        popupLevelUp.HideSpinRewardPopUp();;
     }
     #endregion
 }

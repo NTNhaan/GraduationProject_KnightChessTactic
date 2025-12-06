@@ -74,11 +74,11 @@ public class ShopController : MonoBehaviour
         if (DBController.Instance.IsThemeOwned(id))
             return;
 
-        if (!CoinController.Instance.SpendCoin(price))
-        {
-            Debug.Log("Not enough coins!");
-            return;
-        }
+        // if (!CoinController.Instance.SpendCoin(price))
+        // {
+        //     Debug.Log("Not enough coins!");
+        //     return;
+        // }
 
         DBController.Instance.AddOwnedTheme(id);
         UpdateItemUI(id, ShopItemState.Unlocked);

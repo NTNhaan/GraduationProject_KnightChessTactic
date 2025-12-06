@@ -8,10 +8,6 @@ using UnityEngine.UI;
 using Data;
 public class GamePlayScreen : ScreenBase
 {
-    void Start()
-    {
-        SettingCtrl.Instance.InitSetting();
-    }
     #region Override Methods
     public override void ShowScreen(UnityAction onComplete)
     {

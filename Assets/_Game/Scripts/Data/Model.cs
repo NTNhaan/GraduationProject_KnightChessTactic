@@ -109,4 +109,11 @@ namespace Data
         HourClockwise_MinuteCCW, // 2) Giờ thuận, phút ngược
         HourCCW_MinuteClockwise, // 3) Giờ ngược, phút thuận
     }
+    [Serializable]
+    public class NumOfUseBooster
+    {
+        public int broomNum;
+        public int hammerNum;
+        public int swapNum;
+    }
 }

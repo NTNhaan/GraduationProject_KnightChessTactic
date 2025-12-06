@@ -10,6 +10,13 @@ using UnityEngine.Events;
 public class AnimatorHelper : Singleton<AnimatorHelper>
 {
     [SerializeField] private GameObject prefab;
+    [SerializeField] private Transform tfmParentDia;
+    public GameObject diamonFly;
+    public GameObject hammerFly;
+    public GameObject swapFly;
+    public GameObject prefabSprite;
+    private GameObject clone;
+    private int directAnim = 1;
     
     public async UniTask WaitForStateComplete(Animator animator, string stateName, int layer = 0)
     {
@@ -58,7 +65,7 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
                 cloneObj.transform.localScale = Vector3.one * 0.5f;
 
                 var curveHelper = cloneObj.GetComponent<CurveMove>();
-                curveHelper.CurveMoveAnim(firstPos, moveToPosition, 1f, () =>
+                curveHelper.CurveMoveVer1(firstPos, moveToPosition, 1f, () =>
                 {
                     AudioController.Instance.PlayEffectPooled(
                         Sound.Name.Sound_CoinRecive,
@@ -82,7 +89,45 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
             // delay += delta / 2;
         }
     }
+    public void MultiObject(PrefabObjectFly prefabFly, float objectAmount, Transform lastPos)
+    {
+        GameObject prefabToUse;
+        switch (prefabFly)
+        {
+            case PrefabObjectFly.Coin:
+                prefabToUse = diamonFly;
+                break;
+            case PrefabObjectFly.Hammer:
+                prefabToUse = hammerFly;
+                break;
+            case PrefabObjectFly.Swap:
+                prefabToUse = swapFly;
+                break;
+            default:
+                prefabToUse = diamonFly;
+                break;
+        }
+        
+        Vector3 moveToPosition = lastPos.position;
+        float delay = 0;
+        float delta = Mathf.Clamp(1.0f / objectAmount, 0.01f, 0.3f);
 
+        for (int i = 0; i < objectAmount; i++)
+        {
+            DOVirtual.DelayedCall(delay, () =>
+            {
+                var cloneObj = Instantiate(prefabToUse, tfmParentDia);
+                cloneObj.transform.position = tfmParentDia.transform.position;
+                cloneObj.transform.localScale = Vector3.one * 0.5f;
+                var curveHelper = cloneObj.gameObject.GetComponent<CurveMove>();
+                curveHelper.CurveMoveVer2(tfmParentDia.transform.position, moveToPosition, 0.5f, directAnim,
+                    () => { Destroy(cloneObj); });
+
+                cloneObj.transform.DOScale(UnityEngine.Random.Range(1f, 1.2f), 0.45f);
+            });
+            delay += delta / 2;
+        }
+    }
     public async UniTask WaitForComplePartical(ParticleSystem particle, UnityAction onComplete = null)
     {
         if (particle == null) return;
@@ -105,4 +150,14 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
     private void OnDisable() {
         StopAllCoroutines();
     }
+}
+
+public enum PrefabObjectFly
+{
+    Coin,
+    Exp,
+    Energy,
+    Hammer,
+    Swap,
+    Broom,
 }

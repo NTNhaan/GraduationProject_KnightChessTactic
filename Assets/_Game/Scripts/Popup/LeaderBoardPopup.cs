@@ -58,11 +58,6 @@ namespace Popup
                 btnClose.interactable = true;
                 await btnClose.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).ToUniTask();
                 AudioController.Instance.PlayEffect(Sound.Name.Sound_Icon_Appear);
-            
-                await UniTask.Delay(400);
-                await LeaderBoardController.Instance.ScrollToUser();
-                await UniTask.Delay(600);
-                await LeaderBoardController.Instance.TryAnimateUserClimb();
             });
         }
         [ContextMenu("Hide LeaderBoard Popup")]

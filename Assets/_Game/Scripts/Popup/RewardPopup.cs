@@ -92,11 +92,11 @@ public class RewardPopup : PopUpBase
                     Vector3 firstPosition = startCoinPos.transform.position;
                     AnimatorHelper.Instance.ObjectFly(firstPosition, 10, endCoinPos, parentTransform, () =>
                     {
-                        CoinController.Instance.AddCoin(GameConfig.COIN_PLUS, coinField, ()  =>
-                        {
-                            UniTask.Delay(2000);
-                            HideRewardPopUp(); 
-                        });
+                        // CoinController.Instance.AddCoin(GameConfig.COIN_PLUS, coinField, ()  =>
+                        // {
+                        //     UniTask.Delay(2000);
+                        //     HideRewardPopUp(); 
+                        // });
                     });
                 });
             });

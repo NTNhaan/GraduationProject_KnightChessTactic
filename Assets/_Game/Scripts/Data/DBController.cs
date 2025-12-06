@@ -112,7 +112,18 @@ namespace Data
                 Save(DBKey.COIN_PER_LEVEL, _coinPerLevel);
             }
         }
-
+        private int _energy;
+        public int ENERGY
+        {
+            get => _energy;
+            set
+            {
+                _energy = value;
+                Save(DBKey.ENERGY, _energy);
+            }
+        }
+        
+        
         private int _dogSkin;
         public int DOG_SKIN
         {
@@ -180,6 +191,128 @@ namespace Data
             set { _selectedTheme = value; Save(DBKey.SELECTED_THEME, _selectedTheme); }
         }
         private HashSet<string> ownedThemeSet = new();
+        
+        
+        private bool _isFirstSpin;
+        public bool IS_FIRST_SPIN
+        {
+            get => _isFirstSpin;
+            set
+            {
+                _isFirstSpin = value;
+                Save(DBKey.IS_FIRST_SPIN, value);
+            }
+        }
+
+        private int _countSpin;
+
+        public int COUNT_SPINT
+        {
+            get => _countSpin;
+            set
+            {
+                _countSpin = value;
+                Save(DBKey.COUNT_SPINT, value);
+            }
+        }
+
+        private long _timeReturnEnergy;
+        public long TIME_RETURN_ENERGY
+        {
+            get => _timeReturnEnergy;
+            set
+            {
+                _timeReturnEnergy = value;
+                Save(DBKey.TIME_RETURN_ENERGY, value);
+            }
+        }
+
+        private long _timeOffline;
+        public long TIME_OFFLINE
+        {
+            get => _timeOffline;
+            set
+            {
+                _timeOffline = value;
+                Save(DBKey.TIME_OFFLINE, value);
+            }
+        }
+        private int _expLvl;
+
+        public int EXP_LVL
+        {
+            get => _expLvl;
+            set
+            {
+                _expLvl = value;
+                Save(DBKey.EXP_LEVEL, value);
+            }
+        }
+
+        private int _currentExp;
+
+        public int CURRENT_EXP
+        {
+            get => _currentExp;
+            set
+            {
+                _currentExp = value;
+                Save(DBKey.CURRENT_EXP, value);
+            }
+        }
+        private DailyReward _dailyReward;
+
+        public DailyReward DAILY_REWARD
+        {
+            get => _dailyReward;
+            set
+            {
+                _dailyReward = value;
+                Save(DBKey.DAILY_REWARD, value);
+            }
+        }
+        private NumOfUseBooster _numOfUseBooster;
+
+        public NumOfUseBooster NUM_OF_USE_BOOSTER
+        {
+            get => _numOfUseBooster;
+            set
+            {
+                _numOfUseBooster = value;
+                Save(DBKey.NUM_OF_USE_BOOSTER, _numOfUseBooster);
+            }
+        }
+        private int _boosterHammer;
+        public int BOOSTER_HAMMER
+        {
+            get => _boosterHammer;
+            set
+            {
+                _boosterHammer = value;
+                Save(DBKey.BOOSTER_HAMMER, value);
+            }
+        }
+
+        private int _boosterSwap;
+        public int BOOSTER_SWAP
+        {
+            get => _boosterSwap;
+            set
+            {
+                _boosterSwap = value;
+                Save(DBKey.BOOSTER_SWAP, value);
+            }
+        }
+        private int _boosterBroom;
+        public int BOOSTER_BROOM
+        {
+            get => _boosterBroom;
+            set
+            {
+                _boosterBroom = value;
+                Save(DBKey.BOOSTER_BROOM, value);
+            }
+        }
         #endregion
         
         protected override void CustomAwake()
@@ -198,6 +331,7 @@ namespace Data
             CheckDependency(DBKey.EXP, key => EXP = 0);
             CheckDependency(DBKey.COIN, key => COIN = 500);
             CheckDependency(DBKey.COIN_PER_LEVEL, key => COIN_PER_LEVEL = 10);
+            CheckDependency(DBKey.ENERGY, key => ENERGY = GameConfig.MAX_ENERGY);
             CheckDependency(DBKey.DOG_SKIN, key => DOG_SKIN = 0);
             CheckDependency(DBKey.CAT_SKIN, key => CAT_SKIN = 0);
             CheckDependency(DBKey.LAST_PLAY_TIME, key => LAST_PLAY_TIME = 0);
@@ -205,6 +339,28 @@ namespace Data
             CheckDependency(DBKey.GUIDE_BOOSTER, key => GUIDE_BOOSTER = 0);
             CheckDependency(DBKey.OWNED_THEMES, key => OWNED_THEMES = "default");
             CheckDependency(DBKey.SELECTED_THEME, key => SELECTED_THEME = "default");
+            CheckDependency(DBKey.COUNT_SPINT, key => COUNT_SPINT = 0);
+            CheckDependency(DBKey.IS_FIRST_SPIN, key => IS_FIRST_SPIN = true);
+            CheckDependency(DBKey.TIME_RETURN_ENERGY, key => TIME_RETURN_ENERGY = TimeSpan.FromMinutes(1).Ticks);
+            CheckDependency(DBKey.TIME_OFFLINE, key => TIME_OFFLINE = DateTime.UtcNow.Date.Ticks);
+            CheckDependency(DBKey.EXP_LEVEL, key => EXP_LVL = 1);
+            CheckDependency(DBKey.CURRENT_EXP, key => CURRENT_EXP = 0);
+            CheckDependency(DBKey.NUM_OF_USE_BOOSTER, key => { NUM_OF_USE_BOOSTER = new NumOfUseBooster(); });
+            CheckDependency(DBKey.BOOSTER_HAMMER, key => BOOSTER_HAMMER = 0);
+            CheckDependency(DBKey.BOOSTER_SWAP, key => BOOSTER_SWAP = 0);
+            CheckDependency(DBKey.BOOSTER_BROOM, key => BOOSTER_BROOM = 0);
+
+            CheckDependency(DBKey.DAILY_REWARD, key =>
+            {
+                DailyReward _tempDaily = new DailyReward();
+                _tempDaily.datePass = 0;
+
+                int hourNow = DateTime.Now.Hour;
+                DateTime _dtEndOfDay = (hourNow < 24 && hourNow >= 22) ? DateTime.Now.Date.AddDays(1).AddHours(-2) : DateTime.Now.Date.AddHours(-2);
+                _tempDaily.dateTimeLastTimeClaimRewardTick = _dtEndOfDay.Ticks;
+
+                DAILY_REWARD = _tempDaily;
+            });
             Load();
         }
         #region MainFucntions
@@ -251,6 +407,7 @@ namespace Data
             _level = LoadDataByKey<int>(DBKey.LEVEL);
             _exp = LoadDataByKey<int>(DBKey.EXP);
             _coin = LoadDataByKey<int>(DBKey.COIN);
+            _energy = LoadDataByKey<int>(DBKey.ENERGY);
             _coinPerLevel = LoadDataByKey<int>(DBKey.COIN_PER_LEVEL);
             _dogSkin = LoadDataByKey<int>(DBKey.DOG_SKIN);
             _catSkin = LoadDataByKey<int>(DBKey.CAT_SKIN);
@@ -259,6 +416,17 @@ namespace Data
             _guideBooster = LoadDataByKey<int>(DBKey.GUIDE_BOOSTER);
             _ownedThemes = LoadDataByKey<string>(DBKey.OWNED_THEMES);
             _selectedTheme = LoadDataByKey<string>(DBKey.SELECTED_THEME);
+            _timeReturnEnergy = LoadDataByKey<long>(DBKey.TIME_RETURN_ENERGY);
+            _timeOffline = LoadDataByKey<long>(DBKey.TIME_OFFLINE);
+            _countSpin = LoadDataByKey<int>(DBKey.COUNT_SPINT);
+            _isFirstSpin = LoadDataByKey<bool>(DBKey.IS_FIRST_SPIN);
+            _expLvl = LoadDataByKey<int>(DBKey.EXP_LEVEL);
+            _currentExp = LoadDataByKey<int>(DBKey.CURRENT_EXP);
+            _dailyReward = LoadDataByKey<DailyReward>(DBKey.DAILY_REWARD);
+            _numOfUseBooster = LoadDataByKey<NumOfUseBooster>(DBKey.NUM_OF_USE_BOOSTER);
+            _boosterHammer = LoadDataByKey<int>(DBKey.BOOSTER_HAMMER);
+            _boosterSwap   = LoadDataByKey<int>(DBKey.BOOSTER_SWAP);
+            _boosterBroom   = LoadDataByKey<int>(DBKey.BOOSTER_BROOM);
         }
         
         public T LoadDataByKey<T>(string key)
@@ -345,12 +513,33 @@ namespace Data
             Save(DBKey.SELECTED_THEME, SELECTED_THEME);
         }
         #endregion
+
+        #region BOOSTER FUNCTION
+        public void ADD_BOOSTER(int boosterId, int amount)
+        {
+            switch (boosterId)
+            {
+                case 1:
+                    NUM_OF_USE_BOOSTER.hammerNum += amount;
+                    break;
+                case 2:
+                    NUM_OF_USE_BOOSTER.swapNum += amount;
+                    break;
+                case 3:
+                    NUM_OF_USE_BOOSTER.broomNum += amount;
+                    break;
+            }
+
+            Save(DBKey.NUM_OF_USE_BOOSTER, NUM_OF_USE_BOOSTER);
+        }
+        #endregion
     }   
 }
 
 public class DBKey
 {
     public readonly static string COIN = "COIN";
+    public readonly static string ENERGY = "ENERGY";
     public readonly static string COIN_PER_LEVEL = "COIN_PER_LEVEL";
     public readonly static string SCORE = "SCORE";
     public static readonly string BEST_SCORE = "BEST_SCORE";
@@ -369,4 +558,15 @@ public class DBKey
     public static readonly string GUIDE_BOOSTER = "GUIDE_BOOSTER";
     public static readonly string OWNED_THEMES = "OWNED_THEMES";
     public static readonly string SELECTED_THEME = "SELECTED_THEME";
+    public readonly static string TIME_RETURN_ENERGY = "TIME_RETURN_ENERGY";
+    public readonly static string TIME_OFFLINE = "TIME_OFFLINE";
+    public readonly static string COUNT_SPINT = "COUNT_SPINT";
+    public readonly static string IS_FIRST_SPIN = "IS_FIRST_SPIN";
+    public readonly static string EXP_LEVEL = "EXP_LEVEL";
+    public readonly static string CURRENT_EXP = "CURRENT_EXP";
+    public static readonly string DAILY_REWARD = "DAILY_REWARD";
+    public static readonly string NUM_OF_USE_BOOSTER = "NUM_OF_USE_BOOSTER";
+    public static readonly string BOOSTER_HAMMER = "BOOSTER_HAMMER";
+    public static readonly string BOOSTER_SWAP = "BOOSTER_SWAP";
+    public static readonly string BOOSTER_BROOM = "BOOSTER_BROOM";
 }

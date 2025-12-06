@@ -1,0 +1,195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398acf47ae22432bb75f2e8c73780610, type: 3}
+  m_Name: exp_level_data
+  m_EditorClassIdentifier: 
+  expDataArray:
+  - lvl: 1
+    minExp: 0
+    maxExp: 1000
+  - lvl: 2
+    minExp: 1000
+    maxExp: 2000
+  - lvl: 3
+    minExp: 2000
+    maxExp: 3000
+  - lvl: 4
+    minExp: 3000
+    maxExp: 4000
+  - lvl: 5
+    minExp: 4000
+    maxExp: 5000
+  - lvl: 6
+    minExp: 5000
+    maxExp: 6000
+  - lvl: 7
+    minExp: 6000
+    maxExp: 7000
+  - lvl: 8
+    minExp: 7000
+    maxExp: 8000
+  - lvl: 9
+    minExp: 8000
+    maxExp: 9000
+  - lvl: 10
+    minExp: 10000
+    maxExp: 11000
+  - lvl: 11
+    minExp: 11000
+    maxExp: 12000
+  - lvl: 12
+    minExp: 0
+    maxExp: 0
+  - lvl: 13
+    minExp: 0
+    maxExp: 0
+  - lvl: 14
+    minExp: 0
+    maxExp: 0
+  - lvl: 15
+    minExp: 0
+    maxExp: 0
+  - lvl: 16
+    minExp: 0
+    maxExp: 0
+  - lvl: 17
+    minExp: 0
+    maxExp: 0
+  - lvl: 18
+    minExp: 0
+    maxExp: 0
+  - lvl: 19
+    minExp: 0
+    maxExp: 0
+  - lvl: 20
+    minExp: 0
+    maxExp: 0
+  - lvl: 21
+    minExp: 0
+    maxExp: 0
+  - lvl: 22
+    minExp: 0
+    maxExp: 0
+  - lvl: 23
+    minExp: 0
+    maxExp: 0
+  - lvl: 24
+    minExp: 0
+    maxExp: 0
+  - lvl: 25
+    minExp: 0
+    maxExp: 0
+  - lvl: 26
+    minExp: 0
+    maxExp: 0
+  - lvl: 27
+    minExp: 0
+    maxExp: 0
+  - lvl: 28
+    minExp: 0
+    maxExp: 0
+  - lvl: 29
+    minExp: 0
+    maxExp: 0
+  - lvl: 30
+    minExp: 0
+    maxExp: 0
+  - lvl: 31
+    minExp: 0
+    maxExp: 0
+  - lvl: 32
+    minExp: 0
+    maxExp: 0
+  - lvl: 33
+    minExp: 0
+    maxExp: 0
+  - lvl: 34
+    minExp: 0
+    maxExp: 0
+  - lvl: 35
+    minExp: 0
+    maxExp: 0
+  - lvl: 36
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0
+  - lvl: 0
+    minExp: 0
+    maxExp: 0

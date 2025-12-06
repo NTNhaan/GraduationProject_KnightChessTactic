@@ -117,4 +117,5 @@ public enum ScreenGame
     MainScreen = 0,
     GamePlayScreen = 1,
     ShopScreen = 2,
+    LeaderBoardScreen = 3,
 }
