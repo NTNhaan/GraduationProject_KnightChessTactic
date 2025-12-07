@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Cysharp.Threading.Tasks;
 using Data;
 using UnityEngine;
 
@@ -104,43 +105,6 @@ public class DailyRewardController : MonoBehaviour
             _dailyRewardUI.ShowPassDate(_daily.datePass);
             SetTimeRemain();  
         }
-        // _dailyRewardUI.InitRewardUI();
-        // _dailyRewardUI.ActiveClaimBtn(false);
-        // DateTime lastClaim = new DateTime(_daily.dateTimeLastTimeClaimRewardTick);
-        // DateTime nextReset = GetNextResetTime();
-        //
-        // bool isExpired = DateTime.Now >= nextReset;
-        // bool canClaim = DateTime.Now >= lastClaim && DateTime.Now < nextReset;
-        //
-        // if (isExpired)
-        // {
-        //     _daily.datePass = 0;
-        //     _db.DAILY_REWARD = _daily;
-        //     _isCountDown = false;
-        //     _dailyRewardUI.SetTimeRemain(TimeSpan.Zero);
-        //     _dailyRewardUI.ResetAllUI();
-        //     _dailyRewardUI.ActiveClaimBtn(true);
-        //     _dailyRewardUI.ActiveCurrentDate(0, true);
-        //     return;
-        // }
-        // if (canClaim && _daily.datePass == 0)
-        // {
-        //     _dailyRewardUI.ResetAllUI();
-        //     _dailyRewardUI.ActiveClaimBtn(true);
-        //     _dailyRewardUI.ActiveCurrentDate(0, true);
-        //     return;
-        // }
-        // if (canClaim)
-        // {
-        //     _dailyRewardUI.ActiveClaimBtn(true);
-        //     _dailyRewardUI.ActiveCurrentDate(_daily.datePass, true);
-        // }
-        // else
-        // {
-        //     SetTimeRemain();
-        // }
-        //
-        // _dailyRewardUI.ShowPassDate(_daily.datePass);
     }
 
     bool CanClaim()
@@ -159,24 +123,7 @@ public class DailyRewardController : MonoBehaviour
             _daily.datePass = 0; 
         }
         var reward = GameConfig.lstDailyReward[rewardIndex];
-
-        if (reward.coin > 0)
-        {
-            _db.COIN += reward.coin;
-        }
-
-        if (reward.boosterId == 1)
-        {
-            _db.BOOSTER_HAMMER += reward.boosterAmount;
-        }
-        else if (reward.boosterId == 2)
-        {
-            _db.BOOSTER_SWAP += reward.boosterAmount;
-        }
-        else if (reward.boosterId == 3)
-        {
-            _db.BOOSTER_BROOM += reward.boosterAmount;
-        }
+        ApplyReward(reward);
         DateTime nextReset = GetNextResetTime();
         _daily.dateTimeLastTimeClaimRewardTick = nextReset.Ticks;
 
@@ -197,87 +144,92 @@ public class DailyRewardController : MonoBehaviour
         int oldIndex = _daily.datePass;
         ClaimAndAnim();
         var reward = GameConfig.lstDailyReward[oldIndex];
-        Debug.Log($"CheckReward: {reward.boosterId} {reward.coin} {reward.boosterAmount}");
-        // _gameHelper.ScreenController.MainScreen.ShowDiamond();  // Update Text and Score Text
         _dailyRewardUI.ActiveClaimBtn(false);
-
-        // GameHelper.Instance.SoundController.PlaySound(SoundName.ClaimReward);
-        if (reward.coin > 0)
-        {
-            AnimatorHelper.Instance.MultiObject(
-                PrefabObjectFly.Coin,
-                Mathf.Min(10, reward.coin / 50), 
-                UITopController.Instance.CoinUI.tfmCoinText
-            );
-        }
-        if (reward.boosterId > 0 && reward.boosterAmount > 0)
-        {
-            if (reward.boosterId == 1)
-            {
-                AnimatorHelper.Instance.MultiObject(
-                    PrefabObjectFly.Hammer,
-                    reward.boosterAmount,
-                    UITopController.Instance.CoinUI.tfmCoinText
-                );
-            }
-
-            if (reward.boosterId == 2) 
-            {
-                AnimatorHelper.Instance.MultiObject(
-                    PrefabObjectFly.Swap,
-                    reward.boosterAmount,
-                    UITopController.Instance.CoinUI.tfmCoinText
-                );
-            }
-            if (reward.boosterId == 3) 
-            {
-                AnimatorHelper.Instance.MultiObject(
-                    PrefabObjectFly.Broom,
-                    reward.boosterAmount,
-                    UITopController.Instance.CoinUI.tfmCoinText
-                );
-            }
-        }
     }
-
-    public void ClaimDoubleReward()
+    public void ApplyReward(DailyRewardData data)
     {
-        var reward = GameConfig.lstDailyReward[_daily.datePass - 1];
-
-        if (reward.boosterId == 0)
+        foreach (var r in data.rewards)
         {
-            // x2 diamond
-            _db.COIN += reward.coin * 2;
-        }
-        else
-        {
-            // x2 booster
-            _db.ADD_BOOSTER(reward.boosterId, reward.boosterAmount * 2);
-        }
+            Debug.Log($"CheckRewardType: {r.type} + {r.amount}");
+            switch (r.type)
+            {
+                case RewardType.Coin:
+                    // DBController.Instance.COIN += r.amount;
+                    UITopController.Instance.ShowTab(() =>
+                    {
+                        AnimatorHelper.Instance.MultiObject(PrefabObjectFly.Coin, Mathf.Min(10, r.amount / 50), UITopController.Instance.CoinUI.tfmCoinText,
+                            () =>
+                            {
+                                CoinController.Instance.AddCoin(r.amount);
+                            });
+                    });
+                    break;
 
-        ClaimAndAnim();
-        // _gameHelper.ScreenController.MainScreen.ShowDiamond();
-        _dailyRewardUI.ActiveClaimBtn(false);
-        // ClaimAndAnim();
-        // _db.DIAMOND += _diaReward;
-        // _gameHelper.ScreenController.MainScreen.ShowDiamond();
-        // _gameHelper.GiftController.RandomNormalGiftAndUpdateUI();
-        // _dailyRewardUI.ActiveClaimBtn(false);
-        // _gameHelper.FakeObjectFly.MultiObject(20,
-        //     _gameHelper.ScreenController.MainScreen.tfmDiaText);
-        
-        // _gameHelper.WatchAdHelper.ShowRewardAd(() =>
-        // {
-        //     ClaimAndAnim();
-        //     _db.DIAMOND += _diaReward;
-        //     _gameHelper.ScreenController.MainScreen.ShowDiamond();
-        //     _gameHelper.GiftController.RandomNormalGiftAndUpdateUI();
-        //     _dailyRewardUI.ActiveClaimBtn(false);
-        //     _gameHelper.FakeObjectFly.MultiObject(20,
-        //         _gameHelper.ScreenController.MainScreen.tfmDiaText);
-        // });
+                case RewardType.Energy:
+                    UITopController.Instance.ShowTab(() =>
+                    {
+                        AnimatorHelper.Instance.MultiObject(PrefabObjectFly.Energy, Mathf.Min(10, r.amount / 50), UITopController.Instance.EnergyUI.tfmEnergyText,
+                            () =>
+                            {
+                                EnergyController.Instance.AddEnergy(r.amount);
+                            });
+                    });
+                    break;
+
+                case RewardType.Exp:
+                    UITopController.Instance.ShowTab(() =>
+                    {
+                        AnimatorHelper.Instance.MultiObject(PrefabObjectFly.Exp, Mathf.Min(10, r.amount / 50), UITopController.Instance.ExpBarView.tfmExpText,
+                            () =>
+                            {
+                                ExpBarController.Instance.AddExp(r.amount);
+                            });
+                    });
+                    break;
+
+                case RewardType.BoosterHammer:
+                    UITopController.Instance.ShowTab(() =>
+                    {
+                        AnimatorHelper.Instance.MultiObject(PrefabObjectFly.Hammer, r.amount, UITopController.Instance.ExpBarView.tfmExpText,
+                            async () =>
+                            {
+                                DBController.Instance.BOOSTER_HAMMER += r.amount;
+                                await UniTask.Delay(2000);
+                                UITopController.Instance.HideTab();
+                            });
+                    });
+                    break;
+
+                case RewardType.BoosterSwap:
+                    UITopController.Instance.ShowTab(() =>
+                    {
+                        AnimatorHelper.Instance.MultiObject(PrefabObjectFly.Swap, r.amount, UITopController.Instance.ExpBarView.tfmExpText,
+                            async () =>
+                            {
+                                DBController.Instance.BOOSTER_SWAP += r.amount;
+                                
+                                await UniTask.Delay(2000);
+                                UITopController.Instance.HideTab();
+                            });
+                    });
+                    break;
+
+                case RewardType.BoosterBroom:
+                    UITopController.Instance.ShowTab(() =>
+                    {
+                        AnimatorHelper.Instance.MultiObject(PrefabObjectFly.Broom, r.amount, UITopController.Instance.ExpBarView.tfmExpText,
+                            async ()  =>
+                            {
+                                DBController.Instance.BOOSTER_BROOM += r.amount;
+
+                                await UniTask.Delay(2000);
+                                UITopController.Instance.HideTab();
+                            });
+                    });
+                    break;
+            }
+        }
     }
-    
 
     DateTime ConvertTickToDateTime(long timeTick)
     {
@@ -304,12 +256,6 @@ public class DailyRewardController : MonoBehaviour
 
         _dailyRewardUI.SetTimeRemain(_timeRemain);
         _isCountDown = _timeRemain > TimeSpan.Zero;
-        // DateTime _dt = DateTime.Now;
-        // DateTime _dtEndOfDay = ConvertTickToDateTime(_daily.dateTimeLastTimeClaimRewardTick); // 22h
-        // _timeRemain = _dtEndOfDay - _dt;
-        // Debug.Log($"SetTimeRemain {_dtEndOfDay} - {_dt} = {_timeRemain}");
-        // _dailyRewardUI.SetTimeRemain(_timeRemain);
-        // _isCountDown = true;
     }
     public static DateTime GetNextResetTime()
     {

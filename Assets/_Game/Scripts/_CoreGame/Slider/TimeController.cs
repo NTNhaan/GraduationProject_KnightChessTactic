@@ -87,15 +87,16 @@ public class TimeController : Singleton<TimeController>
 
         bool SwapOnBoard = TurnController.Instance.IsSwapping;
 
-        // OPTIMIZED: Pause slider during turn change animation
-        if (SwapOnBoard || isPaused)
+        // Pause slider khi game bị pause hoặc đang swap
+        if (SwapOnBoard || isPaused || InGameData.GAME_STATE == GameState.PauseGame)
         {
-            return; // Don't update slider during swap animation
+            return; // Don't update slider during swap animation or pause
         }
 
         if (role == Role.Player)
         {
-            TimeSliderHero.value -= Time.deltaTime * 10;
+            // Sử dụng timeScale để điều khiển tốc độ giảm của slider
+            TimeSliderHero.value -= Time.deltaTime * 10 * timeScale;
 
             // Kiểm tra và phát âm thanh cảnh báo
             if (TimeSliderHero.value <= WARNING_THRESHOLD && !hasPlayedWarning)
@@ -111,7 +112,8 @@ public class TimeController : Singleton<TimeController>
         }
         else if (role == Role.Demon)
         {
-            TimeSliderDemon.value -= Time.deltaTime * 10;
+            // Sử dụng timeScale để điều khiển tốc độ giảm của slider
+            TimeSliderDemon.value -= Time.deltaTime * 10 * timeScale;
 
             // Kiểm tra và phát âm thanh cảnh báo
             if (TimeSliderDemon.value <= WARNING_THRESHOLD && !hasPlayedWarning)

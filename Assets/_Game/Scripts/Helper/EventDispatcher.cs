@@ -92,5 +92,5 @@ public enum EventId
     OnSpinStateChanged = 23,
     OnAccumulateChanged = 24,
     
-    OnUpdateRemainTime = 25,
+    OnUpdateTimeRemain = 25,
 }

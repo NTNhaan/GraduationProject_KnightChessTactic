@@ -85,13 +85,15 @@ public class Grid : MonoBehaviour
         _itemWeights = new Dictionary<ItemPieces.ItemType, float>
             {
                 { ItemPieces.ItemType.Sword, 0.1f },
+                { ItemPieces.ItemType.Fire, 0.1f },
                 { ItemPieces.ItemType.Shield, 0.1f },
-                { ItemPieces.ItemType.Apple, 0.1f },
-                { ItemPieces.ItemType.AppleGreen, 0.1f },
-                { ItemPieces.ItemType.Beer, 0.1f },
-                { ItemPieces.ItemType.Heart, 0.1f },
                 { ItemPieces.ItemType.Armor, 0.1f },
-                { ItemPieces.ItemType.Mushroom, 0.1f },
+                { ItemPieces.ItemType.Apple, 0.1f },
+                { ItemPieces.ItemType.Heart, 0.1f },
+                { ItemPieces.ItemType.Coin, 0.1f },
+                { ItemPieces.ItemType.Energy, 0.1f },
+                { ItemPieces.ItemType.Time, 0.1f },
+                { ItemPieces.ItemType.Boom, 0.1f },
             };
         for (int i = 0; i < piecePrefabs.Length; i++)
         {
@@ -634,6 +636,62 @@ public class Grid : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Xác định match là ngang hay dọc dựa trên list pieces
+    /// </summary>
+    public bool IsMatchHorizontal(List<GamePieces> match)
+    {
+        if (match == null || match.Count < 3)
+            return false;
+
+        // Kiểm tra xem tất cả pieces có cùng Y không (ngang)
+        int firstY = match[0].Y;
+        foreach (var piece in match)
+        {
+            if (piece.Y != firstY)
+                return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Clear toàn bộ hàng tại y
+    /// </summary>
+    public bool ClearRow(int y)
+    {
+        if (y < 0 || y >= yDim)
+            return false;
+
+        bool cleared = false;
+        for (int x = 0; x < xDim; x++)
+        {
+            if (ClearPiece(x, y))
+            {
+                cleared = true;
+            }
+        }
+        return cleared;
+    }
+
+    /// <summary>
+    /// Clear toàn bộ cột tại x
+    /// </summary>
+    public bool ClearColumn(int x)
+    {
+        if (x < 0 || x >= xDim)
+            return false;
+
+        bool cleared = false;
+        for (int y = 0; y < yDim; y++)
+        {
+            if (ClearPiece(x, y))
+            {
+                cleared = true;
+            }
+        }
+        return cleared;
     }
     Vector2 GetPrefabSize(GameObject prefab)
     {

@@ -14,9 +14,8 @@ public class HomeScreen : ScreenBase
 {
     [FormerlySerializedAs("dailyReward")]
     [Header("Main Screen")]
-    // [SerializeField] private Button btnDailyReward;
-    [SerializeField] private Animator btnDailyReward;
-    [SerializeField] private Animator btnSpinReward;
+    [SerializeField] private Button btnDailyReward;
+    [SerializeField] private Button btnSpinReward;
     [SerializeField] private Button btnLevelMode;
     [SerializeField] private Button btnClassicMode;
     [SerializeField] private Button btnPveMode;
@@ -35,6 +34,10 @@ public class HomeScreen : ScreenBase
     [SerializeField] private RectTransform rectSwordLeft;
     [SerializeField] private RectTransform rectSwordRight;
     
+    [Header("Time Daily Reward")]
+    [SerializeField] private Text txtTimeRemain;
+    
+    
     [Header("=====HightScore MainScene=====")]
     [SerializeField] private Text hightScoreText;
     [SerializeField] private Text coinText;
@@ -44,11 +47,11 @@ public class HomeScreen : ScreenBase
 
     public void OnEnable()
     {
-        // EventDispatcher.Register(EventId.OnCoinChanged, UpdateCoinUI);
+        EventDispatcher.Register(EventId.OnUpdateTimeRemain, OnUpdateTimeRemain);
     }
     public void OnDisable()
     {
-        // EventDispatcher.RemoveCallback(EventId.OnCoinChanged, UpdateCoinUI);
+        EventDispatcher.RemoveCallback(EventId.OnUpdateTimeRemain, OnUpdateTimeRemain);
         stopIdleAnim = true;
     }
     async UniTask Start()
@@ -60,7 +63,7 @@ public class HomeScreen : ScreenBase
         // topAnim.SetBool("isShow", true);
         // bottomAnim.SetBool("isShow", true);
         // AudioController.Instance.PlayEffect(Sound.Name.Sound_PopupOpen);
-        StartIdleLoop();
+        // StartIdleLoop();
     }
     #region Override Methods
     public override void ShowScreen(UnityAction onComplete)
@@ -118,54 +121,60 @@ public class HomeScreen : ScreenBase
     {
         ExpBarController.Instance.Init();
     }
-    private Animator GetAnimatorByType(IdleAnimType type)
+    // private Animator GetAnimatorByType(IdleAnimType type)
+    // {
+    //     switch (type)
+    //     {
+    //         case IdleAnimType.DailyReward:
+    //             return btnDailyReward;
+    //         case IdleAnimType.SpinReward:
+    //             return btnSpinReward;
+    //         default:
+    //             return null;
+    //     }
+    // }
+    // private async UniTask PlayIdleAnimation(IdleAnimType type)
+    // {
+    //     Animator anim = GetAnimatorByType(type);
+    //     if (anim == null) return;
+    //
+    //     anim.SetBool("isJump", true);
+    //     if (type == IdleAnimType.DailyReward)
+    //     {
+    //         await AnimatorHelper.Instance.WaitForStateComplete(anim, "Anim_Gift");
+    //     }
+    //     else
+    //     {
+    //         await AnimatorHelper.Instance.WaitForStateComplete(anim, "Anim_SpinRun");
+    //     }
+    //     anim.SetBool("isJump", false);
+    // }
+    // private async void StartIdleLoop()
+    // {
+    //     stopIdleAnim = false;
+    //
+    //     while (!stopIdleAnim)
+    //     {
+    //         float waitTime = UnityEngine.Random.Range(4f, 9f);
+    //         await UniTask.Delay(TimeSpan.FromSeconds(waitTime),
+    //             cancellationToken: this.GetCancellationTokenOnDestroy());
+    //
+    //         if (stopIdleAnim) break;
+    //
+    //         // random pick 1 trong 2
+    //         IdleAnimType chosen = (UnityEngine.Random.value > 0.5f)
+    //             ? IdleAnimType.DailyReward
+    //             : IdleAnimType.SpinReward;
+    //
+    //         await PlayIdleAnimation(chosen);
+    //     }
+    // }
+
+    private void OnUpdateTimeRemain(object data)
     {
-        switch (type)
-        {
-            case IdleAnimType.DailyReward:
-                return btnDailyReward;
-            case IdleAnimType.SpinReward:
-                return btnSpinReward;
-            default:
-                return null;
-        }
+        txtTimeRemain.text = (string)data; 
     }
-    private async UniTask PlayIdleAnimation(IdleAnimType type)
-    {
-        Animator anim = GetAnimatorByType(type);
-        if (anim == null) return;
-
-        anim.SetBool("isJump", true);
-        if (type == IdleAnimType.DailyReward)
-        {
-            await AnimatorHelper.Instance.WaitForStateComplete(anim, "Anim_Gift");
-        }
-        else
-        {
-            await AnimatorHelper.Instance.WaitForStateComplete(anim, "Anim_SpinRun");
-        }
-        anim.SetBool("isJump", false);
-    }
-    private async void StartIdleLoop()
-    {
-        stopIdleAnim = false;
-
-        while (!stopIdleAnim)
-        {
-            float waitTime = UnityEngine.Random.Range(4f, 9f);
-            await UniTask.Delay(TimeSpan.FromSeconds(waitTime),
-                cancellationToken: this.GetCancellationTokenOnDestroy());
-
-            if (stopIdleAnim) break;
-
-            // random pick 1 trong 2
-            IdleAnimType chosen = (UnityEngine.Random.value > 0.5f)
-                ? IdleAnimType.DailyReward
-                : IdleAnimType.SpinReward;
-
-            await PlayIdleAnimation(chosen);
-        }
-    }
+    
     #region Show/Hide Main Screen
     public async UniTask DoShowMainScreen() // knight
     {
@@ -228,8 +237,6 @@ public class HomeScreen : ScreenBase
         // logoInGame.DOScale(0f, .3f).SetEase(Ease.InBack);
     }
     #endregion
-
-
     #region Setting Buttons
     public void OnClickSoundButton()
     {

@@ -14,6 +14,8 @@ public class EnergyUI : MonoBehaviour
     [SerializeField] private Text txtValue;
     [SerializeField] private Text txtTime;
     [SerializeField] private Transform bannerTime;
+    
+    public Transform tfmEnergyText => txtValue.transform;
     private void Awake()
     {
         EventDispatcher.Register(EventId.OnEnergyUpdate, UpdateValueUI);

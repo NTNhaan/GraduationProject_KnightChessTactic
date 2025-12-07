@@ -50,16 +50,6 @@ public class ExpBarController : Singleton<ExpBarController>
         dbCtrl.CURRENT_EXP += exp;
         float amount = (dbCtrl.CURRENT_EXP - this.currentData.minExp) * 1.0f /
                        (currentData.maxExp - currentData.minExp);
-        // if (GameConfig.GameMode == GameMode.Endless)
-        // {
-        //     DBController.Instance.ENDLESS_DATA.AddScoreEndless(exp);
-        //
-        //     if (DBController.Instance.ENDLESS_DATA.expEndless > DBController.Instance.ENDLESS_DATA.scoreToShowAddBreak)
-        //     {
-        //         DBController.Instance.ENDLESS_DATA.SetScoreToShowAddBreak(DBController.Instance.ENDLESS_DATA.scoreToShowAddBreak + scoreToShowAddBreak);
-        //         StartCoroutine(AdBreakController.Instance.CountDownToShowBreakAd());
-        //     }
-        // }
         if (amount >= 1)
         {
             dbCtrl.EXP_LVL++;

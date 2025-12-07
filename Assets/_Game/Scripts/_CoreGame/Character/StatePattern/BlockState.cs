@@ -9,27 +9,49 @@ public class BlockState : ICharacterState
 
     public void Enter(Character character)
     {
-        character.GetComponent<Animator>().SetTrigger("Block");
+        Animator animator = character.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("Block");
+            animator.SetBool("IdleBlock", true);
+        }
         isBlocking = true;
     }
 
     public void Update(Character character)
     {
-        // Check if player releases block button (right mouse button)
-        if (Input.GetMouseButtonUp(1))
+        // Nếu có shield hoặc armor, giữ block tự động (không cần input)
+        if (character.HasShield || character.HasArmor)
         {
-            character.GetComponent<Animator>().SetBool("IdleBlock", false);
-            character.ChangeState(new IdleState());
+            // Giữ trạng thái block
+            Animator animator = character.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetBool("IdleBlock", true);
+            }
         }
-        else if (Input.GetMouseButton(1))
+        else
         {
-            character.GetComponent<Animator>().SetBool("IdleBlock", true);
+            // Nếu không có shield/armor, kiểm tra input từ player (right mouse button)
+            if (Input.GetMouseButtonUp(1))
+            {
+                character.GetComponent<Animator>().SetBool("IdleBlock", false);
+                character.ChangeState(new IdleState());
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                character.GetComponent<Animator>().SetBool("IdleBlock", true);
+            }
         }
     }
 
     public void Exit(Character character)
     {
         isBlocking = false;
-        character.GetComponent<Animator>().SetBool("IdleBlock", false);
+        Animator animator = character.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetBool("IdleBlock", false);
+        }
     }
-} 
+}

@@ -19,15 +19,12 @@ public class DailyRewardPopup : PopUpBase
     [SerializeField] private Transform Day5;
     [SerializeField] private Transform Day6;
     [SerializeField] private Transform Day7;
-    [SerializeField] private Transform btnClose;
     
     [SerializeField] private List<DailyUI> lstDailyUi;
     [SerializeField] private GameObject gobjClaim;
-    // [SerializeField] private GameObject gobjClaimX2;
-    [SerializeField] private GameObject gobjClose;
-    [SerializeField] private Text txtTimeRemain;
+    [SerializeField] private Transform btnClose;
+    [SerializeField] private GameObject gobjNameBanner;
     [SerializeField] private GameObject gobjTimeBanner;
-    // [SerializeField] GameObject gobjNextReward;
     [SerializeField] GameObject gobjDotRed;
     [SerializeField] Animator animator; 
     
@@ -127,25 +124,25 @@ public class DailyRewardPopup : PopUpBase
     #region CoreFunction
     public void InitRewardUI()
     {
-        for (int i = 0; i < lstDailyUi.Count; i++)
-        {
-            // lstDailyUi[i].txtDiamondValue.text = $"+{GameConfig.lstDiaReward[i]}";
-            var data = GameConfig.lstDailyReward[i];
-
-            if (data.coin > 0 && data.boosterAmount == 0)
-            {
-                lstDailyUi[i].txtDiamondValue.text = $"+{data.coin}";
-            }
-            else if (data.coin == 0 && data.boosterAmount > 0)
-            {
-                lstDailyUi[i].txtDiamondValue.text = $"+{data.boosterAmount}";
-            }
-            else
-            {
-                lstDailyUi[i].txtDiamondValue.text =
-                    $"+{data.coin}";
-            }
-        }
+        // for (int i = 0; i < lstDailyUi.Count; i++)
+        // {
+        //     // lstDailyUi[i].txtDiamondValue.text = $"+{GameConfig.lstDiaReward[i]}";
+        //     var data = GameConfig.lstDailyReward[i];
+        //
+        //     if (data.coin > 0 && data.boosterAmount == 0)
+        //     {
+        //         lstDailyUi[i].txtDiamondValue.text = $"+{data.coin}";
+        //     }
+        //     else if (data.coin == 0 && data.boosterAmount > 0)
+        //     {
+        //         lstDailyUi[i].txtDiamondValue.text = $"+{data.boosterAmount}";
+        //     }
+        //     else
+        //     {
+        //         lstDailyUi[i].txtDiamondValue.text =
+        //             $"+{data.coin}";
+        //     }
+        // }
     }
     public void ShowPassDate(int datePass)
     {
@@ -158,20 +155,23 @@ public class DailyRewardPopup : PopUpBase
 
     public void ActiveCloseBtn(bool isActive)
     {
-        gobjClose.SetActive(isActive);
+        btnClose.gameObject.SetActive(isActive);
     }
 
     public void ActiveClaimBtn(bool isActive)
     {
-        gobjDotRed.SetActive(isActive);
         gobjClaim.SetActive(isActive);
+        gobjDotRed.SetActive(isActive);
+        gobjNameBanner.gameObject.SetActive(isActive);
         gobjTimeBanner.gameObject.SetActive(!isActive);
         PlayAnimButtonDailyReward(isActive);
+        // push event vào home screen
     }
 
     public void PlayAnimButtonDailyReward(bool isCanClaim)
     {
-        animator.SetBool("CanClaim", isCanClaim);
+        // animator.SetBool("CanClaim", isCanClaim);
+        animator.SetBool("isJump", isCanClaim);
     }
 
     public void DoAnimPassDate(int datePass)
@@ -244,7 +244,7 @@ public class DailyRewardPopup : PopUpBase
         var _tsDay = ts.Days * 24;
         string timeStr = $"{(ts.Hours + _tsDay):00}:{ts.Minutes:00}:{ts.Seconds:00}";
 
-        EventDispatcher.Push(EventId.OnUpdateRemainTime, timeStr);
+        EventDispatcher.Push(EventId.OnUpdateTimeRemain, timeStr);
     }
     #endregion
 }
@@ -263,7 +263,20 @@ public class DailyUI
 [Serializable]
 public class DailyRewardData
 {
-    public int coin;       
-    public int boosterId;      
-    public int boosterAmount; 
+    public List<RewardItem> rewards = new List<RewardItem>();
+}
+[Serializable]
+public class RewardItem
+{
+    public RewardType type;
+    public int amount;
+}
+public enum RewardType
+{
+    Coin,
+    Energy,
+    Exp,
+    BoosterHammer,
+    BoosterSwap,
+    BoosterBroom
 }

@@ -38,13 +38,58 @@ public class GameConfig
     public static readonly int DAILY_RESET_HOUR = 24;
     public static readonly List<DailyRewardData> lstDailyReward = new()
     {
-        new DailyRewardData { coin = 100, boosterId = 0, boosterAmount = 0 },  // Day 1
-        new DailyRewardData { coin = 200, boosterId = 0, boosterAmount = 0 },  // Day 2
-        new DailyRewardData { coin = 0,   boosterId = 1, boosterAmount = 1 },  // Day 3 → 1 booster
-        new DailyRewardData { coin = 300, boosterId = 0, boosterAmount = 0 },  // Day 4
-        new DailyRewardData { coin = 0,   boosterId = 2, boosterAmount = 2 },  // Day 5 → 2 swap
-        new DailyRewardData { coin = 500, boosterId = 0, boosterAmount = 0 },  // Day 6
-        new DailyRewardData { coin = 700,   boosterId = 2, boosterAmount = 10 }  // Day 7 → 10 swap
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.Coin, amount = 100 }
+            }
+        },
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.Coin, amount = 200 }
+            }
+        },
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.Energy, amount = 50 }
+            }
+        },
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.BoosterHammer, amount = 3 }
+            }
+        },
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.Exp, amount = 500 }
+            }
+        },
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.Coin, amount = 500 }
+            }
+        },
+        new DailyRewardData
+        {
+            rewards = new List<RewardItem>()
+            {
+                new RewardItem { type = RewardType.Coin, amount = 1000 },
+                new RewardItem { type = RewardType.BoosterHammer, amount = 1 },
+                new RewardItem { type = RewardType.BoosterSwap, amount = 1 },
+                new RewardItem { type = RewardType.BoosterBroom, amount = 1 }
+            }
+        }
     };
 }
 

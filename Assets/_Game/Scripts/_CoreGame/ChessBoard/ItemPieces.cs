@@ -7,19 +7,16 @@ public class ItemPieces : MonoBehaviour
 {
     public enum ItemType
     {
-        Apple,
-        AppleGreen,
-        Beer,
-        Sword,
-        Heart,
-        Armor,
-        Shield,
-        Mushroom,
-        // Coin,
-        // Tourch,
-        // RedPotion,
-        // Any,
-        // Count
+        Apple,//
+        Heart,//
+        Coin, //
+        Energy,//
+        Fire,//
+        Sword,//
+        Armor,//
+        Shield,//
+        Boom,
+        Time,
     }
     [System.Serializable]
     public struct ItemSprite

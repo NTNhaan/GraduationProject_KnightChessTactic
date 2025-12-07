@@ -45,7 +45,7 @@ public class PieceReward : MonoBehaviour
 
         // OPTIMIZED: Disable collider when coin starts moving
         DisableColliderOnCoin(_coin);
-
+        
         StartCoroutine(MoveCoin(_coin.transform, _intialPos, targetPos));
     }
 
@@ -68,7 +68,7 @@ public class PieceReward : MonoBehaviour
     IEnumerator MoveCoin(Transform obj, Vector3 StartPos, Vector3 EndPos)
     {
         float time = 0;
-        EndPos = new Vector3(EndPos.x, EndPos.y + 3, EndPos.z);
+        EndPos = new Vector3(EndPos.x, EndPos.y, EndPos.z);
         while (time < 1)
         {
             time += 1 * Time.deltaTime;

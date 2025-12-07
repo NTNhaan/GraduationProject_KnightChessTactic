@@ -18,14 +18,15 @@ public class SpinRewardPopup : PopUpBase
     [SerializeField] private Image imgFillAccumulate;
     [SerializeField] private Text txtAccumulate;
     [SerializeField] private ScreenGetRW screenGetRW;
-    
+    [SerializeField] private Animator animSpinReward;
+    [SerializeField] private GameObject gobjDotRed;
     private void OnEnable()
     {
         EventDispatcher.Register(EventId.OnSpinReward, OnSpinReward);
         EventDispatcher.Register(EventId.OnAccumulateReward, OnAccumulateReward);
         EventDispatcher.Register(EventId.OnSpinStateChanged, OnSpinStateChanged);
         EventDispatcher.Register(EventId.OnAccumulateChanged, OnAccumulateChanged);
-
+        EventDispatcher.Register(EventId.OnEnergyUpdate, OnEnergyUpdate);
         if (txtAmountEnergySpin != null)
         {
             txtAmountEnergySpin.text = $"-{GameConfig.SPIN_ENERGY}";
@@ -38,6 +39,7 @@ public class SpinRewardPopup : PopUpBase
         EventDispatcher.RemoveCallback(EventId.OnAccumulateReward, OnAccumulateReward);
         EventDispatcher.RemoveCallback(EventId.OnSpinStateChanged, OnSpinStateChanged);
         EventDispatcher.RemoveCallback(EventId.OnAccumulateChanged, OnAccumulateChanged);
+        EventDispatcher.RemoveCallback(EventId.OnEnergyUpdate, OnEnergyUpdate);
     }
     
     #region Overrides Func
@@ -113,7 +115,15 @@ public class SpinRewardPopup : PopUpBase
     }
     #endregion
     
-    
+    private void OnEnergyUpdate(object data = null)
+    {
+        bool enoughEnergy = DBController.Instance.ENERGY >= GameConfig.SPIN_ENERGY;
+        if (animSpinReward != null)
+        {
+            animSpinReward.SetBool("isJump", enoughEnergy);
+            gobjDotRed.gameObject.SetActive(enoughEnergy);   
+        }
+    }
     private void OnSpinReward(object data)
     {
         Debug.Log(">>> OnSpinReward EVENT RECEIVED");

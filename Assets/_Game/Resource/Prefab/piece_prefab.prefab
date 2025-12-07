@@ -75,22 +75,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSprites:
-  - item: 0
-    sprite: {fileID: 21300000, guid: d91909614ccfbcd409b7a7ef49a8ee70, type: 3}
-  - item: 1
-    sprite: {fileID: 21300000, guid: 71d8241922dc29a44934f1aa1b93a139, type: 3}
+  - item: 8
+    sprite: {fileID: 21300000, guid: 64468da450e4eff4bb65d42a60e4c10b, type: 3}
+  - item: 9
+    sprite: {fileID: 21300000, guid: 8501c910102cec44e8d38ad6467f94c3, type: 3}
   - item: 2
-    sprite: {fileID: 21300000, guid: 8a6c7f0ed998cc14d83d97c1676168aa, type: 3}
+    sprite: {fileID: 21300000, guid: 4a6df767f59b9294ab20e24dbfbe5c9d, type: 3}
   - item: 3
-    sprite: {fileID: 21300000, guid: 181df24512e4c6a46b94d5b9c771919b, type: 3}
-  - item: 4
-    sprite: {fileID: 21300000, guid: 9068392d18cccfa44b776cad8a6303bd, type: 3}
-  - item: 5
-    sprite: {fileID: 21300000, guid: 3b7fa55f3ac54ab4eb179da5ee4c0819, type: 3}
+    sprite: {fileID: 21300000, guid: a3faf180f2f738045a0be624d4da727d, type: 3}
   - item: 6
-    sprite: {fileID: 21300000, guid: 08e8a440471cbf245981fa861d24560c, type: 3}
+    sprite: {fileID: 21300000, guid: 8a6c7f0ed998cc14d83d97c1676168aa, type: 3}
   - item: 7
+    sprite: {fileID: 21300000, guid: 181df24512e4c6a46b94d5b9c771919b, type: 3}
+  - item: 5
+    sprite: {fileID: 21300000, guid: 9068392d18cccfa44b776cad8a6303bd, type: 3}
+  - item: 4
+    sprite: {fileID: 21300000, guid: 3b7fa55f3ac54ab4eb179da5ee4c0819, type: 3}
+  - item: 0
     sprite: {fileID: 21300000, guid: efcfff8f038a3f34dbe5d40c90f1adca, type: 3}
+  - item: 1
+    sprite: {fileID: 21300000, guid: 7344925936c289e46977f39399f9335d, type: 3}
 --- !u!61 &6633115148075533007
 BoxCollider2D:
   m_ObjectHideFlags: 0

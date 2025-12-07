@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Audio;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
@@ -11,13 +12,28 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform tfmParentDia;
-    public GameObject diamonFly;
+    public GameObject coinFly;
+    public GameObject energyFly;
+    public GameObject expFly;
     public GameObject hammerFly;
     public GameObject swapFly;
-    public GameObject prefabSprite;
+    public GameObject broomFly;
+    
     private GameObject clone;
     private int directAnim = 1;
-    
+    [SerializeField] private Dictionary<PrefabObjectFly, GameObject> prefabMap;
+    protected override void CustomAwake()
+    {
+        prefabMap = new Dictionary<PrefabObjectFly, GameObject>()
+        {
+            { PrefabObjectFly.Coin, coinFly },
+            { PrefabObjectFly.Energy, energyFly },
+            { PrefabObjectFly.Exp, expFly },
+            { PrefabObjectFly.Hammer, hammerFly },
+            { PrefabObjectFly.Swap, swapFly },
+            { PrefabObjectFly.Broom, broomFly },
+        };
+    }
     public async UniTask WaitForStateComplete(Animator animator, string stateName, int layer = 0)
     {
         Debug.Log($"[AnimatorHelper] State Name: {stateName}");
@@ -89,43 +105,46 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
             // delay += delta / 2;
         }
     }
-    public void MultiObject(PrefabObjectFly prefabFly, float objectAmount, Transform lastPos)
+    public void MultiObject(PrefabObjectFly prefabFly, int objectAmount, Transform lastPos, UnityAction onCompleted = null)
     {
-        GameObject prefabToUse;
-        switch (prefabFly)
-        {
-            case PrefabObjectFly.Coin:
-                prefabToUse = diamonFly;
-                break;
-            case PrefabObjectFly.Hammer:
-                prefabToUse = hammerFly;
-                break;
-            case PrefabObjectFly.Swap:
-                prefabToUse = swapFly;
-                break;
-            default:
-                prefabToUse = diamonFly;
-                break;
-        }
-        
+        Debug.Log($"CheckMultiObject: {prefabFly} - {objectAmount}");
+        GameObject prefabToUse = GetPrefab(prefabFly);
+
         Vector3 moveToPosition = lastPos.position;
         float delay = 0;
         float delta = Mathf.Clamp(1.0f / objectAmount, 0.01f, 0.3f);
+
+        int completedCount = 0;
 
         for (int i = 0; i < objectAmount; i++)
         {
             DOVirtual.DelayedCall(delay, () =>
             {
                 var cloneObj = Instantiate(prefabToUse, tfmParentDia);
-                cloneObj.transform.position = tfmParentDia.transform.position;
+                cloneObj.transform.position = tfmParentDia.position;
                 cloneObj.transform.localScale = Vector3.one * 0.5f;
-                var curveHelper = cloneObj.gameObject.GetComponent<CurveMove>();
-                curveHelper.CurveMoveVer2(tfmParentDia.transform.position, moveToPosition, 0.5f, directAnim,
-                    () => { Destroy(cloneObj); });
+
+                var curveHelper = cloneObj.GetComponent<CurveMove>();
+
+                curveHelper.CurveMoveVer2(
+                    tfmParentDia.position,
+                    moveToPosition,
+                    0.5f,
+                    directAnim,
+                    () =>
+                    {
+                        Destroy(cloneObj);
+
+                        completedCount++;
+
+                        if (completedCount >= objectAmount)
+                            onCompleted?.Invoke();
+                    });
 
                 cloneObj.transform.DOScale(UnityEngine.Random.Range(1f, 1.2f), 0.45f);
             });
-            delay += delta / 2;
+
+            delay += delta * 0.5f;
         }
     }
     public async UniTask WaitForComplePartical(ParticleSystem particle, UnityAction onComplete = null)
@@ -149,6 +168,12 @@ public class AnimatorHelper : Singleton<AnimatorHelper>
 
     private void OnDisable() {
         StopAllCoroutines();
+    }
+    public GameObject GetPrefab(PrefabObjectFly type)
+    {
+        if (prefabMap.TryGetValue(type, out var prefab))
+            return prefab;
+        return coinFly;
     }
 }
 

@@ -10,6 +10,8 @@ public class ExpBarView : MonoBehaviour
     [SerializeField] private Image imgExp;
     [SerializeField] private Text txtLvl;
     [SerializeField] private Text txtExp;
+    
+    public Transform tfmExpText => txtExp.transform;
     public void Init(int lvl, int exp, int maxExp)
     {
         Debug.Log($"CheckLevelmap {lvl} - {exp} - {maxExp}");

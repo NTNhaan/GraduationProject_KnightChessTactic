@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Data;
 
 public abstract class Character : MonoBehaviour
 {
@@ -15,6 +16,27 @@ public abstract class Character : MonoBehaviour
     protected Animator animator;
     protected ICharacterState currentState;
 
+    // Shield và Armor tracking
+    private bool hasShield = false;
+    private bool hasArmor = false;
+
+    public bool HasShield
+    {
+        get { return hasShield; }
+        set { hasShield = value; }
+    }
+
+    public bool HasArmor
+    {
+        get { return hasArmor; }
+        set { hasArmor = value; }
+    }
+
+    public bool IsBlocking
+    {
+        get { return currentState is BlockState || hasShield || hasArmor; }
+    }
+
     public void Start()
     {
         animator = GetComponent<Animator>();
@@ -24,6 +46,29 @@ public abstract class Character : MonoBehaviour
         if (currentState == null)
         {
             ChangeState(new IdleState());
+        }
+
+        // Lắng nghe sự kiện game state change để pause/resume
+        EventDispatcher.Register(EventId.OnGameStateChanged, OnGameStateChanged);
+    }
+
+    private void OnDestroy()
+    {
+        EventDispatcher.RemoveCallback(EventId.OnGameStateChanged, OnGameStateChanged);
+    }
+
+    private void OnGameStateChanged(object data = null)
+    {
+        if (animator == null) return;
+
+        // Pause animator khi game bị pause
+        if (InGameData.GAME_STATE == GameState.PauseGame)
+        {
+            animator.speed = 0f; // Pause animation
+        }
+        else
+        {
+            animator.speed = 1f; // Resume animation
         }
     }
 
@@ -101,6 +146,25 @@ public abstract class Character : MonoBehaviour
 
     public virtual void ReceiveDamage(float damage)
     {
+        // Kiểm tra nếu đang block (shield hoặc armor)
+        if (IsBlocking)
+        {
+            // Block 100% damage - không nhận sát thương và không trừ máu
+            // Nếu có armor, tắt armor sau khi bị attack
+            if (hasArmor)
+            {
+                hasArmor = false;
+                // Nếu không có shield, đổi về idle
+                if (!hasShield)
+                {
+                    ChangeState(new IdleState());
+                }
+            }
+            // Nếu chỉ có shield, shield vẫn giữ nguyên (sẽ tắt khi turn enemy xong)
+            return; // Không nhận damage, không trừ máu
+        }
+
+        // Nếu không block, nhận damage bình thường
         health -= damage;
         lerpTimer = 0f;
 
@@ -141,6 +205,37 @@ public abstract class Character : MonoBehaviour
     {
         health += healAmount;
         lerpTimer = 0f;
+    }
+
+    /// <summary>
+    /// Kích hoạt shield - đỡ turn tiếp theo
+    /// </summary>
+    public void ActivateShield()
+    {
+        hasShield = true;
+        ChangeState(new BlockState());
+    }
+
+    /// <summary>
+    /// Tắt shield - được gọi khi turn enemy xong
+    /// </summary>
+    public void DeactivateShield()
+    {
+        hasShield = false;
+        // Nếu không có armor, đổi về idle
+        if (!hasArmor)
+        {
+            ChangeState(new IdleState());
+        }
+    }
+
+    /// <summary>
+    /// Kích hoạt armor - đỡ cho đến khi bị attack
+    /// </summary>
+    public void ActivateArmor()
+    {
+        hasArmor = true;
+        ChangeState(new BlockState());
     }
 }
 
