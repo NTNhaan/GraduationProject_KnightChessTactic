@@ -123,3 +123,37 @@ WhatUpGames.BehaviorTreeDebugger.csproj
 WhatUpGames.BehaviorTreeVisualizer.Editor.csproj
 core.csproj
 PsdPlugin.csproj
+
+###############################################
+# ML-AGENTS / PYTHON ENV (CRITICAL)
+###############################################
+
+# ML-Agents virtual environment
+ml-agents-env/
+**/ml-agents-env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+###############################################
+# ML-AGENTS TRAINING OUTPUT
+###############################################
+
+results/
+summaries/
+checkpoints/
+runs/
+*.onnx
+*.pt
+*.pth
+
+###############################################
+# LARGE MEDIA (OPTIONAL)
+###############################################
+
+*.wav
+*.mp4
+*.mov

@@ -30,6 +30,16 @@ public class MatchThreeAgent : Agent
     [SerializeField] private float trainingMoveInterval = 0.5f;
     [SerializeField] private float normalMoveInterval = 1.5f;
 
+    // Get training mode from GamePlayController if available
+    private bool IsTrainingModeActive()
+    {
+        if (gamePlayController != null)
+        {
+            return gamePlayController.IsTrainingMode;
+        }
+        return isTrainingMode;
+    }
+
     private bool isWaitingForMove = false;
     private float previousEnemyHealth;
     private float previousPlayerHealth;
@@ -175,6 +185,17 @@ public class MatchThreeAgent : Agent
 
     private void Update()
     {
+        bool trainingMode = IsTrainingModeActive();
+
+        // Trong training mode, không cần check role change, cho phép agent swap tự do
+        // Decision Requester sẽ tự động request decision theo Decision Period
+        if (trainingMode)
+        {
+            // Trong training mode, không block agent dựa trên role
+            // Chỉ cần đảm bảo isWaitingForMove được reset sau khi move hoàn thành
+            return;
+        }
+
         if (timeController != null)
         {
             Role currentRole = timeController.role;
@@ -232,8 +253,23 @@ public class MatchThreeAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        // Log metrics từ episode trước trước khi reset
+        if (episodeCount > 0)
+        {
+            LogMetricsToTensorboard();
+        }
+
         currentEpisode++;
         episodeCount++;
+
+        // Reset episode metrics
+        episodeReward = 0f;
+        totalMoves = 0;
+        successfulMoves = 0;
+        totalMatches = 0;
+        validMovesCount = 0;
+        invalidMovesCount = 0;
+        averageDamagePerMove = 0f;
 
         // Log metrics to Tensorboard at the end of each episode
         if (currentEpisode > 1)
@@ -284,6 +320,13 @@ public class MatchThreeAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        // Check null references before collecting observations
+        if (gameGrid == null || gameGrid._pieces == null)
+        {
+            Debug.LogWarning("[MatchThreeAgent] gameGrid or _pieces is null, skipping observations");
+            return;
+        }
+
         int observationCount = 0;
 
         // 1. Observe piece types and their positions
@@ -476,7 +519,12 @@ public class MatchThreeAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        Debug.Log($"[ENEMY AI] OnActionReceived called - isWaitingForMove: {isWaitingForMove}, role: {(timeController != null ? timeController.role.ToString() : "NULL")}");
+        bool trainingMode = IsTrainingModeActive();
+        // Giảm log spam - chỉ log mỗi 10 actions trong training mode
+        if (!trainingMode || totalMoves % 10 == 0)
+        {
+            Debug.Log($"[ENEMY AI] OnActionReceived - isWaitingForMove: {isWaitingForMove}, role: {(timeController != null ? timeController.role.ToString() : "NULL")}, trainingMode: {trainingMode}, TotalMoves: {totalMoves}, ValidMoves: {validMovesCount}, InvalidMoves: {invalidMovesCount}");
+        }
 
         // OPTIMIZED: Add null check for timeController
         if (timeController == null)
@@ -488,17 +536,28 @@ public class MatchThreeAgent : Agent
         // Only process AI actions during enemy's turn
         if (isWaitingForMove)
         {
-            Debug.Log("[ENEMY AI] Skipping - isWaitingForMove = true");
+            if (!trainingMode || totalMoves % 10 == 0)
+            {
+                Debug.Log("[ENEMY AI] Skipping - isWaitingForMove = true");
+            }
             return;
         }
 
-        if (timeController.role != Role.Demon)
+        // Trong training mode, cho phép swap bất kể role
+        // Ngoài training mode, chỉ cho phép khi role là Demon
+        if (!trainingMode && timeController.role != Role.Demon)
         {
-            Debug.Log($"[ENEMY AI] Skipping - not enemy's turn (current: {timeController.role})");
+            if (!trainingMode || totalMoves % 10 == 0)
+            {
+                Debug.Log($"[ENEMY AI] Skipping - not enemy's turn (current: {timeController.role})");
+            }
             return;
         }
 
-        Debug.Log("[ENEMY AI] Processing action from model...");
+        if (!trainingMode || totalMoves % 10 == 0)
+        {
+            Debug.Log("[ENEMY AI] Processing action from model...");
+        }
 
         // Get discrete actions
         int sourceX = Mathf.Clamp(actions.DiscreteActions[0], 0, gameGrid.xDim - 1);
@@ -506,51 +565,115 @@ public class MatchThreeAgent : Agent
         int targetX = Mathf.Clamp(actions.DiscreteActions[2], 0, gameGrid.xDim - 1);
         int targetY = Mathf.Clamp(actions.DiscreteActions[3], 0, gameGrid.yDim - 1);
 
-        Debug.Log($"[ENEMY AI] Model action: ({sourceX}, {sourceY}) -> ({targetX}, {targetY})");
+        // Chỉ log action mỗi 10 lần trong training mode để giảm spam
+        if (!trainingMode || totalMoves % 10 == 0)
+        {
+            Debug.Log($"[ENEMY AI] Model action: ({sourceX}, {sourceY}) -> ({targetX}, {targetY})");
+        }
 
         // Try to perform the swap
-        if (IsValidMove(sourceX, sourceY, targetX, targetY))
-        {
-            validMovesCount++;
-            GamePieces sourcePiece = gameGrid._pieces[sourceX, sourceY];
-            GamePieces targetPiece = gameGrid._pieces[targetX, targetY];
+        bool isValid = IsValidMove(sourceX, sourceY, targetX, targetY);
 
-            if (sourcePiece != null && targetPiece != null)
+        GamePieces sourcePiece = gameGrid._pieces[sourceX, sourceY];
+        GamePieces targetPiece = gameGrid._pieces[targetX, targetY];
+
+        // Nếu không valid hoặc null pieces, tìm một adjacent move gần nhất để force swap
+        if (!isValid || sourcePiece == null || targetPiece == null)
+        {
+            if (sourcePiece == null || targetPiece == null)
             {
-                isWaitingForMove = true;
-                StartCoroutine(PerformMove(sourcePiece, targetPiece));
+                Debug.LogWarning($"[ENEMY AI] Null pieces at ({sourceX}, {sourceY}) or ({targetX}, {targetY}), finding alternative...");
             }
             else
             {
-                invalidMovesCount++;
-                AddReward(-0.1f);
-                totalReward -= 0.1f;
-                if (enableMoveLog)
+                Debug.LogWarning($"[ENEMY AI] Invalid Move: ({sourceX}, {sourceY}) -> ({targetX}, {targetY}), finding adjacent alternative...");
+            }
+
+            // Tìm một adjacent move gần nhất từ source piece
+            bool foundAlternative = false;
+            if (sourcePiece != null)
+            {
+                // Thử các hướng: right, left, up, down
+                int[] dx = { 1, -1, 0, 0 };
+                int[] dy = { 0, 0, 1, -1 };
+
+                for (int i = 0; i < 4; i++)
                 {
-                    BufferedLog($"[Training] Invalid Move (Null Pieces) | Reward: -0.1 | Total: {totalReward:F2}");
+                    int newTargetX = sourcePiece.X + dx[i];
+                    int newTargetY = sourcePiece.Y + dy[i];
+
+                    if (newTargetX >= 0 && newTargetX < gameGrid.xDim &&
+                        newTargetY >= 0 && newTargetY < gameGrid.yDim)
+                    {
+                        GamePieces altTarget = gameGrid._pieces[newTargetX, newTargetY];
+                        if (altTarget != null && altTarget != sourcePiece)
+                        {
+                            targetPiece = altTarget;
+                            targetX = newTargetX;
+                            targetY = newTargetY;
+                            foundAlternative = true;
+                            Debug.Log($"[ENEMY AI] Found alternative adjacent move: ({sourcePiece.X}, {sourcePiece.Y}) -> ({targetX}, {targetY})");
+                            break;
+                        }
+                    }
                 }
             }
+
+            if (!foundAlternative || sourcePiece == null || targetPiece == null)
+            {
+                Debug.LogWarning($"[ENEMY AI] Could not find alternative move, skipping this action.");
+                invalidMovesCount++;
+                AddReward(-0.5f);
+                totalReward -= 0.5f;
+                return;
+            }
+
+            // Force swap với penalty
+            invalidMovesCount++;
+            AddReward(-0.3f); // Penalty nhẹ hơn vì vẫn swap được
+            totalReward -= 0.3f;
+            Debug.Log($"[ENEMY AI] Force swapping (invalid move): ({sourcePiece.X}, {sourcePiece.Y}) -> ({targetX}, {targetY})");
         }
         else
         {
-            invalidMovesCount++;
-            AddReward(-0.1f);
-            totalReward -= 0.1f;
-            if (enableMoveLog)
-            {
-                BufferedLog($"[Training] Invalid Move | Reward: -0.1 | Total: {totalReward:F2}");
-            }
+            // Valid move - reward nhỏ
+            validMovesCount++;
+            AddReward(0.1f);
+            totalReward += 0.1f;
+            Debug.Log($"[ENEMY AI] ✅ VALID MOVE! ({sourceX}, {sourceY}) -> ({targetX}, {targetY})");
+        }
+
+        // Luôn swap (kể cả khi không valid ban đầu)
+        if (sourcePiece != null && targetPiece != null)
+        {
+            Debug.Log($"[ENEMY AI] Starting PerformMove - swapping pieces!");
+            isWaitingForMove = true;
+            StartCoroutine(PerformMove(sourcePiece, targetPiece, isValid));
         }
     }
 
     private bool IsValidMove(int sourceX, int sourceY, int targetX, int targetY)
     {
+        // Check null references
+        if (gameGrid == null || gameGrid._pieces == null)
+        {
+            Debug.LogWarning("[MatchThreeAgent] gameGrid or _pieces is null in IsValidMove");
+            return false;
+        }
+
+        // Check if source and target are the same piece
+        if (sourceX == targetX && sourceY == targetY)
+        {
+            Debug.LogWarning($"[ENEMY AI] Cannot swap piece with itself: ({sourceX}, {sourceY})");
+            return false;
+        }
+
         if (sourceX < 0 || sourceX >= gameGrid.xDim ||
             sourceY < 0 || sourceY >= gameGrid.yDim ||
             targetX < 0 || targetX >= gameGrid.xDim ||
             targetY < 0 || targetY >= gameGrid.yDim)
         {
-            // Debug.Log("Move out of bounds");
+            Debug.LogWarning($"[ENEMY AI] Move out of bounds: ({sourceX}, {sourceY}) -> ({targetX}, {targetY}), Grid size: {gameGrid.xDim}x{gameGrid.yDim}");
             return false;
         }
 
@@ -559,17 +682,18 @@ public class MatchThreeAgent : Agent
 
         if (sourcePiece == null || targetPiece == null)
         {
-            // Debug.Log("Null pieces");
+            Debug.LogWarning($"[ENEMY AI] Null pieces at ({sourceX}, {sourceY}) or ({targetX}, {targetY})");
             return false;
         }
 
         bool isAdjacent = Grid.IsAdjacent(sourcePiece, targetPiece);
-        // Debug.Log($"Pieces adjacent: {isAdjacent}");
+        // Không log chi tiết để giảm spam - chỉ log trong OnActionReceived khi cần
         return isAdjacent;
     }
 
-    private IEnumerator PerformMove(GamePieces sourcePiece, GamePieces targetPiece)
+    private IEnumerator PerformMove(GamePieces sourcePiece, GamePieces targetPiece, bool wasValidMove = true)
     {
+        Debug.Log($"[ENEMY AI] PerformMove started - swapping ({sourcePiece.X}, {sourcePiece.Y}) with ({targetPiece.X}, {targetPiece.Y}), Valid: {wasValidMove}");
         totalMoves++;
         int initialScore = DefaultNamespace.ScoreController.Instance != null ? DefaultNamespace.ScoreController.Instance.Score : 0;
 
@@ -578,12 +702,24 @@ public class MatchThreeAgent : Agent
         bool hadInitialMatches = initialMatches != null && initialMatches.Count > 0;
 
         // Perform swap with animation
-        gameGrid.SwapPiece(sourcePiece, targetPiece);
-        yield return new WaitForSeconds(0.3f);
+        bool trainingMode = IsTrainingModeActive();
+        Debug.Log($"[ENEMY AI] Calling SwapPiece - Before swap: Source=({sourcePiece.X},{sourcePiece.Y}) Type={sourcePiece.Type}, Target=({targetPiece.X},{targetPiece.Y}) Type={targetPiece.Type}, TrainingMode: {trainingMode}");
+
+        // Trong training mode, pass isManualSwap=true để bypass role checks
+        gameGrid.SwapPiece(sourcePiece, targetPiece, trainingMode);
+
+        // Verify swap happened
+        GamePieces verifySource = gameGrid._pieces[sourcePiece.X, sourcePiece.Y];
+        GamePieces verifyTarget = gameGrid._pieces[targetPiece.X, targetPiece.Y];
+        Debug.Log($"[ENEMY AI] SwapPiece completed! After swap: Source=({sourcePiece.X},{sourcePiece.Y}) Type={verifySource?.Type}, Target=({targetPiece.X},{targetPiece.Y}) Type={verifyTarget?.Type}");
+
+        // Trong training mode, thêm delay nhỏ để có thể thấy swap (nếu cần)
+        float swapDelay = trainingMode ? 0.1f : 0.3f;
+        yield return new WaitForSeconds(swapDelay);
 
         float timeout = 0f;
-        float maxTimeout = isTrainingMode ? 2f : 3f;
-        float checkInterval = isTrainingMode ? 0.1f : 0.2f;
+        float maxTimeout = trainingMode ? 2f : 3f;
+        float checkInterval = trainingMode ? 0.1f : 0.2f;
 
         while (gameGrid.isFilling && timeout < maxTimeout)
         {
@@ -598,7 +734,8 @@ public class MatchThreeAgent : Agent
         }
 
         // Process matches and combat
-        if (isTrainingMode)
+        // trainingMode đã được định nghĩa ở trên (dòng 616)
+        if (trainingMode)
         {
             ProcessMatchesQuick(initialScore, hadInitialMatches);
             ProcessCombatQuick();
@@ -610,7 +747,20 @@ public class MatchThreeAgent : Agent
         }
 
         isWaitingForMove = false;
-        if (!isTrainingMode)
+
+        // Log metrics sau mỗi move
+        if (trainingMode)
+        {
+            LogStepMetrics();
+
+            // Log thêm để xác nhận swap đã hoàn thành
+            if (totalMoves % 50 == 0) // Log mỗi 50 moves để không spam
+            {
+                Debug.Log($"[ENEMY AI] Training Progress - TotalMoves: {totalMoves}, ValidMoves: {validMovesCount}, InvalidMoves: {invalidMovesCount}, SuccessRate: {(validMovesCount * 100f / totalMoves):F2}%");
+            }
+        }
+
+        if (!trainingMode)
         {
             UpdateUI();
         }
@@ -792,6 +942,8 @@ public class MatchThreeAgent : Agent
                 }
             }
 
+            // Log final metrics trước khi kết thúc episode
+            LogMetricsToTensorboard();
             EndEpisode();
         }
     }
@@ -923,31 +1075,65 @@ public class MatchThreeAgent : Agent
     {
         if (statsRecorder == null)
         {
-            Debug.LogWarning("StatsRecorder is not initialized. Cannot log metrics to Tensorboard.");
-            return;
+            return; // Không log warning để giảm spam
         }
 
         try
         {
             // Log episode metrics
-            statsRecorder.Add("episode_reward", episodeReward);
-            statsRecorder.Add("episode_length", totalMoves);
-            statsRecorder.Add("cumulative_reward", totalReward);
+            statsRecorder.Add("Reward/EpisodeReward", episodeReward);
+            statsRecorder.Add("Reward/CumulativeReward", totalReward);
+            statsRecorder.Add("Stats/EpisodeLength", totalMoves);
 
-            // Log custom metrics
+            // Log move statistics
             if (totalMoves > 0)
             {
-                float moveSuccessRate = (float)successfulMoves / totalMoves * 100;
-                float matchesPerMove = (float)totalMatches / totalMoves;
+                float moveSuccessRate = (float)successfulMoves / totalMoves * 100f;
+                float matchesPerMove = totalMoves > 0 ? (float)totalMatches / totalMoves : 0f;
+                float validMoveRate = totalMoves > 0 ? (float)validMovesCount / totalMoves * 100f : 0f;
+                float invalidMoveRate = totalMoves > 0 ? (float)invalidMovesCount / totalMoves * 100f : 0f;
 
-                statsRecorder.Add("move_success_rate", moveSuccessRate);
-                statsRecorder.Add("matches_per_move", matchesPerMove);
-                statsRecorder.Add("average_damage_per_move", averageDamagePerMove);
+                statsRecorder.Add("Stats/MoveSuccessRate", moveSuccessRate);
+                statsRecorder.Add("Stats/MatchesPerMove", matchesPerMove);
+                statsRecorder.Add("Stats/ValidMoveRate", validMoveRate);
+                statsRecorder.Add("Stats/InvalidMoveRate", invalidMoveRate);
+                statsRecorder.Add("Stats/AverageDamagePerMove", averageDamagePerMove);
+                statsRecorder.Add("Stats/TotalMoves", totalMoves);
+                statsRecorder.Add("Stats/ValidMoves", validMovesCount);
+                statsRecorder.Add("Stats/InvalidMoves", invalidMovesCount);
+            }
+
+            // Log character health
+            if (enemyCharacter != null && playerCharacter != null)
+            {
+                statsRecorder.Add("Health/EnemyHealth", enemyCharacter.health / enemyCharacter.maxHealth);
+                statsRecorder.Add("Health/PlayerHealth", playerCharacter.health / playerCharacter.maxHealth);
             }
         }
         catch (System.Exception e)
         {
             Debug.LogError($"Failed to log metrics to Tensorboard: {e.Message}");
+        }
+    }
+
+    // Log metrics định kỳ (mỗi step)
+    private void LogStepMetrics()
+    {
+        if (statsRecorder == null) return;
+
+        try
+        {
+            // Log step-level metrics
+            statsRecorder.Add("Reward/StepReward", GetCumulativeReward());
+
+            if (totalMoves > 0)
+            {
+                statsRecorder.Add("Stats/StepValidMoveRate", (float)validMovesCount / totalMoves * 100f);
+            }
+        }
+        catch
+        {
+            // Silent fail để không spam logs
         }
     }
 }

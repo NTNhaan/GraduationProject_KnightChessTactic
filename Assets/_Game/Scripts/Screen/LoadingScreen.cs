@@ -22,15 +22,23 @@ public class LoadingScreen : ScreenBase
     }
     private async UniTask Start()
     {
-        
+
         Debug.Log($"CheckLoadingScreen");
         LoadingSceneAsync(NEXT_SCENE_NAME);
         // OnInitData();
     }
     private async UniTask LoadingSceneAsync(string sceneName)
     {
+        // Chỉ chạy nếu đang ở LoadingScene, không chạy nếu đang load MainScene từ GameScene
+        if (SceneManager.GetActiveScene().name != SceneType.LoadingScene.ToString())
+        {
+            Debug.Log($"[LoadingScreen] Skipping LoadingSceneAsync - not in LoadingScene, current scene: {SceneManager.GetActiveScene().name}");
+            return;
+        }
+
         progressBar.DOFillAmount(1, 2f).SetEase(Ease.Linear).From(0);
-        await DOVirtual.Int(0, 100, 2f, x => {
+        await DOVirtual.Int(0, 100, 2f, x =>
+        {
             textPercent.text = x + "%";
         }).AsyncWaitForCompletion();
         await UniTask.Yield();

@@ -75,16 +75,23 @@ public class GamePieces : MonoBehaviour
 
         if (cachedCollider == null)
         {
-            Debug.LogError($"GamePieces at ({_x}, {_y}): No BoxCollider2D found on this object or children! OnMouse events won't work!");
+            // Chỉ log error khi không phải training mode để tránh spam log
+            bool isTraining = GamePlayController.Instance != null && GamePlayController.Instance.IsTrainingMode;
+            // if (!isTraining)
+            // {
+            //     Debug.LogError($"GamePieces at ({_x}, {_y}): No BoxCollider2D found on this object or children! OnMouse events won't work!");
+            // }
         }
         else if (!cachedCollider.enabled)
         {
-            Debug.LogWarning($"GamePieces at ({_x}, {_y}): BoxCollider2D is disabled!");
+            // Chỉ log warning khi không phải training mode
+            bool isTraining = GamePlayController.Instance != null && GamePlayController.Instance.IsTrainingMode;
+            // if (!isTraining)
+            // {
+            //     Debug.LogWarning($"GamePieces at ({_x}, {_y}): BoxCollider2D is disabled!");
+            // }
         }
-        else
-        {
-            Debug.Log($"GamePieces at ({_x}, {_y}): BoxCollider2D found and enabled on {cachedCollider.gameObject.name}");
-        }
+        // Không log success message trong training mode để tránh spam
     }
     public void Init(int x, int y, Grid grid, Grid.PieceType type)
     {

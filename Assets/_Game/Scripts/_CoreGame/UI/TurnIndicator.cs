@@ -60,6 +60,15 @@ public class TurnIndicator : MonoBehaviour
     /// </summary>
     public void ShowTurnChange(Role newRole, System.Action onComplete = null)
     {
+        // Check if in training mode - skip animation if training
+        if (GamePlayController.Instance != null && GamePlayController.Instance.IsTrainingMode)
+        {
+            // Just change sprite without animation
+            ChangeTurnSprite(newRole);
+            onComplete?.Invoke();
+            return;
+        }
+
         if (isAnimating)
         {
             Debug.LogWarning("[TurnIndicator] Animation already in progress, skipping...");

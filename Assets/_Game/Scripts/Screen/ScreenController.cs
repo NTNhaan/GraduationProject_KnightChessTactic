@@ -42,7 +42,7 @@ public class ScreenController : Singleton<ScreenController>
     void Update()
     {
         // Debug.Log($"CurrentState: {CurScreen}");
-        Debug.Log($"CurrentState: {InGameData.GAME_STATE}");
+        // Debug.Log($"CurrentState: {InGameData.GAME_STATE}");
     }
 
     public void OnPlayClick()

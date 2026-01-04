@@ -19,7 +19,7 @@ public class HomeScreen : ScreenBase
     [SerializeField] private Button btnLevelMode;
     [SerializeField] private Button btnClassicMode;
     [SerializeField] private Button btnPveMode;
-    
+
     [Header("Effect Logo")]
     [SerializeField] private RectTransform rectShield;
     [SerializeField] private Transform trfBannerLogo;
@@ -33,32 +33,50 @@ public class HomeScreen : ScreenBase
     [SerializeField] private Transform trfRibbon;
     [SerializeField] private RectTransform rectSwordLeft;
     [SerializeField] private RectTransform rectSwordRight;
-    
+
     [Header("Time Daily Reward")]
     [SerializeField] private Text txtTimeRemain;
-    
-    
+
+
     [Header("=====HightScore MainScene=====")]
     [SerializeField] private Text hightScoreText;
     [SerializeField] private Text coinText;
     [SerializeField] private Text textLevel;
-    
+
     private bool stopIdleAnim = false;
 
     public void OnEnable()
     {
         EventDispatcher.Register(EventId.OnUpdateTimeRemain, OnUpdateTimeRemain);
+        EventDispatcher.Register(EventId.OnGameStateChanged, OnGameStateChanged);
     }
     public void OnDisable()
     {
         EventDispatcher.RemoveCallback(EventId.OnUpdateTimeRemain, OnUpdateTimeRemain);
+        EventDispatcher.RemoveCallback(EventId.OnGameStateChanged, OnGameStateChanged);
         stopIdleAnim = true;
+    }
+
+    private void OnGameStateChanged(object data = null)
+    {
+        // Disable buttons khi đang loading (DoorMover đang chạy)
+        bool isInteractable = InGameData.GAME_STATE != GameState.Loading;
+        SetButtonsInteractable(isInteractable);
+    }
+
+    private void SetButtonsInteractable(bool interactable)
+    {
+        if (btnDailyReward != null) btnDailyReward.interactable = interactable;
+        if (btnSpinReward != null) btnSpinReward.interactable = interactable;
+        if (btnLevelMode != null) btnLevelMode.interactable = interactable;
+        if (btnClassicMode != null) btnClassicMode.interactable = interactable;
+        if (btnPveMode != null) btnPveMode.interactable = interactable;
     }
     async UniTask Start()
     {
         // InitGame();
         InitExp();
-        
+
         await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
         // topAnim.SetBool("isShow", true);
         // bottomAnim.SetBool("isShow", true);
@@ -90,21 +108,35 @@ public class HomeScreen : ScreenBase
 
     public void ClickStartButton()
     {
+        // Prevent click khi đang loading
+        if (InGameData.GAME_STATE == GameState.Loading)
+            return;
+
         var level = DBController.Instance.LEVEL;
         InGameData.GAME_SCENE = SceneType.GameScene;
         InGameData.GAME_STATE = GameState.Loading;
-        DoHideMainScreen().ContinueWith(()=> SceneController.Instance.ChangeScene(InGameData.GAME_SCENE));
+        EventDispatcher.Push(EventId.OnGameStateChanged);
+        DoHideMainScreen().ContinueWith(() => SceneController.Instance.ChangeScene(InGameData.GAME_SCENE));
     }
     public void OnClickShowPausePopup()
     {
+        // Prevent click khi đang loading
+        if (InGameData.GAME_STATE == GameState.Loading)
+            return;
         PopupController.Instance.ClickShowPausePopUp();
     }
     public void OnClickShowDailyRW()
     {
+        // Prevent click khi đang loading
+        if (InGameData.GAME_STATE == GameState.Loading)
+            return;
         PopupController.Instance.ClickShowDailyRWPopUp();
     }
     public void OnClickShowSpinRW()
     {
+        // Prevent click khi đang loading
+        if (InGameData.GAME_STATE == GameState.Loading)
+            return;
         PopupController.Instance.ClickShowSpinRWPopUp();
     }
     public void InitGame()
@@ -172,9 +204,9 @@ public class HomeScreen : ScreenBase
 
     private void OnUpdateTimeRemain(object data)
     {
-        txtTimeRemain.text = (string)data; 
+        txtTimeRemain.text = (string)data;
     }
-    
+
     #region Show/Hide Main Screen
     public async UniTask DoShowMainScreen() // knight
     {
@@ -187,20 +219,20 @@ public class HomeScreen : ScreenBase
         await trfGTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await trfHTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await trfTTxt.DOScale(1f, 0.1f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
-        
+
         trfChessTacticTxt.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
         await trfRibbon.DOScaleX(1f, 0.5f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
 
         Vector2 swordRightPos = rectShield.anchoredPosition + new Vector2(217, 5);
         rectSwordRight.anchoredPosition = new Vector2(1000, swordRightPos.y + 800);
         await rectSwordRight.DOAnchorPos(swordRightPos, 0.3f)
-            .SetEase(Ease.OutBack)  
+            .SetEase(Ease.OutBack)
             .AsyncWaitForCompletion();
-        
+
         Vector2 swordLeftPos = rectShield.anchoredPosition + new Vector2(-217, 5);
         rectSwordLeft.anchoredPosition = new Vector2(-1000, swordLeftPos.y + 800);
         await rectSwordLeft.DOAnchorPos(swordLeftPos, 0.3f)
-            .SetEase(Ease.OutBack)  
+            .SetEase(Ease.OutBack)
             .AsyncWaitForCompletion();
 
         UITopController.Instance.ShowTab();
@@ -210,9 +242,12 @@ public class HomeScreen : ScreenBase
         var t4 = btnLevelMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         var t5 = btnClassicMode.transform.DOScale(1f, 0.3f).SetEase(Ease.OutBack).AsyncWaitForCompletion().AsUniTask();
         await UniTask.WhenAll(t1, t2, t3, t4, t5);
-        
+
         TabController.Instance.ShowBottomTab();
         EventDispatcher.Push(EventId.OnMainScreen);
+
+        // Enable buttons khi main screen đã hiển thị xong
+        SetButtonsInteractable(true);
     }
 
     public async UniTask DoHideMainScreen(UnityAction onComplete = null)

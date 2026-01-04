@@ -79,7 +79,12 @@ public class Grid : MonoBehaviour
 
     public async UniTask Start()
     {
-        await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
+        // Trong training mode, không cần đợi LoadingDone
+        bool isTrainingMode = GamePlayController.Instance != null && GamePlayController.Instance.IsTrainingMode;
+        if (!isTrainingMode)
+        {
+            await UniTask.WaitUntil(() => InGameData.GAME_STATE == GameState.LoadingDone);
+        }
 
         _piecePrefabDict = new Dictionary<PieceType, GameObject>();
         _itemWeights = new Dictionary<ItemPieces.ItemType, float>

@@ -17,7 +17,7 @@ public class TurnController : Singleton<TurnController>
         get { return isSwapping; }
     }
 
-    private void CustomAwake()
+    protected override void CustomAwake()
     {
         if (turnIndicator == null)
         {
@@ -45,6 +45,12 @@ public class TurnController : Singleton<TurnController>
     /// </summary>
     public void StartTurnChange()
     {
+        // Không start turn change nếu đang trong training mode
+        if (GamePlayController.Instance != null && GamePlayController.Instance.IsTrainingMode)
+        {
+            return;
+        }
+
         if (isSwapping)
         {
             Debug.LogWarning("[TurnController] Already swapping, skipping...");

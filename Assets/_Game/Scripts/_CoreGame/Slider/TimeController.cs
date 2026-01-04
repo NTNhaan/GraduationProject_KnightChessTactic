@@ -52,6 +52,12 @@ public class TimeController : Singleton<TimeController>
 
     public void SwapRole()
     {
+        // Không swap role nếu đang trong training mode
+        if (GamePlayController.Instance != null && GamePlayController.Instance.IsTrainingMode)
+        {
+            return;
+        }
+
         if (role == Role.Player)
         {
             isPaused = false;
@@ -106,8 +112,12 @@ public class TimeController : Singleton<TimeController>
 
             if (TimeSliderHero.value <= 0)
             {
-                // Start turn change with new animation effect
-                TurnController.Instance.StartTurnChange();
+                // Không start turn change nếu đang trong training mode
+                if (GamePlayController.Instance == null || !GamePlayController.Instance.IsTrainingMode)
+                {
+                    // Start turn change with new animation effect
+                    TurnController.Instance.StartTurnChange();
+                }
             }
         }
         else if (role == Role.Demon)
@@ -123,8 +133,12 @@ public class TimeController : Singleton<TimeController>
 
             if (TimeSliderDemon.value <= 0)
             {
-                // Start turn change with new animation effect
-                TurnController.Instance.StartTurnChange();
+                // Không start turn change nếu đang trong training mode
+                if (GamePlayController.Instance == null || !GamePlayController.Instance.IsTrainingMode)
+                {
+                    // Start turn change with new animation effect
+                    TurnController.Instance.StartTurnChange();
+                }
             }
         }
     }

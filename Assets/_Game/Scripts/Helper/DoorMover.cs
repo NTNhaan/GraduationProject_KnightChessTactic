@@ -9,15 +9,18 @@ public class DoorMover : MonoBehaviour
     public Action OnHitOtherDoor;
 
     private Rigidbody2D rb;
+    private Collider2D doorCollider; // Cache collider để enable/disable
     private bool movingIn = false;
     private bool movingOut = false;
     private bool stopped = false;
 
     private Vector2 startPos;
-    public float outSpeedMultiplier = 0.6f; 
+    public Vector2 StartPos => startPos; // Expose startPos để LoadingFade có thể dùng
+    public float outSpeedMultiplier = 0.6f;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        doorCollider = GetComponent<Collider2D>();
         startPos = transform.position;
     }
 
@@ -60,7 +63,26 @@ public class DoorMover : MonoBehaviour
         stopped = true;
         movingIn = false;
         movingOut = false;
-        rb.linearVelocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    public void SetKinematic(bool isKinematic)
+    {
+        if (rb != null)
+        {
+            rb.bodyType = isKinematic ? RigidbodyType2D.Kinematic : RigidbodyType2D.Dynamic;
+        }
+    }
+
+    public void SetColliderEnabled(bool enabled)
+    {
+        if (doorCollider != null)
+        {
+            doorCollider.enabled = enabled;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

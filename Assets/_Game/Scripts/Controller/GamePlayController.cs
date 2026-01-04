@@ -24,6 +24,15 @@ public class GamePlayController : Singleton<GamePlayController>
     [SerializeField] private TimeController timeController;
     [SerializeField] private Grid gameGrid;
 
+    [Header("Training Mode")]
+    [SerializeField] private bool isTrainingMode = false;
+
+    public bool IsTrainingMode
+    {
+        get { return isTrainingMode; }
+        set { isTrainingMode = value; }
+    }
+
     // Track time slow effect
     private bool hasTimeSlowEffect = false;
 
@@ -46,7 +55,11 @@ public class GamePlayController : Singleton<GamePlayController>
         EventManager.OnHPchanged += HandleHealthChanged;
         EventDispatcher.Register(EventId.OnGameStateChanged, OnGameStateChanged);
         // Lắng nghe khi turn thay đổi để xử lý Shield
-        TimeController.Instance.role = Role.Player; // Đảm bảo role được khởi tạo
+        // Kiểm tra null trước khi truy cập Instance
+        if (TimeController.Instance != null)
+        {
+            TimeController.Instance.role = Role.Player; // Đảm bảo role được khởi tạo
+        }
     }
 
     void OnDisable()

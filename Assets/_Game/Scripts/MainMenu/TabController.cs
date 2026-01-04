@@ -109,23 +109,23 @@ public class TabController : Singleton<TabController>
     {
         isAnimating = true;
         currentTab = nextTab;
-        
+
         foreach (var btn in tabButtons)
             btn.SetActiveVisual(btn.Tab == currentTab);
-        
+
         slideTween?.Kill();
 
         RectTransform curPanel = tabs[curIndex].GetComponent<RectTransform>();
         RectTransform nextPanel = tabs[nextIndex].GetComponent<RectTransform>();
 
         float width = tabContainer.rect.width;
-        
+
         float outPos = nextIndex > curIndex ? -width : width;
         float inPos = nextIndex > curIndex ? width : -width;
 
         nextPanel.anchoredPosition = new Vector2(inPos, 0);
         nextPanel.gameObject.SetActive(true);
-        
+
         Tween t1 = curPanel.DOAnchorPosX(outPos, 0.28f).SetEase(Ease.OutCubic);
         Tween t2 = nextPanel.DOAnchorPosX(0, 0.28f).SetEase(Ease.OutCubic);
 

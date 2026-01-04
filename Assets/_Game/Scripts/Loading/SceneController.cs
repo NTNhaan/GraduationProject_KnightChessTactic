@@ -53,8 +53,10 @@ public class SceneController : Singleton<SceneController>, ISceneController
 
     public async UniTask ChangeScene(SceneType _sceneType, int midSpriteIndex = -1, UnityAction onCompleteFade = null)
     {
+        Debug.Log("ChangeScene 1");
         previousScene = currentScene;
         currentScene = _sceneType;
+        Debug.Log("ChangeScene 2");
         /*        imgFadeUI.gameObject.SetActive(true);
                 imgFadeUI.DOFade(0, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
                 {
@@ -65,11 +67,17 @@ public class SceneController : Singleton<SceneController>, ISceneController
                     });
                 });
         */
+        Debug.Log("ChangeScene 3");
         await LoadingFade.Instance.ShowLoadingFade();
+        Debug.Log("ChangeScene 4");
         await Task.Delay(2000);
+        Debug.Log("ChangeScene 5");
         SceneManager.LoadScene($"{currentScene}");
-        await Task.Delay(2000);       
+        Debug.Log("ChangeScene 6");
+        await Task.Delay(2000);
+        Debug.Log("ChangeScene 7");
         await LoadingFade.Instance.HideLoadingFade();
+        Debug.Log("ChangeScene 8");
     }
 
     public void FadeOutBlackScreen()

@@ -695,6 +695,8 @@ MonoBehaviour:
   enemy: {fileID: 807103519}
   player: {fileID: 330669426}
   timeController: {fileID: 689488679}
+  gameGrid: {fileID: 1192997996}
+  isTrainingMode: 1
 --- !u!1 &330669420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,7 +1720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315af481a1945954c91f8206d5f4d8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
+  dontDestroyOnLoad: 0
   TimeSliderDemon: {fileID: 1806392388}
   TimeSliderHero: {fileID: 2119732238}
   MaxTime: 100
@@ -4890,7 +4892,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 01c6312676e666a449a8b21786d78d2f, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Match3
@@ -4945,14 +4947,14 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   gameGrid: {fileID: 1192997996}
-  gamePlayController: {fileID: 0}
+  gamePlayController: {fileID: 205074752}
   enemyCharacter: {fileID: 807103519}
   playerCharacter: {fileID: 330669426}
-  timeController: {fileID: 0}
+  timeController: {fileID: 689488679}
   scoreText: {fileID: 0}
   episodeText: {fileID: 0}
   averageRewardText: {fileID: 0}
-  observationSize: 66
+  observationSize: 259
   branchSizes: 08000000080000000800000008000000
   isTrainingMode: 1
   trainingMoveInterval: 0.05
